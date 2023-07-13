@@ -1,0 +1,21 @@
+---@type MappingsTable
+local M = {}
+
+M.general = {
+  n = {
+    -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
+  },
+}
+
+-----------------------------------------------------------
+-- Github Copilot Bindings
+-----------------------------------------------------------
+-- M.copilot = {
+--   mode_opts = { expr = true },
+--   i = {
+--     ["<C-h>"] = { 'copilot#Accept("<Left>")', "   copilot accept" },
+--   },
+-- }
+-- more keybinds!
+
+return M
