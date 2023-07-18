@@ -97,6 +97,13 @@ local plugins = {
       }
     end,
   },
+  -- -- use copilot with cmp
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
 
   -- To make a plugin not be loaded
   -- {

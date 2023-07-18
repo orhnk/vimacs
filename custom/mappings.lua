@@ -4,6 +4,7 @@ local M = {}
 M.general = {
   n = {
     -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    -- ["<C-BS>"] = { "<C-w>", "Delete Whole word", opts = { nowait = true } },
   },
 }
 
