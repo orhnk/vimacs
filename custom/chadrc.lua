@@ -5,8 +5,8 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "nordic",
-  theme_toggle = { "nordic", "one_light" },
+  theme = "everforest",
+  theme_toggle = { "everforest", "one_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
@@ -81,7 +81,7 @@ M.mappings = require "custom.mappings"
 return M
 
 
--- -- Credits to original https://github.com/sainnhe/nordic
+-- -- Credits to original https://github.com/sainnhe/everforest
 -- -- This is modified version of it
 --
 -- local M = {}
@@ -145,7 +145,7 @@ return M
 --   ["@tag.delimiter"] = { fg = M.base_30.green },
 -- }
 --
--- M = require("base46").override_theme(M, "nordic")
+-- M = require("base46").override_theme(M, "everforest")
 --
 -- return M
 
