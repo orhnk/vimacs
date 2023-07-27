@@ -8,10 +8,12 @@ local b = null_ls.builtins
 
 local sources = {
   -- All
-  b.diagnostics.codespell,
-  b.comlpetion.spell,
-  b.diagnostics.todo_comments, -- TODO: veiwer
+  b.diagnostics.codespell, -- Smart spell checker, Does not check code, checks text. (comment only probably)
+  b.completion.spell,
+  b.diagnostics.todo_comments, -- TODO: viewer
   b.diagnostics.trail_space,
+  -- b.diagnostics.cspell, -- A bit too annoting. In programming it is common to use acronyms
+  b.code_actions.cspell,
 
   -- Git
   b.diagnostics.gitlint,
@@ -30,7 +32,7 @@ local sources = {
   b.formatting.fixjson,
 
   -- Toml
-  b.formatting.taplo
+  b.formatting.taplo,
 
   -- -- webdev stuff
   -- b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
@@ -51,7 +53,8 @@ local sources = {
 
   -- Cmake
   b.formatting.cmake_format,
-  b.diagnostics.cmake_lint, -- gccdiag is not needed because of NvChad <3
+  b.diagnostics.cmake_lint,
+  -- gccdiag is not needed because of NvChad <3
 
   -- Rust
   b.formatting.rustfmt,
