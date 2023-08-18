@@ -9,7 +9,7 @@ local b = null_ls.builtins
 local sources = {
   -- All
   b.diagnostics.codespell, -- Smart spell checker, Does not check code, checks text. (comment only probably)
-  b.completion.spell,
+  -- b.completion.spell, -- txt LSP
   b.diagnostics.todo_comments, -- TODO: viewer
   b.diagnostics.trail_space,
   -- b.diagnostics.cspell, -- A bit too annoting. In programming it is common to use acronyms
@@ -17,26 +17,24 @@ local sources = {
 
   -- Git
   b.diagnostics.gitlint,
-  b.diagnostics.commitlint,
+  -- b.diagnostics.commitlint, -- look at https://ec.europa.eu/component-library/v1.15.0/eu/docs/conventions/git/ don't use a linter for this
 
   -- Markdown + Text
+  b.formatting.deno_fmt, -- Markdown + Typescript + Javascript
+  -- b.formatting.prettier, --[[ .with { filetypes = { "html", "markdown", "css" } } ]] -- so prettier works only on these filetypes
   b.diagnostics.alex,
   b.diagnostics.write_good,
-  b.diagnostics.texidote, -- LaTeX + Markdown | Grammar + Style
+  b.diagnostics.textidote, -- LaTeX + Markdown | Grammar + Style
   b.diagnostics.textlint, -- Txt + Markdown | Grammar + Style
   b.diagnostics.markdownlint, -- Markdown | Style
   b.diagnostics.proselint, -- LaTeX + Markdown | Grammar + Style
-  b.formatting.remark,
+  -- b.formatting.remark,
 
   -- Json
   b.formatting.fixjson,
 
-  -- Toml
+  -- TOML
   b.formatting.taplo,
-
-  -- -- webdev stuff
-  -- b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
-  -- b.formatting.prettier.with { filetypes = { "html", "css" } }, -- so prettier works only on these filetypes
 
   -- Lua
   b.formatting.stylua,
@@ -47,9 +45,9 @@ local sources = {
 
   -- Cpp
   b.formatting.clang_format,
-  b.diagnostics.clang_check,
-  b.diagnostics.clazy,
-  b.diagnostics.cppcheck,
+  -- b.diagnostics.clang_check,
+  -- b.diagnostics.clazy, -- Too much?
+  -- b.diagnostics.cppcheck,
 
   -- Cmake
   b.formatting.cmake_format,
