@@ -146,7 +146,19 @@ local plugins = {
   {
     "Badhi/nvim-treesitter-cpp-tools",
     requires = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>cpl", ":TSCppDefineClassFunc", mode = "n", desc = "Define Class function" },
+      { "<leader>cpm", ":TSCppMakeConcreteClass", mode = "n", desc = "Make Concrete Class" },
+      { "<leader>cpo", ":TSCppRuleOf3", mode = "n", desc = "Rule of 3" },
+      { "<leader>cpp", ":TSCppRuleOf5", mode = "n", desc = "Rule of 5" },
+
+      { "<leader>cpl", ":TSCppDefineClassFunc", mode = "v", desc = "Define Class function" },
+      { "<leader>cpm", ":TSCppMakeConcreteClass", mode = "v", desc = "Make Concrete Class" },
+      { "<leader>cpo", ":TSCppRuleOf3", mode = "v", desc = "Rule of 3" },
+      { "<leader>cpp", ":TSCppRuleOf5", mode = "v", desc = "Rule of 5" },
+    },
+
     config = function()
       require("nt-cpp-tools").setup {
         preview = {
@@ -713,8 +725,8 @@ local plugins = {
 
     build = ":call mkdp#util#install()",
 
-  keys = {
-    { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", mode = "n", desc = "Markdown Preview" },
+    keys = {
+      { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", mode = "n", desc = "Markdown Preview" },
     },
 
     config = function()

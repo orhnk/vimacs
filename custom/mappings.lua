@@ -7,6 +7,23 @@ M.general = {
   },
 }
 
+M.update = {
+  n = {
+    ["<leader>uu"] = { ":NvChadUpdate<CR>", "Update NvChad UI" },
+  },
+}
+
+M.lazy = {
+  n = {
+    ["<leader>ll"] = { ":Lazy<CR>", "Open Plugin Manager" },
+  },
+}
+
+M.mason = {
+  n = {
+    ["<leader>mi"] = { ":Mason<CR>", "Open LSP Installer" },
+  },
+}
 -- M. = {
 --   n = {
 --  [""] = { "", "" },
