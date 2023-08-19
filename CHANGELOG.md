@@ -19,6 +19,7 @@
         `symbols-outline.nvim`)
   - [x] File navigation
   - [x] Paired Files (e.g `.cpp` and `.hpp`)
+  - [x] Word motions (Via `vim-wordmotion`)
 
 - IDE:
   - [x] On-Click Updates

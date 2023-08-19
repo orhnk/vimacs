@@ -23,6 +23,7 @@ A Neovim configuration heavily inspired by JetBrains products.
         `symbols-outline.nvim`)
   - [x] File navigation
   - [x] Paired Files (e.g `.cpp` and `.hpp`)
+  - [x] Word motions (Via `vim-wordmotion`)
 
 <br>
 
