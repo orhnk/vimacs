@@ -8,7 +8,7 @@
 ### Features
 
 - Advanced:
-  - [x] Built-in AI Assistant (free)
+  - [x] Built-in AI Assistant (It's free! check it out [here](https://github.com/sourcegraph/sg.nvim))
 
 - Efficient:
   - [x] Lazy loading
@@ -31,6 +31,7 @@
   - [x] Minimap (Via `codewind.nvim`)
   - [x] Integrated Git management (Magit-like)
   - [x] Advanced GitHub Integration (Reviewing, PRs, Issues etc.)
+  - [x] Browser integrated markdown preview
 
   > **Note** Going to deprecate Compiler.nvim
   - [x] Built-in Task runner (like Compiler.nvim)
@@ -48,16 +49,6 @@
   - [x] Gigantic Gylph Picker (Nerdfonts, emojis, alt characters etc.)
   - [x] Built-in color picker
   - [x] Undo Search
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
 
 ### Installation
 

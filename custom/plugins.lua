@@ -174,7 +174,13 @@ local plugins = {
 
   { -- Translate
     "voldikss/vim-translator",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>tt", ":TranslateW<CR>", mode = "v", desc = "Translate selected test" },
+      { "<leader>tc", ":TranslateX<CR>", mode = "v", desc = "Translate & Copy selected text" },
+      { "<leader>tr", ":TranslateR<CR>", mode = "v", desc = "Replace text with Translation" },
+    },
+
     config = function()
       vim.g.translator_target_lang = "tr"
       vim.g.translator_window_type = "popup"
@@ -194,7 +200,11 @@ local plugins = {
 
   { -- Emoji Picker
     "ziontee113/icon-picker.nvim",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>fe", ":PickEverything<CR>", mode = "n", desc = "Glyph Picker" }, -- Gigantic Search Base
+    },
+
     config = function()
       require("icon-picker").setup {
         disable_legacy_commands = false,
@@ -269,7 +279,11 @@ local plugins = {
 
   { -- Code runner
     "Zeioth/compiler.nvim",
-    event = "VeryLazy",
+    keys = {
+      { "<leader>rr", ":CompilerOpen<CR>", mode = "n", desc = "Open project runner" },
+      { "<leader>rt", ":CompilerToggleResults<CR>", mode = "n", desc = "Toggle project runner window" },
+    },
+
     cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
     dependencies = { "stevearc/overseer.nvim" },
     opts = {},
@@ -296,7 +310,11 @@ local plugins = {
 
   { -- Integrated Tests -- CONFIG
     "nvim-neotest/neotest",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>to", ":Neotest summary<CR>", mode = "n", desc = "Open interactive test session" },
+      { "<leader>te", ":Neotest run<CR>", mode = "n", desc = "Run tests for the session" },
+    },
 
     dependencies = {
       "rouge8/neotest-rust", -- Rust development
@@ -328,7 +346,9 @@ local plugins = {
 
   { -- Overseer prettifier
     "stevearc/dressing.nvim",
+
     event = "VeryLazy",
+
     config = function()
       require("dressing").setup {
         default_prompt = "❯ ",
@@ -338,10 +358,18 @@ local plugins = {
 
   {
     "stevearc/overseer.nvim",
-    event = "VeryLazy",
+
+    dependencies = { "stevearc/dressing.nvim" },
+
+    keys = {
+      { "<leader>tt", ":OverseerToggle<CR>", mode = "n", desc = "Toggle Task Runner UI" },
+      { "<leader>tr", ":OverseerRun<CR>", mode = "n", desc = "Run tasks" },
+    },
+
     config = function()
       require("overseer").setup()
     end,
+
     opts = {},
   },
 
@@ -355,7 +383,12 @@ local plugins = {
 
   { -- Minimap
     "gorbit99/codewindow.nvim",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>mo", "codewindow.toggle_minimap()", mode = "n", desc = "Toggle Minimap" },
+      { "<leader>mm", "codewindow.toggle_focus()", mode = "n", desc = "Focus Minimap" },
+    },
+
     config = function()
       local codewindow = require "codewindow"
       codewindow.setup {
@@ -370,11 +403,14 @@ local plugins = {
   {
     "topaxi/gh-actions.nvim",
     cmd = "GhActions",
+
     keys = {
-      { "<leader>gg", "<cmd>GhActions<cr>", desc = "Open Github Actions" },
+      { "<leader>ga", "<cmd>GhActions<cr>", desc = "Open Github Actions" },
     },
+
     -- optional, you can also install and use `yq` instead.
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
+
     opts = {},
     config = function(_, opts)
       require("gh-actions").setup(opts)
@@ -384,10 +420,19 @@ local plugins = {
   {
     "willothy/moveline.nvim",
     event = "VeryLazy",
+
+    --    keys = {
+    --      { "<C-M-j>", ':lua require("moveline").down<CR>', mode = "n", desc = "Move line down" },
+    --      { "<C-M-k>", ':lua require("moveline").up<CR>', mode = "n", desc = "Move line up" },
+    --
+    --      { "<C-M-j>", ':lua require("moveline").block_down<CR>', mode = "v", desc = "Move line down" },
+    --      { "<C-M-k>", ':lua require("moveline").block_up<CR>', mode = "v", desc = "Move line up" },
+    --    },
+
     config = function()
       local moveline = require "moveline"
 
-      -- My terminal has it's own C-j/k bindings so:
+      -- My terminal has it's own M-j/k bindings so:
       vim.keymap.set("n", "<C-M-k>", moveline.up)
       vim.keymap.set("n", "<C-M-j>", moveline.down)
       vim.keymap.set("v", "<C-M-k>", moveline.block_up)
@@ -399,7 +444,11 @@ local plugins = {
   {
     "rktjmp/paperplanes.nvim",
 
-    event = "VeryLazy",
+    keys = {
+      { "<leader>pp", ":PP<CR>", mode = "n", desc = "Send Buffer to Pastebin Client" },
+      { "<leader>pp", ":PP<CR>", mode = "v", desc = "Send Seleceted Code to Pastebin Client" },
+    },
+
     config = function()
       require("paperplanes").setup {
         register = "+",
@@ -412,24 +461,36 @@ local plugins = {
 
   {
     "NeogitOrg/neogit",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>gg", "<cmd> Neogit<CR>", mode = "n", desc = "Open Neogit" },
+    },
+
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "nvim-telescope/telescope.nvim", -- optional
       "sindrets/diffview.nvim", -- optional
     },
-    config = true,
+
+    config = function()
+      require("neogit").setup()
+    end,
   },
   {
     "ldelossa/gh.nvim",
+
     dependencies = {
       "ldelossa/litee.nvim",
     },
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>gh", ":GH<CR>", mode = "n", desc = "Open Github Client" },
+    },
+
     config = function()
       require("litee.lib").setup()
       require("litee.gh").setup {
-        -- deprecated, around for compatability for now.
+        -- deprecated, around for compatibility for now.
         jump_mode = "invoking",
         -- remap the arrow keys to resize any litee.nvim windows.
         map_resize_keys = false,
@@ -471,63 +532,68 @@ local plugins = {
           goto_web = "gx",
         },
       }
-      local wk = require "which-key"
-      wk.register({
-        g = {
-          name = "+Git",
-          h = {
-            name = "+Github",
-            c = {
-              name = "+Commits",
-              c = { "<cmd>GHCloseCommit<cr>", "Close" },
-              e = { "<cmd>GHExpandCommit<cr>", "Expand" },
-              o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
-              p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
-              z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
-            },
-            i = {
-              name = "+Issues",
-              p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
-            },
-            l = {
-              name = "+Litee",
-              t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
-            },
-            r = {
-              name = "+Review",
-              b = { "<cmd>GHStartReview<cr>", "Begin" },
-              c = { "<cmd>GHCloseReview<cr>", "Close" },
-              d = { "<cmd>GHDeleteReview<cr>", "Delete" },
-              e = { "<cmd>GHExpandReview<cr>", "Expand" },
-              s = { "<cmd>GHSubmitReview<cr>", "Submit" },
-              z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
-            },
-            p = {
-              name = "+Pull Request",
-              c = { "<cmd>GHClosePR<cr>", "Close" },
-              d = { "<cmd>GHPRDetails<cr>", "Details" },
-              e = { "<cmd>GHExpandPR<cr>", "Expand" },
-              o = { "<cmd>GHOpenPR<cr>", "Open" },
-              p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
-              r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
-              t = { "<cmd>GHOpenToPR<cr>", "Open To" },
-              z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
-            },
-            t = {
-              name = "+Threads",
-              c = { "<cmd>GHCreateThread<cr>", "Create" },
-              n = { "<cmd>GHNextThread<cr>", "Next" },
-              t = { "<cmd>GHToggleThread<cr>", "Toggle" },
-            },
-          },
-        },
-      }, { prefix = "<leader>" })
+
+      --      local wk = require "which-key"
+      --      wk.register({
+      --        g = {
+      --          name = "+Git",
+      --          h = {
+      --            name = "+Github",
+      --            c = {
+      --              name = "+Commits",
+      --              c = { "<cmd>GHCloseCommit<cr>", "Close" },
+      --              e = { "<cmd>GHExpandCommit<cr>", "Expand" },
+      --              o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
+      --              p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
+      --              z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
+      --            },
+      --            i = {
+      --              name = "+Issues",
+      --              p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
+      --            },
+      --            l = {
+      --              name = "+Litee",
+      --              t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
+      --            },
+      --            r = {
+      --              name = "+Review",
+      --              b = { "<cmd>GHStartReview<cr>", "Begin" },
+      --              c = { "<cmd>GHCloseReview<cr>", "Close" },
+      --              d = { "<cmd>GHDeleteReview<cr>", "Delete" },
+      --              e = { "<cmd>GHExpandReview<cr>", "Expand" },
+      --              s = { "<cmd>GHSubmitReview<cr>", "Submit" },
+      --              z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
+      --            },
+      --            p = {
+      --              name = "+Pull Request",
+      --              c = { "<cmd>GHClosePR<cr>", "Close" },
+      --              d = { "<cmd>GHPRDetails<cr>", "Details" },
+      --              e = { "<cmd>GHExpandPR<cr>", "Expand" },
+      --              o = { "<cmd>GHOpenPR<cr>", "Open" },
+      --              p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
+      --              r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
+      --              t = { "<cmd>GHOpenToPR<cr>", "Open To" },
+      --              z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
+      --            },
+      --            t = {
+      --              name = "+Threads",
+      --              c = { "<cmd>GHCreateThread<cr>", "Create" },
+      --              n = { "<cmd>GHNextThread<cr>", "Next" },
+      --              t = { "<cmd>GHToggleThread<cr>", "Toggle" },
+      --            },
+      --          },
+      --        },
+      --      }, { prefix = "<leader>" })
     end,
   },
 
   {
     "debugloop/telescope-undo.nvim",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>tu", ":Telescope undo<CR>", mode = "n", desc = "Open Undo History" },
+    },
+
     config = function()
       require("telescope").load_extension "undo"
     end,
@@ -535,7 +601,11 @@ local plugins = {
 
   {
     "simrat39/symbols-outline.nvim",
-    event = "VeryLazy",
+
+    keys = {
+      { "<leader>ss", ":SymbolsOutline<CR>", mode = "n", desc = "Surf declarations" },
+    },
+
     config = function()
       require("symbols-outline").setup()
     end,
@@ -543,29 +613,115 @@ local plugins = {
 
   { -- C/C++ cpp <-> hpp file pairing
     "Everduin94/nvim-quick-switcher",
+
+    keys = {
+      {
+        "<leader>sw",
+        ":lua require('nvim-quick-switcher').toggle('cpp', 'hpp')<CR>",
+        mode = "n",
+        desc = "Surf declarations",
+      },
+    },
+
     config = function() end,
   },
 
   {
     "ThePrimeagen/refactoring.nvim",
-    event = "VeryLazy",
+
     config = function()
       require("refactoring").setup()
     end,
+
+    keys = {
+      { "<leader>ce", ":Refactor extract<CR>", mode = "n", desc = "Extract To Function" },
+      { "<leader>cv", ":Refactor extract_var<CR>", mode = "n", desc = "Extract To Variable" },
+      { "<leader>cb", ":Refactor extract_block<CR>", mode = "n", desc = "Extract To Block" },
+      { "<leader>ct", ":Refactor extract_block_to_file<CR>", mode = "n", desc = "Extract Block To File" },
+      { "<leader>cn", ":Refactor refactor_names<CR>", mode = "n", desc = "Refactor names" },
+      { "<leader>cf", ":Refactor extract_to_file<CR>", mode = "n", desc = "Extract to file" },
+      { "<leader>ci", ":Refactor inline_var<CR>", mode = "n", desc = "Inline Variable" },
+
+      { "<leader>ce", ":Refactor extract<CR>", mode = "v", desc = "Extract To Function" },
+      { "<leader>cv", ":Refactor extract_var<CR>", mode = "v", desc = "Extract To Variable" },
+      { "<leader>cb", ":Refactor extract_block<CR>", mode = "v", desc = "Extract To Block" },
+      { "<leader>ct", ":Refactor extract_block_to_file<CR>", mode = "v", desc = "Extract Block To File" },
+      { "<leader>cn", ":Refactor refactor_names<CR>", mode = "v", desc = "Refactor names" },
+      { "<leader>cf", ":Refactor extract_to_file<CR>", mode = "v", desc = "Extract to file" },
+      { "<leader>ci", ":Refactor inline_var<CR>", mode = "v", desc = "Inline Variable" },
+    },
   },
 
   {
-    {
-      "sourcegraph/sg.nvim",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      event = "VeryLazy",
-      config = function()
-        require("sg").setup()
-      end,
-      -- If you have a recent version of lazy.nvim, you don't need to add this!
-      build = "nvim -l build/init.lua",
+    "sourcegraph/sg.nvim",
+
+    dependencies = { "nvim-lua/plenary.nvim" },
+
+    config = function()
+      require("sg").setup()
+    end,
+
+    keys = {
+
+      { "<leader>ai", ":CodyChat<CR>", mode = "n", desc = "AI Assistant" },
+
+      { "<leader>ad", ':CodyDo ""<Left>', mode = "n", desc = "Let AI Write Code" },
+
+      { "<leader>aa", ":CodyTaskAccept<CR>", mode = "n", desc = "Confirm AI work" },
+
+      {
+        "<leader>as",
+        "<cmd> lua require('sg.extensions.telescope').fuzzy_search_results()<CR>",
+        mode = "n",
+        desc = "AI Search",
+      },
+
+      { "<leader>ai", "y:CodyChat<CR><ESC>pG$a<CR>", mode = "v", desc = "Chat Selected Code" },
+
+      {
+        "<leader>ar",
+        "y:CodyChat<CR>refactor following code:<CR><ESC>p<CR>",
+        mode = "v",
+        desc = "Request Refactoring",
+      },
+
+      { "<leader>ae", "y:CodyChat<CR>explain following code:<CR><ESC>p<CR>", mode = "v", desc = "Request Explanation" },
+
+      {
+        "<leader>af",
+        "y:CodyChat<CR>find potential vulnerabilities from following code:<CR><ESC>p<CR>",
+        mode = "v",
+        desc = "Request Potential Vulnerabilities",
+      },
+
+      {
+        "<leader>at",
+        "y:CodyChat<CR>rewrite following code more idiomatically:<CR><ESC>p<CR>",
+        mode = "v",
+        desc = "Request Idiomatic Rewrite",
+      },
     },
+
+    -- If you have a recent version of lazy.nvim, you don't need to add this!
+    build = "nvim -l build/init.lua",
   },
+
+  { -- TODO: Fix
+    "iamcco/markdown-preview.nvim",
+
+    ft = { "markdown" },
+
+    build = ":call mkdp#util#install()",
+
+  keys = {
+    { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", mode = "n", desc = "Markdown Preview" },
+    },
+
+    config = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+  },
+
   -- { -- Give up bad practices in (neo)vim
   --   "m4xshen/hardtime.nvim",
   --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
@@ -575,6 +731,7 @@ local plugins = {
   --     require("hardtime").setup()
   --   end,
   -- },
+
   -- { -- Leetcode session inside neovim. Need to set some cookies though
   --   "Dhanus3133/LeetBuddy.nvim",
   --   dependencies = {
@@ -592,17 +749,6 @@ local plugins = {
   --     { "<leader>lr", "<cmd>LBReset<cr>", desc = "Reset Code" },
   --     { "<leader>lt", "<cmd>LBTest<cr>", desc = "Run Code" },
   --     { "<leader>ls", "<cmd>LBSubmit<cr>", desc = "Submit Code" },
-  --   },
-  -- },
-  -- { -- TODO: Fix
-  --   "iamcco/markdown-preview.nvim",
-  --   opts = {
-  --     run = "cd app && npm install",
-  --     event = "VeryLazy",
-  --     setup = function()
-  --       vim.g.mkdp_filetypes = { "markdown" }
-  --     end,
-  --     ft = { "markdown" },
   --   },
   -- },
 }
