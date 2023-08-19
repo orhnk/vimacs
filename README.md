@@ -57,6 +57,9 @@ A Neovim configuration heavily inspired by JetBrains products.
 14. Github Copilot:
     ![image](https://github.com/UTFeight/CamelVim/assets/101834410/22dd023c-866b-42de-a3fb-be11c69d0920)
 
+15. Built-in Language Translator:
+    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/938faba6-7647-4649-95fb-60b2adc55961)
+
 </details>
 
 ## Features
