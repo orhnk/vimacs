@@ -15,33 +15,47 @@ A Neovim configuration heavily inspired by JetBrains products.
 
 <details><summary><b>Feature Showcase (Click to expand!)</b></summary>
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/4290f494-3c9f-4464-8acc-83259a302e81)
+1. Built-in AI Assistant:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/4290f494-3c9f-4464-8acc-83259a302e81)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/1efa7bc4-8b59-422f-b987-891920b4e7b1)
+2. Inline AI requests:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/1efa7bc4-8b59-422f-b987-891920b4e7b1)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/ce49b11c-8c45-4cfa-b0ec-a8d39d051bd3)
+3. Magit Clone:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/ce49b11c-8c45-4cfa-b0ec-a8d39d051bd3)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/fbc4293a-0d82-436d-8682-c84e27efad35)
+4. Github Integration:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/fbc4293a-0d82-436d-8682-c84e27efad35)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/5325df4e-9329-4f72-bb0c-64e2303e86b6)
+5. Github Actions Viewer:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/5325df4e-9329-4f72-bb0c-64e2303e86b6)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/707bc295-2a4b-493d-a797-4ed223e0dd3c)
+6. Code Refactoring:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/707bc295-2a4b-493d-a797-4ed223e0dd3c)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/309a2c44-e378-4658-8647-1ab29f9ef238)
+7. Icon :
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/309a2c44-e378-4658-8647-1ab29f9ef238)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/18407719-e8cc-4c05-8b08-0179b20d7d3d)
+8. Markdown preview:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/18407719-e8cc-4c05-8b08-0179b20d7d3d)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/2c473d95-66b4-4296-a772-5cf5d91e1461)
+9. LSP:
+   ![image](https://github.com/UTFeight/CamelVim/assets/101834410/2c473d95-66b4-4296-a772-5cf5d91e1461)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/464778a9-840e-401f-b7c6-bc3da597020f)
+10. Built-in PasteBin Client:
+    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/464778a9-840e-401f-b7c6-bc3da597020f)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/e3a53403-1b68-46a4-922e-4a74b723bcd5)
+11. Easy navigation with `symbols-outline.nvim`:
+    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/e3a53403-1b68-46a4-922e-4a74b723bcd5)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/243ef818-520a-4566-bdca-b8cf3fbaeb0d)
+12. Tens of Themes Built-in:
+    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/243ef818-520a-4566-bdca-b8cf3fbaeb0d)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/22a05ffc-9040-4c34-9889-9ab60472c715)
+13. Terminal Integrated with Themes:
+    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/22a05ffc-9040-4c34-9889-9ab60472c715)
 
-![image](https://github.com/UTFeight/CamelVim/assets/101834410/22dd023c-866b-42de-a3fb-be11c69d0920)
+14. Github Copilot:
+    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/22dd023c-866b-42de-a3fb-be11c69d0920)
 
 </details>
 
