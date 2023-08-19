@@ -734,6 +734,11 @@ local plugins = {
     end,
   },
 
+  {
+    "chaoren/vim-wordmotion",
+    lazy = false,
+  },
+
   -- { -- Give up bad practices in (neo)vim
   --   "m4xshen/hardtime.nvim",
   --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
