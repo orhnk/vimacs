@@ -137,8 +137,15 @@ cd .. && rm -rf CamelVim && nvim
   cargo install cargo-nextes
   ```
 
+2. Debugger:
+   ```sh
+   yay -S codelldb # AUR
+   ```
+
 ## Credits
 
-- Thank you [siduck](https://github.com/siduck) for creating the wonderful neovim UI [NvChad](https://github.com/NvChad/NvChad)
-- Thank you [sourcegraph](https://sourcegraph.com) team for the amazing [cody AI](https://sourcegraph.com/cody)
+- Thank you [siduck](https://github.com/siduck) for creating the wonderful
+  neovim UI [NvChad](https://github.com/NvChad/NvChad)
+- Thank you [sourcegraph](https://sourcegraph.com) team for the amazing
+  [cody AI](https://sourcegraph.com/cody)
 - Many Thanks to all plugin authors
