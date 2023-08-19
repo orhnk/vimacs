@@ -39,6 +39,8 @@ A Neovim configuration heavily inspired by JetBrains products.
 
 ![image](https://github.com/UTFeight/CamelVim/assets/101834410/22a05ffc-9040-4c34-9889-9ab60472c715)
 
+![image](https://github.com/UTFeight/CamelVim/assets/101834410/22dd023c-866b-42de-a3fb-be11c69d0920)
+
 
 ## Features
 
