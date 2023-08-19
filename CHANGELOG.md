@@ -1,19 +1,15 @@
-# CamelVim
+### Prerequisites
 
-A Neovim configuration heavily inspired by JetBrains products.
+- Neovim v0.10+ (Nightly)
+- Node.js
+- Basic commandline tools (e.g `git`, `unzip` etc.)
+- Basic knowledge of Lua
 
-## Philosophy
-
-- Full featured experience without the bloat.
-- Lazy loading of plugins to pay what you use.
-
-## Features
+### Features
 
 - Advanced:
   - [x] Built-in AI Assistant (It's free! check it out
         [here](https://github.com/sourcegraph/sg.nvim))
-
-<br>
 
 - Efficient:
   - [x] Lazy loading
@@ -23,8 +19,6 @@ A Neovim configuration heavily inspired by JetBrains products.
         `symbols-outline.nvim`)
   - [x] File navigation
   - [x] Paired Files (e.g `.cpp` and `.hpp`)
-
-<br>
 
 - IDE:
   - [x] On-Click Updates
@@ -45,19 +39,13 @@ A Neovim configuration heavily inspired by JetBrains products.
   > **Note** Going to deprecate Compiler.nvim
   - [x] Built-in Task runner (like Compiler.nvim)
 
-<br>
-
 - Code Generation:
   - [x] C++ TS tools
   - [x] Github Copilot
   - [x] Built-in refactoring engine
 
-<br>
-
 - String Manipulation:
   - [x] Surrounding manipulation
-
-<br>
 
 - Misc:
   - [x] Built in language Translator
@@ -65,14 +53,7 @@ A Neovim configuration heavily inspired by JetBrains products.
   - [x] Built-in color picker
   - [x] Undo Search
 
-## Installation
-
-```sh
-git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-git clone https://github.com/UTFeight/CamelVim
-cd CamelVim && mv custom ~/.config/nvim/lua/custom
-cd .. && rm -rf CamelVim && nvim
-```
+### Installation
 
 1. Neotest:
 
@@ -80,3 +61,34 @@ cd .. && rm -rf CamelVim && nvim
   ```sh
   cargo install cargo-nextes
   ```
+
+2. LSP Clients:
+   ```sh
+   npm i -g vscode-langservers-extracted
+   ```
+3. Github CLI integration
+
+```sh
+export GITHUB_TOKEN="..." # OR
+gh auth # gh is required (github-cli)
+```
+
+4. Markdown preview
+
+It should work smoothly without any hussle, if it doesn't run:
+
+```vim
+:call mkdp#util#install()
+```
+
+### Future Ideas:
+
+- https://github.com/dbeniamine/cheat.sh-vim
+- https://github.com/monaqa/dial.nvim -> better C-a C-x
+- https://github.com/uga-rosa/ccc.nvim -> Advanced Color picker
+- https://github.com/krady21/compiler-explorer.nvim -> Godbolt inside nvim
+- https://github.com/Saecki/crates.nvim -> Rust crates.io integration
+
+### TODO
+
+- null-ls gone crazy with sg.nvim
