@@ -280,14 +280,6 @@ local plugins = {
   --     { name = "copilot", group_index = 2 },
   --   },
   -- },
-  --
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   config = function(_, opts)
-  --     opts.sources[#opts.sources + 1] = { name = "copilot" }
-  --     require("cmp").setup(opts)
-  --   end,
-  -- },
 
   { -- Code runner
     "Zeioth/compiler.nvim",
