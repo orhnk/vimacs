@@ -136,3 +136,9 @@ cd .. && rm -rf CamelVim && nvim
   ```sh
   cargo install cargo-nextes
   ```
+
+## Credits
+
+- Thank you [siduck](https://github.com/siduck) for creating the wonderful neovim UI [NvChad](https://github.com/NvChad/NvChad)
+- Thank you [sourcegraph](https://sourcegraph.com) team for the amazing [cody AI](https://sourcegraph.com/cody)
+- Many Thanks to all plugin authors
