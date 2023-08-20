@@ -84,6 +84,7 @@ A Neovim configuration heavily inspired by JetBrains products.
 
 - IDE:
   - [x] On-Click Updates
+  - [x] Decent Debugging Experience
   - [x] Auto-Complete
   - [x] Syntax Highlighting
   - [x] Smart Code Runner Applet (Via `compiler.nvim`)
@@ -97,6 +98,8 @@ A Neovim configuration heavily inspired by JetBrains products.
   - [x] Integrated Git management (Magit-like)
   - [x] Advanced GitHub Integration (Reviewing, PRs, Issues etc.)
   - [x] Browser integrated markdown preview
+  - [x] Built-in file manager (Emacs-like)
+  - [x] Project manager
 
   > **Note** Going to deprecate Compiler.nvim
   - [x] Built-in Task runner (like Compiler.nvim)
@@ -142,6 +145,11 @@ cd .. && rm -rf CamelVim && nvim
    yay -S codelldb # AUR
    ```
 
+
+3. Project Surfing:
+
+> **Warning**: This feature requires a `base_dirs` variable in `custom/plugins.lua` as in the `telescope-project.nvim`
+
 ## Credits
 
 - Thank you [siduck](https://github.com/siduck) for creating the wonderful
@@ -149,3 +157,4 @@ cd .. && rm -rf CamelVim && nvim
 - Thank you [sourcegraph](https://sourcegraph.com) team for the amazing
   [cody AI](https://sourcegraph.com/cody)
 - Many Thanks to all plugin authors
+```
