@@ -7,6 +7,18 @@ M.general = {
   },
 }
 
+M.config = {
+  n = {
+ ["<leader>oc"] = { ":next ~/.config/nvim/lua/custom/*.lua<CR>", "Open Editor Configuration" },
+  },
+}
+
+M.telescope = {
+  n = {
+    ["<leader>fs"] = {":Telescope builtin<CR>", "Find Editor Command"}
+  },
+}
+
 M.update = {
   n = {
     ["<leader>uu"] = { ":NvChadUpdate<CR>", "Update NvChad UI" },
@@ -24,6 +36,7 @@ M.mason = {
     ["<leader>mi"] = { ":Mason<CR>", "Open LSP Installer" },
   },
 }
+
 -- M. = {
 --   n = {
 --  [""] = { "", "" },
