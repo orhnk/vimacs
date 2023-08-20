@@ -662,14 +662,60 @@ local plugins = {
     dependencies = { "nvim-lua/plenary.nvim" },
 
     config = function()
-      require("sg").setup()
+      require("sg").setup {
+        -- ... other configuration options ...
+
+        -- Disable LSP suggestions
+        on_attach = function(client)
+          local buffer_name = vim.fn.expand "%:t"
+          if buffer_name ~= "COMMIT_EDITMSG" then
+            if client.supports_method "textDocument/formatting" then
+              vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                  vim.lsp.buf.format { bufnr = bufnr }
+                end,
+              })
+            end
+
+            if client.resolved_capabilities.document_highlight then
+              vim.api.nvim_exec(
+                [[
+        augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        augroup END
+      ]],
+                false
+              )
+            end
+          end
+        end,
+      }
     end,
 
     keys = {
 
       { "<leader>ai", ":CodyChat<CR>", mode = "n", desc = "AI Assistant" },
 
-      { "<leader>ad", ':CodyDo ""<Left>', mode = "n", desc = "Let AI Write Code" },
+      {
+        "<leader>ad",
+        function()
+          local line = vim.fn.getline "."
+          local start = vim.fn.col "."
+          local finish = vim.fn.col "$"
+          local text = line:sub(start, finish)
+          vim.fn.setreg('"', text)
+          vim.cmd [[CodyDo 'Write document for current context']]
+        end,
+        mode = "n",
+        desc = "Generate Document with AI",
+      },
+
+      { "<leader>ac", ':CodyDo ""<Left>', mode = "n", desc = "Let AI Write Code" },
 
       { "<leader>aa", ":CodyTaskAccept<CR>", mode = "n", desc = "Confirm AI work" },
 
@@ -681,6 +727,13 @@ local plugins = {
       },
 
       { "<leader>ai", "y:CodyChat<CR><ESC>pG$a<CR>", mode = "v", desc = "Chat Selected Code" },
+
+      {
+        "<leader>ad",
+        "{:CodyDo 'Write document for current context<CR>'",
+        mode = "n",
+        desc = "Generate Document with AI",
+      },
 
       {
         "<leader>ar",
@@ -731,6 +784,107 @@ local plugins = {
     lazy = false,
   },
 
+  { -- nvim-dap UI
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dapui").setup()
+    end,
+  },
+
+  { -- nvim-dap virtual text
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dap-virtual-text").setup()
+    end,
+  },
+
+  { -- Debug Adapter Protocol
+    "mfussenegger/nvim-dap",
+
+    -- TODO: Move these to configs/nvim-dap.lua
+    config = function()
+      local dap = require "dap"
+      -- dap.set_log_level "TRACE"
+
+      dap.adapters.codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          -- CHANGE THIS to your path!
+          command = "codelldb",
+          args = { "--port", "${port}" },
+
+          -- On windows you may have to uncomment this:
+          -- detached = false,
+        },
+      }
+
+      dap.configurations.cpp = {
+        {
+          name = "Launch file",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+        },
+      }
+
+      -- Reuse configurations for other languages
+      dap.configurations.c = dap.configurations.cpp
+      dap.configurations.rust = dap.configurations.cpp
+    end,
+
+    keys = {
+      { "<leader>dc", "<cmd>lua require('dap').continue()<CR>", mode = "n", desc = "Continue" },
+      { "<leader>ds", "<cmd>lua require('dap').step_over()<CR>", mode = "n", desc = "Step Over" },
+      { "<leader>di", "<cmd>lua require('dap').step_into()<CR>", mode = "n", desc = "Step Into" },
+      { "<leader>do", "<cmd>lua require('dap').step_out()<CR>", mode = "n", desc = "Step Out" },
+      { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", mode = "n", desc = "Toggle Breakpoint" },
+      {
+        "<leader>dB",
+        "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+        mode = "n",
+        desc = "Set Breakpoint",
+      },
+      {
+        "<leader>dl",
+        "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+        mode = "n",
+        desc = "Log Point",
+      },
+      { "<leader>dl", "<cmd>lua require('dap').run_last()<CR>", mode = "n", desc = "Run Last" },
+      { "<leader>dr", "<cmd>lua require('dap').repl.open()<CR>", mode = "n", desc = "Open REPL" },
+      { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", mode = "n", desc = "Toggle UI" },
+      { "<leader>da", "<cmd>lua require('dapui').eval()<CR>", mode = "n", desc = "Evaluate" },
+      { "<leader>du", "<cmd>lua require('dapui').scopes()<CR>", mode = "n", desc = "Scopes" },
+      { "<leader>dv", "<cmd>lua require('dapui').variables()<CR>", mode = "n", desc = "Variables" },
+      { "<leader>dw", "<cmd>lua require('dapui').watches()<CR>", mode = "n", desc = "Watches" },
+      {
+        "<leader>de",
+        "<cmd>lua require('dapui').set_exception_breakpoints()<CR>",
+        mode = "n",
+        desc = "Exception Breakpoints",
+      },
+      { "<leader>di", "<cmd>lua require('dapui').pick_one()<CR>", mode = "n", desc = "Pick One" },
+    },
+  },
+
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("neogen").setup { snippet_engine = "luasnip" }
+    end,
+    keys = {
+      { "<leader>cd", "<cmd>lua require('neogen').generate()<CR>", mode = "n", desc = "Generate Base Documentation" },
+    },
+  },
+
   -- { -- Give up bad practices in (neo)vim
   --   "m4xshen/hardtime.nvim",
   --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
@@ -760,6 +914,89 @@ local plugins = {
   --     { "<leader>ls", "<cmd>LBSubmit<cr>", desc = "Submit Code" },
   --   },
   -- },
+
+  -- {
+  --   "ThePrimeagen/harpoon",
+  --   config = function()
+  --     require("harpoon").setup()
+  --   end,
+  -- },
+
+  { -- Optional file manager for telescope-project.nvim
+    "nvim-telescope/telescope-file-browser.nvim",
+
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+
+    keys = {
+      { "<leader>fr", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Find File" },
+    },
+
+    config = function()
+      require("telescope").setup {
+        extensions = {
+          file_browser = {
+            theme = "ivy",
+            -- disables netrw and use telescope-file-browser in its place
+            hijack_netrw = true,
+            mappings = {
+              ["i"] = {
+                -- your custom insert mode mappings
+              },
+              ["n"] = {
+                -- your custom normal mode mappings
+              },
+            },
+          },
+        },
+      }
+      -- To get telescope-file-browser loaded and working with telescope,
+      -- you need to call load_extension, somewhere after setup function:
+      require("telescope").load_extension "file_browser"
+    end,
+  },
+
+  { -- Telescope projects
+    "nvim-telescope/telescope-project.nvim",
+
+    -- if you want to enable custom hook
+    -- dependencies = {
+    --   "ThePrimeagen/harpoon",
+    -- },
+
+    keys = {
+      { "<leader>fp", "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>", desc = "Find Project" },
+    },
+
+    config = function()
+      local project_actions = require "telescope._extensions.project.actions"
+      require("telescope").setup {
+        extensions = {
+          project = {
+            base_dirs = {
+              "~/Github",
+              "~/",
+              -- { "~/dev/src2" },
+              -- { "~/dev/src3", max_depth = 4 },
+              -- { path = "~/dev/src4" },
+              -- { path = "~/dev/src5", max_depth = 2 },
+            },
+            hidden_files = true, -- default: false
+            -- theme = "dropdown",
+            order_by = "asc",
+            search_by = "title",
+            sync_with_nvim_tree = true, -- default false
+            -- default for on_project_selected = find project files
+            -- on_project_selected = function(prompt_bufnr)
+            --   -- Do anything you want in here. For example:
+            --   project_actions.change_working_directory(prompt_bufnr, false)
+            --   require("harpoon.ui").nav_file(1)
+            -- end,
+          },
+        },
+      }
+      require("telescope").load_extension "project"
+    end,
+  },
 }
 
 return plugins
