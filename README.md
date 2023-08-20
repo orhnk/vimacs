@@ -145,10 +145,10 @@ cd .. && rm -rf CamelVim && nvim
    yay -S codelldb # AUR
    ```
 
-
 3. Project Surfing:
 
-> **Warning**: This feature requires a `base_dirs` variable in `custom/plugins.lua` as in the `telescope-project.nvim`
+> **Warning**: This feature requires a `base_dirs` variable in
+> `custom/plugins.lua` as in the `telescope-project.nvim`
 
 ## Credits
 
@@ -157,4 +157,7 @@ cd .. && rm -rf CamelVim && nvim
 - Thank you [sourcegraph](https://sourcegraph.com) team for the amazing
   [cody AI](https://sourcegraph.com/cody)
 - Many Thanks to all plugin authors
-```
+
+## TODO
+
+- [ ] Fix nvim-dap-virtual-text
