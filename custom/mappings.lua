@@ -7,15 +7,49 @@ M.general = {
   },
 }
 
-M.config = {
+M.disabled = {
+  -- default nvim-tree binding for NvChad
+  ["<leader>e"] = "",
+}
+
+-- M.selection = {
+--   ["<C-a>"] = { "gg0vG$", mode = "n", desc = "Select Whole Buffer" },
+-- }
+
+M.nvimtree = {
   n = {
- ["<leader>oc"] = { ":next ~/.config/nvim/lua/custom/*.lua<CR>", "Open Editor Configuration" },
+    ["<leader>ee"] = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
+    ["<leader>er"] = { ":NvimTreeRefresh<CR>", "Refresh NvimTree" },
+    ["<leader>ef"] = { ":NvimTreeFindFile<CR>", "Find File in NvimTree" },
   },
 }
 
+M.snippets = {
+  n = {
+    ["<leader>es"] = { ":lua require('luasnip.loaders').edit_snippet_files()<CR>", "Edit Snippets" },
+  },
+}
+
+M.resize = {
+  n = {
+    -- Conflicts with moveline
+    -- ["C-M-j"] = { ":resize -2<CR>", "Resize Window -2" },
+    -- ["C-M-k"] = { ":resize +2<CR>", "Resize Window +2" },
+    ["H"] = { ":vertical resize +2<cr>", "resize window -2" },
+    ["L"] = { ":vertical resize -2<cr>", "resize window +2" },
+  },
+}
+
+M.config = {
+  n = {
+    ["<leader>oc"] = { ":next ~/.config/nvim/lua/custom/*.lua<CR>", "Open Editor Configuration" },
+  },
+}
+
+-- { "  Find Command", "Spc f c", "Telescope builtin" },
 M.telescope = {
   n = {
-    ["<leader>fs"] = {":Telescope builtin<CR>", "Find Editor Command"}
+    ["<leader>fs"] = { ":Telescope builtin<CR>", "Find Editor Command" },
   },
 }
 
