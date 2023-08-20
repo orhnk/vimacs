@@ -1,0 +1,9 @@
+{
+  "base": {
+    "prefix": "trig",
+    "body": [
+      ""
+    ],
+    "description": "Creates a new trigger"
+  }
+}

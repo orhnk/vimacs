@@ -4,6 +4,113 @@ local overrides = require "custom.configs.overrides"
 local plugins = {
 
   -- Override plugin definition options
+  {
+    "L3MON4D3/LuaSnip",
+
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      -- "molleweide/LuaSnip-snippets.nvim",
+    },
+
+    keys = {
+      {
+        "<C-s>",
+        function()
+          local ls = require "luasnip"
+          if ls.choice_active() then
+            ls.change_choice(1)
+          end
+        end,
+
+        mode = { "i", "s" },
+        silent = true,
+      },
+    },
+    -- opts = {
+    --   history = true,
+    --   updateevents = "TextChanged,TextChangedI",
+    --
+    --   leave = function()
+    --     local snip = require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+    --     if snip and snip.generate_doc == true then
+    --       require("neogen").generate()
+    --     end
+    --   end,
+    -- },
+
+    -- init = function()
+    -- vim.api.nvim_create_autocmd("User", {
+    --   pattern = "LuaSnipPostExpand",
+    --   -- command = "echo 'LuaSnipPostExpand'",
+    --   callback = function()
+    --     require("neogen").generate()
+    --   end,
+    -- })
+    --
+    -- vim.api.nvim_create_autocmd("User", {
+    --   pattern = "LuasnipPreExpand",
+    --   callback = function()
+    --     vim.cmd [[echo "LuasnipInsertNodeEnter"]]
+    --     -- local snip = require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+    --     -- if snip and snip.generate_doc == true then
+    --     require("neogen").generate()
+    --     -- end
+    --   end,
+    -- })
+    -- end,
+
+    config = function(opts)
+      -- require("plugins.configs.others").luasnip(opts)
+      require("luasnip").config.set_config(opts)
+
+      -- vim.api.nvim_create_autocmd("BufWritePost", {
+      --   callback = function()
+      --     require("neogen").generate()
+      --   end,
+      -- })
+
+      -- vim.api.nvim_create_autocmd("User", {
+      --   pattern = "LuasnipPreExpand",
+      --   callback = function()
+      --     -- get event-parameters from `session`.
+      --     local snippet = require("luasnip").session.event_node
+      --     local expand_position = require("luasnip").session.event_args.expand_pos
+      --
+      --     print(
+      --       string.format(
+      --         "expanding snippet %s at %s:%s",
+      --         table.concat(snippet:get_docstring(), "\n"),
+      --         expand_position[1],
+      --         expand_position[2]
+      --       )
+      --     )
+      --   end,
+      -- })
+
+      -- vscode format
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.vscode_snippets_path or "" }
+
+      -- snipmate format
+      require("luasnip.loaders.from_snipmate").load()
+      require("luasnip.loaders.from_snipmate").lazy_load { paths = vim.g.snipmate_snippets_path or "" }
+
+      -- lua format
+      require("luasnip.loaders.from_lua").load()
+      require("luasnip.loaders.from_lua").lazy_load { paths = vim.g.lua_snippets_path or "" }
+
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        callback = function()
+          if
+            require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+            and not require("luasnip").session.jump_active
+          then
+            require("luasnip").unlink_current()
+          end
+        end,
+      })
+    end,
+  },
 
   { -- Overriding NvChad Telescope options. (Dirty hack)
     "nvim-telescope/telescope.nvim",
@@ -623,7 +730,7 @@ local plugins = {
         "<leader>sw",
         ":lua require('nvim-quick-switcher').toggle('cpp', 'hpp')<CR>",
         mode = "n",
-        desc = "Surf declarations",
+        desc = "Switch To Pair File",
       },
     },
 
@@ -878,7 +985,9 @@ local plugins = {
     "danymat/neogen",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("neogen").setup { snippet_engine = "luasnip" }
+      require("neogen").setup {
+        snippet_engine = "luasnip",
+      }
     end,
     keys = {
       { "<leader>cd", "<cmd>lua require('neogen').generate()<CR>", mode = "n", desc = "Generate Base Documentation" },
@@ -928,7 +1037,7 @@ local plugins = {
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 
     keys = {
-      { "<leader>fr", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Find File" },
+      { "<leader>.", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Find File" },
     },
 
     config = function()
@@ -964,7 +1073,11 @@ local plugins = {
     -- },
 
     keys = {
-      { "<leader>fp", "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>", desc = "Find Project" },
+      {
+        "<leader>fp",
+        "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
+        desc = "Find Project",
+      },
     },
 
     config = function()
@@ -980,7 +1093,7 @@ local plugins = {
               -- { path = "~/dev/src4" },
               -- { path = "~/dev/src5", max_depth = 2 },
             },
-            hidden_files = true, -- default: false
+            -- hidden_files = true, -- default: false --- .git files go brrr
             -- theme = "dropdown",
             order_by = "asc",
             search_by = "title",

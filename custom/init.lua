@@ -4,11 +4,12 @@
 --   command = "tabdo wincmd =",
 -- })
 
--- vscode style snippets
-vim.g.vscode_snippets_path = "~/.config/nvim/lua/custom/snippets"
+-- Snippet paths
+vim.g.vscode_snippets_path = "~/.config/nvim/lua/custom/snippets/json"
+vim.g.lua_snippets_path = "~/.config/nvim/lua/custom/snippets/lua"
+vim.g.snipmate_snippets_path = "~/.config/nvim/lua/custom/snippets/snipmate"
 
 -- -- Remove terminal padding when inside nvim:
-
 ---- For st:
 function Sed(from, to, fname)
   vim.cmd(string.format("silent !sed -i 's/%s/%s/g' %s", from, to, fname))
@@ -35,7 +36,6 @@ vim.cmd[[
    au VimLeavePre * lua IncreasePadding()
   augroup END
 ]]
-
 
 ---- For alacritty:
 -- local function sed(from, to)

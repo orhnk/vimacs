@@ -1,0 +1,12 @@
+{
+  "C++ function": {
+    "prefix": "fn",
+    "body": [
+      "${5:type} ${6:name}(${2:args}) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Function with Doxygen",
+    "scope": "c,cpp"
+  }
+}
