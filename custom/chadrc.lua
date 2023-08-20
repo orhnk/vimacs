@@ -5,8 +5,8 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "everblush",
-  theme_toggle = { "everblush", "one_light" },
+  theme = "gruvbox",
+  theme_toggle = { "gruvbox", "one_light" },
 
   -- transparency = true,
 
@@ -219,8 +219,12 @@ M.ui = {
     buttons = {
       { "  File Manager", "Spc f r", ":Telescope file_browser path=%:p:h select_buffer=true<CR>" },
       { "  Find File", "Spc f f", "Telescope find_files" },
-      { "  Find Project", "Spc f p", "Telescope oldfiles" },
-      { "  Find Command", "Spc f c", "Telescope builtin" },
+      {
+        "  Find Project",
+        "Spc f p",
+        "lua require('telescope').extensions.project.project({display_type = 'full'})",
+      },
+      { "  Find Command", "Spc f s", "Telescope builtin" },
       { "󰈚  Recent Files", "Spc f o", "Telescope oldfiles" },
       { "󰈭  Find Word", "Spc f w", "Telescope live_grep" },
       { "  Bookmarks", "Spc m a", "Telescope marks" },
