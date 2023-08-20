@@ -1,0 +1,17 @@
+{
+  "C++ function": {
+    "prefix": "fn",
+    "body": [
+      "/**",
+      " * @brief ",
+      " *",
+      " * @return $5",
+      " */",
+      "${5:type} ${6:name}(${2:args}) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Function with Doxygen",
+    "scope": "c,cpp"
+  }
+}
