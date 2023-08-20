@@ -27,6 +27,7 @@ local sources = {
   b.diagnostics.textidote, -- LaTeX + Markdown | Grammar + Style
   b.diagnostics.textlint, -- Txt + Markdown | Grammar + Style
   b.diagnostics.markdownlint, -- Markdown | Style
+  b.code_actions.proselint,
   b.diagnostics.proselint, -- LaTeX + Markdown | Grammar + Style
   -- b.formatting.remark,
 
@@ -41,13 +42,14 @@ local sources = {
 
   -- Shell
   b.formatting.shfmt,
+  b.code_actions.shellcheck,
   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
 
   -- Cpp
   b.formatting.clang_format,
   -- b.diagnostics.clang_check,
   -- b.diagnostics.clazy, -- Too much?
-  -- b.diagnostics.cppcheck,
+  b.diagnostics.cppcheck,
 
   -- Cmake
   b.formatting.cmake_format,
