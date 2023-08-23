@@ -99,4 +99,19 @@ luasnip.add_snippets("rust", {
     i(0),
     t { "}" },
   }),
+
+  s("mo", {
+    i(1, "macro"),
+    t "!",
+    c(2, {
+      sn(nil, { t "(", r(1, "content"), t ")" }),
+      sn(nil, { t "[", r(1, "content"), t "]" }),
+      sn(nil, { t "{", r(1, "content"), t "}" }),
+    }),
+  }, {
+    stored = {
+      -- key passed to restoreNodes.
+      ["content"] = i(1, "/* content */"),
+    },
+  }),
 })

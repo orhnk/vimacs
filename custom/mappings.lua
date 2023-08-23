@@ -10,6 +10,7 @@ M.general = {
 M.disabled = {
   -- default nvim-tree binding for NvChad
   ["<leader>e"] = "",
+  ["<C-s>"] = "",
 }
 
 -- M.selection = {

@@ -451,14 +451,29 @@ local plugins = {
   },
 
   { -- Diagnostics as a scrollbar (JetBrains feature)
-    "lewis6991/satellite.nvim",
-    lazy = false, -- Load on startup
+    -- NOTE: I deprecate this plugin from CamelVim. This is optional because of the bad performance satellite.nvim has.
+    -- Opened a issue about this (#51)
+
+    -- "lewis6991/satellite.nvim", -- Bad performance But Beautiful
+    -- "dstein64/nvim-scrollview", -- Better performance
+    -- lazy = false, -- Load on startup
+
+    -- cmd = { "SatelliteEnable", "SatelliteDisable" },
+
+    -- keys = {
+    --   { -- This plugin lacks a toggle function
+    --     "<leader>sd",
+    --     ":SatelliteDisable<CR>",
+    --     mode = "n",
+    --     desc = "Toggle Satellite",
+    --   },
+    -- },
   },
 
   { -- Overseer prettifier
     "stevearc/dressing.nvim",
 
-    event = "VeryLazy",
+    event = "VeryLazy", -- FIXME
 
     config = function()
       require("dressing").setup {
@@ -886,10 +901,10 @@ local plugins = {
     end,
   },
 
-  {
-    "chaoren/vim-wordmotion",
-    lazy = false,
-  },
+  -- { -- Allows to use vim command "w" inside CamelCase snake_case etc
+  --   "chaoren/vim-wordmotion",
+  --   lazy = false,
+  -- },
 
   { -- nvim-dap UI
     "rcarriga/nvim-dap-ui",
@@ -1041,6 +1056,7 @@ local plugins = {
     },
 
     config = function()
+      -- local fb_actions = require("telescope").extensions.file_browser.actions
       require("telescope").setup {
         extensions = {
           file_browser = {
@@ -1050,6 +1066,7 @@ local plugins = {
             mappings = {
               ["i"] = {
                 -- your custom insert mode mappings
+                -- ["<TAB>"] = fb_actions.open, -- TODO
               },
               ["n"] = {
                 -- your custom normal mode mappings
@@ -1110,6 +1127,139 @@ local plugins = {
       require("telescope").load_extension "project"
     end,
   },
+
+  { -- Toggle case (CamelCase, snake_case, kebab-case, PascalCase, Title Case, UPPER CASE, lower case)
+    "UTFeight/vim-case-change",
+    keys = {
+      { "<C-a>", "<cmd>ToggleCase<cr>", mode = "v", desc = "Toggle Case" },
+      { "<C-a>", "<ESC>viw<cmd>ToggleCase<cr>", mode = { "i", "n" }, desc = "Toggle Case" },
+    },
+  },
+
+  {
+    "tomiis4/Hypersonic.nvim",
+    config = function()
+      require("hypersonic").setup {}
+    end,
+
+    keys = {
+      { "<leader>re", "<cmd>Hypersonic<cr>", mode = { "n", "v" }, desc = "Hypersonic" },
+    },
+  },
+
+  { -- tasks.json, launch.json etc.
+    "Dax89/automaton.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "mfussenegger/nvim-dap", -- Debug support for 'launch' configurations (Optional)
+      "hrsh7th/nvim-cmp", -- Autocompletion for automaton workspace files (Optional)
+      "L3MON4D3/LuaSnip", -- Snippet support for automaton workspace files (Optional)
+    },
+  },
+
+  -- { -- Rust Cargo.toml
+  --   "saecki/crates.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --
+  --   init = function()
+  --     local cmp = require "cmp"
+  --     vim.api.nvim_create_autocmd("BufRead", {
+  --       group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+  --       pattern = "Cargo.toml",
+  --       callback = function()
+  --         cmp.setup.buffer { sources = { { name = "crates" } } }
+  --       end,
+  --     })
+  --   end,
+  --
+  --   config = function()
+  --     local null_ls = require "null-ls"
+  --     require("crates").setup {
+  --       null_ls = {
+  --         enabled = true,
+  --         name = "crates.nvim",
+  --       },
+  --     }
+  --   end,
+  -- },
+
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   -- cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+  --   keys = {
+  --     {
+  --       mode = { "v", "n" },
+  --       "<C-x>",
+  --       "<cmd>MCstart<cr>", -- invalid
+  --       desc = "Multi Cursors",
+  --     },
+  --   },
+  -- },
+
+  { -- Opposite of vim's J (Join like)
+    "AckslD/nvim-trevJ.lua",
+    config = function()
+      require("trevj").setup {
+        containers = {
+          lua = {
+            table_constructor = { final_separator = ",", final_end_line = true },
+            arguments = { final_separator = false, final_end_line = true },
+            parameters = { final_separator = false, final_end_line = true },
+          },
+          -- ... -- other filetypes
+        },
+      }
+    end,
+
+    keys = {
+      { "<leader>jj", "<cmd>lua require('trevj').format_at_cursor()<cr>", mode = "n", desc = "Format" },
+      -- { "<leader>jj", "<cmd>lua require('trevj').format_at_cursor()<cr>", mode = "v", desc = "Format" },
+    },
+  },
+
+  { -- nvim-dap installer
+    "jay-babu/mason-nvim-dap.nvim",
+
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+
+    cmd = { "DapInstall", "DapUninstall" },
+
+    opts = {
+      -- Makes a best effort to setup the various debuggers with
+      -- reasonable debug configurations
+      automatic_installation = true,
+
+      -- You can provide additional configuration to the handlers,
+      -- see mason-nvim-dap README for more information
+      handlers = {},
+
+      -- You'll need to check that you have the required things installed
+      -- online, please don't ask me how to install them :)
+      ensure_installed = {
+        "codelldb",
+        -- Update this to ensure that you have the debuggers for the langs you want
+      },
+    },
+  },
+
+  --  -- Old toggle case plugin
+  --   "johmsalas/text-case.nvim",
+  --
+  --   keys = {
+  --     { "<leader>sq", "<cmd>lua require('textcase').toggle()<cr>", mode = "n", desc = "Toggle Case" },
+  --     { "<leader>sq", "<cmd>lua require('textcase').toggle()<cr>", mode = "v", desc = "Toggle Case" },
+  --   },
+  --
+  --   config = function()
+  --     require("textcase").setup {
+  --       prefix = "<leader>s",
+  --     }
+  --   end,
+  -- },
 }
 
 return plugins

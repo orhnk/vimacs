@@ -82,26 +82,78 @@ local function get_surrounding_class(linenr)
   return min_name
 end
 
-luasnip.add_snippets("cpp", {
-  -- s({
-  --   trig = "fnd",
-  --   dscr = "Function with Doxygen",
-  --   -- Post expand callback
-  --   post_expand = function()
-  --     require("neogen").generate()
-  --   end,
-  --   snippet = {
-  --     t {
-  --       "type name(args) {",
-  --       "    $0",
-  --       "}",
-  --     },
-  --   },
-  -- }, {
-  --   condition = function()
-  --     return vim.bo.filetype == "cpp"
-  --   end,
-  -- }),
+local function gen_doc(_, _, _)
+  require("neogen").generate()
+  return "some"
+end
+
+-- FIXME: Initialization of once happens only when snippets load.
+-- This will lead to non generating of docs on second run.
+local once = true
+local function count(_, _, old_state)
+  if not old_state then
+    print "No old state!"
+  else
+    if once then
+      once = false
+      require("neogen").setup {
+        enabled = true, --if you want to disable Neogen
+        input_after_comment = false, -- (default: true) automatic jump (with insert mode) on inserted annotation
+      }
+      gen_doc()
+    end
+  end
+
+  old_state = old_state or {
+    updates = 0,
+  }
+
+  old_state.updates = old_state.updates + 1
+
+  local snip = sn(nil, {
+    t(tostring ""),
+  })
+
+  snip.old_state = old_state
+
+  return snip
+end
+
+ls.add_snippets("cpp", {
+  -- Toggle TODO
+  s("cody", {
+    t { "// Cody DEMO:", "" },
+
+    i(0),
+    c(1, {
+      t 'std::cout << "<AI CODEGEN DEMO>" << std::endl;',
+      t "",
+    }),
+  }),
+
+  s("stff", {
+    t "auto ",
+    i(1, "change to update"),
+    d(2, count, { 1 }),
+  }),
+
+  s("dfn", {
+    t "auto ",
+    i(1, "name"),
+    t "(",
+    i(2),
+    t ")",
+    c(3, {
+      t "",
+      t " const",
+      t " override",
+      t " noexcept",
+    }),
+    t { "", "{", "\t" },
+    i(4),
+    d(5, count, { 4 }),
+    t { "", "}" },
+  }),
 
   s("for", {
     t "for (",

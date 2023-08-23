@@ -26,7 +26,7 @@ local types = require "luasnip.util.types"
 local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
-local utils = require "luasnip_snippets.utils"
+-- local utils = require "luasnip_snippets.utils"
 
 return {
   c = {
@@ -135,24 +135,24 @@ return {
       end, {}),
     }),
 
-    s("all fn", {
-      -- Simple static text.
-      t "//Parameters: ",
-      -- function, first parameter is the function, second the Placeholders
-      -- whose text it gets as input.
-      f(utils.copy, 2),
-      t { "", "function " },
-      -- Placeholder/Insert.
-      i(1),
-      t "(",
-      -- Placeholder with initial text.
-      i(2, "int foo"),
-      -- Linebreak
-      t { ") {", "\t" },
-      -- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
-      i(0),
-      t { "", "}" },
-    }),
+    -- s("all fn", {
+    --   -- Simple static text.
+    --   t "//Parameters: ",
+    --   -- function, first parameter is the function, second the Placeholders
+    --   -- whose text it gets as input.
+    --   f(utils.copy, 2),
+    --   t { "", "function " },
+    --   -- Placeholder/Insert.
+    --   i(1),
+    --   t "(",
+    --   -- Placeholder with initial text.
+    --   i(2, "int foo"),
+    --   -- Linebreak
+    --   t { ") {", "\t" },
+    --   -- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
+    --   i(0),
+    --   t { "", "}" },
+    -- }),
 
     s("class", {
       -- Choice: Switch between two different Nodes, first parameter is its position, second a list of nodes.
@@ -183,38 +183,38 @@ return {
       t { "", "}" },
     }),
 
-    s({ trig = "fn" }, {
-      d(6, utils.jdocsnip, { 2, 4, 5 }),
-      t { "", "" },
-      c(1, {
-        t { "public " },
-        t { "private " },
-      }),
-      c(2, {
-        t { "void" },
-        i(nil, { "" }),
-        t { "String" },
-        t { "char" },
-        t { "int" },
-        t { "double" },
-        t { "boolean" },
-      }),
-      t { " " },
-      i(3, { "myFunc" }),
-      t { "(" },
-      i(4),
-      t { ")" },
-      c(5, {
-        t { "" },
-        sn(nil, {
-          t { "", " throws " },
-          i(1),
-        }),
-      }),
-      t { " {", "\t" },
-      i(0),
-      t { "", "}" },
-    }),
+    -- s({ trig = "fn" }, { -- Specific to a repo
+    --   d(6, utils.jdocsnip, { 2, 4, 5 }),
+    --   t { "", "" },
+    --   c(1, {
+    --     t { "public " },
+    --     t { "private " },
+    --   }),
+    --   c(2, {
+    --     t { "void" },
+    --     i(nil, { "" }),
+    --     t { "String" },
+    --     t { "char" },
+    --     t { "int" },
+    --     t { "double" },
+    --     t { "boolean" },
+    --   }),
+    --   t { " " },
+    --   i(3, { "myFunc" }),
+    --   t { "(" },
+    --   i(4),
+    --   t { ")" },
+    --   c(5, {
+    --     t { "" },
+    --     sn(nil, {
+    --       t { "", " throws " },
+    --       i(1),
+    --     }),
+    --   }),
+    --   t { " {", "\t" },
+    --   i(0),
+    --   t { "", "}" },
+    -- }),
 
     s("#if", {
       t "#if ",
