@@ -62,6 +62,10 @@ local sources = {
   -- Python
   b.diagnostics.ruff,
   b.formatting.black, -- Note: flake8
+
+  -- TreeSitter
+  -- AWESOME THING!
+  null_ls.builtins.code_actions.ts_node_action,
 }
 
 null_ls.setup {

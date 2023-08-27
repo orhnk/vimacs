@@ -16,20 +16,22 @@ function Sed(from, to, fname)
 end
 
 function Reload()
-    vim.cmd(string.format("silent !xrdb merge ~/.Xresources && kill -USR1 $(xprop -id $(xdotool getwindowfocus) | grep '_NET_WM_PID' | grep -oE '[[:digit:]]*$')"))
+  vim.cmd(
+    string.format "silent !xrdb merge ~/.Xresources && kill -USR1 $(xprop -id $(xdotool getwindowfocus) | grep '_NET_WM_PID' | grep -oE '[[:digit:]]*$')"
+  )
 end
 
 function DecreasePadding()
-  Sed('st.borderpx: 20', 'st.borderpx: 0', '~/.Xresources')
+  Sed("st.borderpx: 20", "st.borderpx: 0", "~/.Xresources")
   Reload()
-  Sed('st.borderpx: 0', 'st.borderpx: 20', '~/.Xresources')
+  Sed("st.borderpx: 0", "st.borderpx: 20", "~/.Xresources")
 end
 
 function IncreasePadding()
   Reload()
 end
 
-vim.cmd[[
+vim.cmd [[
   augroup ChangeStPadding
    au!
    au VimEnter * lua DecreasePadding()
@@ -58,3 +60,23 @@ vim.cmd[[
 --   end,
 -- })
 
+-- Moved to plugins.lua
+-- -- Crates.io integrations (crates.nvim)
+-- local function show_documentation()
+--     local filetype = vim.bo.filetype
+--     if vim.tbl_contains({ 'vim','help' }, filetype) then
+--         vim.cmd('h '..vim.fn.expand('<cword>'))
+--     elseif vim.tbl_contains({ 'man' }, filetype) then
+--         vim.cmd('Man '..vim.fn.expand('<cword>'))
+--     elseif vim.fn.expand('%:t') == 'Cargo.toml' and require('crates').popup_available() then
+--         require('crates').show_popup()
+--     else
+--         vim.lsp.buf.hover()
+--     end
+-- end
+--
+-- vim.keymap.set('n', 'K', show_documentation, { silent = true })
+
+-- TODO: Check wheter this is needed
+-- -- Improves startup time
+-- vim.loader.enable()

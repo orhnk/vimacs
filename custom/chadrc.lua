@@ -217,20 +217,57 @@ M.ui = {
     },
 
     buttons = {
-      { "  File Manager", "Spc f r", ":Telescope file_browser path=%:p:h select_buffer=true<CR>" },
-      { "  Find File", "Spc f f", "Telescope find_files" },
+      {
+        "  File Manager",
+        "Spc .",
+        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        -- FIXME cmd doesn't work with lazy loading! 
+      },
+      {
+        "  Find File",
+        "Spc f f",
+        "Telescope find_files",
+      },
       {
         "  Find Project",
         "Spc f p",
         "lua require('telescope').extensions.project.project({display_type = 'full'})",
       },
-      { "  Find Command", "Spc f s", "Telescope builtin" },
-      { "󰈚  Recent Files", "Spc f o", "Telescope oldfiles" },
-      { "󰈭  Find Word", "Spc f w", "Telescope live_grep" },
-      { "  Bookmarks", "Spc m a", "Telescope marks" },
-      { "  Themes", "Spc t h", "Telescope themes" },
-      { "  Config", "Spc o c", "next ~/.config/nvim/lua/custom/*.lua" },
-      { "  Mappings", "Spc c h", "NvCheatsheet" },
+      {
+        "  Find Command",
+        "Spc f s",
+        "Telescope builtin",
+      },
+      {
+        "󰈚  Recent Files",
+        "Spc f o",
+        "Telescope oldfiles",
+      },
+      {
+        "󰈭  Find Word",
+        "Spc f w",
+        "Telescope live_grep",
+      },
+      {
+        "  Bookmarks",
+        "Spc m a",
+        "Telescope marks",
+      },
+      {
+        "  Themes",
+        "Spc t h",
+        "Telescope themes",
+      },
+      {
+        "  Config",
+        "Spc o c",
+        "next ~/.config/nvim/lua/custom/*.lua",
+      },
+      {
+        "  Mappings",
+        "Spc c h",
+        "NvCheatsheet",
+      },
     },
   },
 
