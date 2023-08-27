@@ -67,6 +67,8 @@ A Neovim configuration heavily inspired by JetBrains products.
 - Advanced:
   - [x] Built-in AI Assistant (It's free! check it out
         [here](https://github.com/sourcegraph/sg.nvim))
+  - Github Copilot
+  - TabNine AI
 
 <br>
 
@@ -149,6 +151,19 @@ cd .. && rm -rf CamelVim && nvim
 
 > **Warning**: This feature requires a `base_dirs` variable in
 > `custom/plugins.lua` as in the `telescope-project.nvim`
+
+4. Copilot
+
+   - Github is a paid program that suggests code when you are typing. You need
+     to authorize by using:
+
+   ```vim
+   :Copilot auth
+   ```
+
+5. Tabnine
+   > [!important] Tabnine is free
+   - When installing the editor, You need to authorize from your browser.
 
 ## Credits
 
