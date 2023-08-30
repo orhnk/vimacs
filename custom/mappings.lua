@@ -42,9 +42,21 @@ M.disabled = {
 
     -- Git
     ["<leader>cm"] = "", -- Commits
+    ["<leader>ph"] = "", -- Preview hunk
 
     -- Editor
     ["<leader>n"] = "", -- linenr
+
+    -- Terminal
+    ["<leader>pt"] = "", -- Pick hidden terminal TODO: remap this
+  },
+}
+
+M.treesitter = {
+  n = {
+    ["<leader>tss"] = { "<cmd> Inspect<CR>", "HL groups Under Cursor" },
+    ["<leader>tst"] = { "<cmd> InspectTree<CR>", "Parsed Syntax Tree" },
+    ["<leader>tsq"] = { "<cmd> PreviewQuery<CR>", "Query Editor" },
   },
 }
 
