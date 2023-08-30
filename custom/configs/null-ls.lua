@@ -57,7 +57,7 @@ local sources = {
   -- gccdiag is not needed because of NvChad <3
 
   -- Rust
-  b.formatting.rustfmt,
+  -- b.formatting.rustfmt, -- CHECKMEOUT: rust-tools.nvim does all for me!
 
   -- Python
   b.diagnostics.ruff,
