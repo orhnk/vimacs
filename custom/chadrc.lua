@@ -13,11 +13,97 @@ M.ui = {
   hl_override = highlights.override,
   hl_add = highlights.add,
 
-  -- statusline = {
-  --   theme = "default", -- default/vscode/*vscode_colored*/minimal
-  --   separator_style = "default", -- default/*round*/*block*/arrow
-  --   overriden_modules = nil,
-  -- },
+  statusline = {
+    -- theme = "vscode_colored", -- default/vscode/*vscode_colored*/minimal
+    -- separator_style = "round", -- default/*round*/*block*/arrow
+    -- modules arg here is the default table of modules
+    overriden_modules = function(modules)
+      -- modules[1] = (function()
+      --   return "MODE!"
+      -- end)()
+
+      -- define the somefunction anywhwere in your custom dir, just call it well!
+      -- modules[2] = somefunction()
+
+      -- adding a module between 2 modules
+      -- Use the table.insert function to insert at specific index
+      -- This will insert a new module at index 2 and previous index 2 will become 3 now
+
+      -- table.insert( -- Left (Post MODE)
+      --   modules,
+      --   4,
+      --   (function()
+      --     return " between mode and filename ! "
+      --   end)()
+      -- )
+      --
+      -- table.insert( -- Middle
+      --   modules,
+      --   math.floor(#modules / 2),
+      --   (function()
+      --     return " between mode and filename ! "
+      --   end)()
+      -- )
+      --
+      -- table.insert( -- Middle
+      --   modules,
+      --   math.ceil(#modules / 2) + 3, -- 3 is gap
+      --   (function()
+      --     return " between mode and filename ! "
+      --   end)()
+      -- )
+      --
+      table.insert( -- Right
+        modules,
+        math.ceil(#modules / 2) + 2, -- 3 is gap
+        (function()
+          local margin = "   "
+          local glyph = ""
+          local hl = "%#StCopilot#"
+
+          if vim.fn.exists ":Copilot" then
+            glyph = hl .. "" .. margin --   |  
+          else
+            glyph = hl .. "" .. margin
+          end
+
+          return glyph
+        end)()
+      )
+      --   table.insert( -- Right
+      --     modules,
+      --     (function()
+      --       local margin = "  "
+      --       local glyph = ""
+      --       local hl = "%#StCopilot#"
+      --
+      --       if vim.fn.exists ":Copilot" then
+      --         glyph = hl .. "" .. margin --   |  
+      --       else
+      --         glyph = hl .. "" .. margin
+      --       end
+      --
+      --       return glyph
+      --     end)()
+      --   )
+      --   table.insert( -- Right
+      --     modules,
+      --     (function()
+      --       local margin = "  "
+      --       local glyph = ""
+      --       local hl = "%#StCopilot#"
+      --
+      --       if vim.fn.exists ":Copilot" then
+      --         glyph = hl .. "" .. margin --   |  
+      --       else
+      --         glyph = hl .. "" .. margin
+      --       end
+      --
+      --       return glyph
+      --     end)()
+      --   )
+    end,
+  },
 
   nvdash = {
     load_on_startup = true,
@@ -221,7 +307,7 @@ M.ui = {
         "  File Manager",
         "Spc .",
         ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-        -- FIXME cmd doesn't work with lazy loading! 
+        -- FIXME cmd doesn't work with lazy loading!
       },
       {
         "  Find File",
