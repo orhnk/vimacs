@@ -165,6 +165,12 @@ cd .. && rm -rf CamelVim && nvim
    > [!important] Tabnine is free
    - When installing the editor, You need to authorize from your browser.
 
+6. Null-ls
+   ```sh
+   yay -S codespell textlint markdownlint stylua
+   ```
+
+
 ## Credits
 
 - Thank you [siduck](https://github.com/siduck) for creating the wonderful
