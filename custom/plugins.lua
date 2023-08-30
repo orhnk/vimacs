@@ -1,4 +1,4 @@
--- TODO: Remove telescope as a dependency and lazy load plugins later for squeezed performance
+-- TODO: Remove telescope as a dependency and lazy load plugins later for squeezed performance.confconf
 
 local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
@@ -14,171 +14,51 @@ local plugins = {
   },
 
   -- Override plugin definition options
-  {
-    "L3MON4D3/LuaSnip",
-
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      -- "molleweide/LuaSnip-snippets.nvim",
-    },
-
-    keys = {
-      {
-        "<C-s>",
-        function()
-          local ls = require "luasnip"
-          if ls.choice_active() then
-            ls.change_choice(1)
-          end
-        end,
-
-        mode = { "i", "s" },
-        silent = true,
-      },
-    },
-    -- opts = {
-    --   history = true,
-    --   updateevents = "TextChanged,TextChangedI",
-    --
-    --   leave = function()
-    --     local snip = require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-    --     if snip and snip.generate_doc == true then
-    --       require("neogen").generate()
-    --     end
-    --   end,
-    -- },
-
-    -- init = function()
-    -- vim.api.nvim_create_autocmd("User", {
-    --   pattern = "LuaSnipPostExpand",
-    --   -- command = "echo 'LuaSnipPostExpand'",
-    --   callback = function()
-    --     require("neogen").generate()
-    --   end,
-    -- })
-    --
-    -- vim.api.nvim_create_autocmd("User", {
-    --   pattern = "LuasnipPreExpand",
-    --   callback = function()
-    --     vim.cmd [[echo "LuasnipInsertNodeEnter"]]
-    --     -- local snip = require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-    --     -- if snip and snip.generate_doc == true then
-    --     require("neogen").generate()
-    --     -- end
-    --   end,
-    -- })
-    -- end,
-
-    config = function(opts)
-      -- require("plugins.configs.others").luasnip(opts)
-      require("luasnip").config.set_config(opts)
-
-      -- vim.api.nvim_create_autocmd("BufWritePost", {
-      --   callback = function()
-      --     require("neogen").generate()
-      --   end,
-      -- })
-
-      -- vim.api.nvim_create_autocmd("User", {
-      --   pattern = "LuasnipPreExpand",
-      --   callback = function()
-      --     -- get event-parameters from `session`.
-      --     local snippet = require("luasnip").session.event_node
-      --     local expand_position = require("luasnip").session.event_args.expand_pos
-      --
-      --     print(
-      --       string.format(
-      --         "expanding snippet %s at %s:%s",
-      --         table.concat(snippet:get_docstring(), "\n"),
-      --         expand_position[1],
-      --         expand_position[2]
-      --       )
-      --     )
-      --   end,
-      -- })
-
-      -- vscode format
-      require("luasnip.loaders.from_vscode").lazy_load()
-      require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.vscode_snippets_path or "" }
-
-      -- snipmate format
-      require("luasnip.loaders.from_snipmate").load()
-      require("luasnip.loaders.from_snipmate").lazy_load { paths = vim.g.snipmate_snippets_path or "" }
-
-      -- lua format
-      require("luasnip.loaders.from_lua").load()
-      require("luasnip.loaders.from_lua").lazy_load { paths = vim.g.lua_snippets_path or "" }
-
-      vim.api.nvim_create_autocmd("InsertLeave", {
-        callback = function()
-          if
-            require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-            and not require("luasnip").session.jump_active
-          then
-            require("luasnip").unlink_current()
-          end
-        end,
-      })
-    end,
-  },
 
   { -- Overriding NvChad Telescope options. (Dirty hack)
     "nvim-telescope/telescope.nvim",
 
-    -- NvChad:
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "telescope")
-      local telescope = require "telescope"
-      telescope.setup(opts)
+    dependencies = {
+      "t-troebst/perfanno.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "debugloop/telescope-undo.nvim",
+    },
 
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
-
-      -- Emoji picker:
-      require("telescope").setup {
-        extensions = {
-          undo = {
-            side_by_side = true,
-            layout_strategy = "vertical",
-            layout_config = {
-              preview_height = 0.8,
-            },
-          },
-          perfanno = {
-            -- Special mappings in the telescope finders
-            mappings = {
-              ["i"] = {
-                -- Find hottest callers of selected entry
-                ["<C-h>"] = require("telescope").extensions.perfanno.actions.hottest_callers,
-                -- Find hottest callees of selected entry
-                ["<C-l>"] = require("telescope").extensions.perfanno.actions.hottest_callees,
-              },
-
-              ["n"] = {
-                ["gu"] = require("telescope").extensions.perfanno.actions.hottest_callers,
-                ["gd"] = require("telescope").extensions.perfanno.actions.hottest_callees,
-              },
-            },
+    opts = {
+      extensions = {
+        undo = {
+          side_by_side = true,
+          layout_strategy = "vertical",
+          layout_config = {
+            preview_height = 0.8,
           },
         },
-      }
-    end,
+      },
+      extensions_list = {
+        -- "file_browser", -- Lazy loading it
+        "undo", -- FIXME: Lazy load
+        -- others are lazy loaded
 
-    opts = function()
-      local settings = require "plugins.configs.telescope"
-
-      settings.defaults.mappings.i = {
-        ["<leader>tp"] = require("telescope.actions.layout").toggle_preview,
-      }
-      settings.extensions_list = {
+        -- NvChad defaults
         "themes",
         "terms",
-      }
+      },
+    },
 
-      return settings
-    end,
+    -- Toggles preview window
+    -- opts = function()
+    --   local settings = require "plugins.configs.telescope"
+    --
+    --   settings.defaults.mappings.i = {
+    --     ["<leader>tp"] = require("telescope.actions.layout").toggle_preview,
+    --   }
+    --   settings.extensions_list = {
+    --     "themes",
+    --     "terms",
+    --   }
+    --
+    --   return settings
+    -- end,
   },
 
   {
@@ -225,97 +105,29 @@ local plugins = {
 
   {
     "zbirenbaum/copilot.lua",
+
     cmd = "Copilot",
+
     event = "InsertEnter",
+
     config = function(_, opts)
       require("copilot").setup { opts }
     end,
 
-    opts = {
-      panel = {
-        enabled = true,
-        auto_refresh = true, -- Refresh suggestions when typing to the buffer
-        keymap = {
-          jump_prev = "[[",
-          jump_next = "]]",
-          accept = "<CR>",
-          refresh = "gr",
-          open = "<M-CR>",
-        },
-        layout = {
-          position = "right", -- | top | left | right
-          ratio = 0.4,
-        },
-      },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 75,
-        keymap = {
-          accept = "<M-Tab>",
-          accept_word = false,
-          accept_line = false,
-          next = "<C-l>",
-          prev = "<C-h>",
-          dismiss = "<C-q>",
-        },
-      },
-      filetypes = {
-        yaml = true,
-        markdown = true,
-        help = true,
-        gitcommit = true,
-        gitrebase = true,
-        hgcommit = true,
-        svn = true,
-        cvs = true,
-        ["."] = false,
-      },
-      copilot_node_command = "node", -- Node.js version must be > 16.x
-      server_opts_overrides = {},
-    },
+    opts = require("custom.configs.copilot").opts,
   },
 
   -- C++ development
   -- Nice but limited cpp codegen features which I'll (probably) not use (if you want create keymapps)
   {
     "Badhi/nvim-treesitter-cpp-tools",
+
     requires = { "nvim-treesitter/nvim-treesitter" },
+    keys = require("custom.configs.cpp").treesitter.keys,
+    opts = require("custom.configs.cpp").treesitter.opts,
 
-    keys = {
-      { "<leader>cpl", ":TSCppDefineClassFunc", mode = "n", desc = "Define Class function" },
-      { "<leader>cpm", ":TSCppMakeConcreteClass", mode = "n", desc = "Make Concrete Class" },
-      { "<leader>cpo", ":TSCppRuleOf3", mode = "n", desc = "Rule of 3" },
-      { "<leader>cpp", ":TSCppRuleOf5", mode = "n", desc = "Rule of 5" },
-
-      { "<leader>cpl", ":TSCppDefineClassFunc", mode = "v", desc = "Define Class function" },
-      { "<leader>cpm", ":TSCppMakeConcreteClass", mode = "v", desc = "Make Concrete Class" },
-      { "<leader>cpo", ":TSCppRuleOf3", mode = "v", desc = "Rule of 3" },
-      { "<leader>cpp", ":TSCppRuleOf5", mode = "v", desc = "Rule of 5" },
-    },
-
-    config = function()
-      require("nt-cpp-tools").setup {
-        preview = {
-          quit = "q", -- optional keymapping for quit preview
-          accept = "<tab>", -- optional keymapping for accept preview
-        },
-        -- header_extension = "h", -- optional
-        -- source_extension = "cxx", -- optional
-        -- custom_define_class_function_commands = { -- optional
-        --   TSCppImplWrite = {
-        --   output_handle = require("nt-cpp-tools.output_handlers").get_add_to_cpp(),
-        -- },
-        --[[
-        <your impl function custom command name> = {
-            output_handle = function (str, context)
-                -- string contains the class implementation
-                -- do whatever you want to do with it
-            end
-        }
-        ]]
-        -- },
-      }
+    config = function(_, opts)
+      require("nt-cpp-tools").setup(opts)
     end,
   },
 
@@ -359,105 +171,10 @@ local plugins = {
     end,
   },
 
-  {
+  { -- FIXME: Some snippets are not working: e.g fix (toggleable)
     "hrsh7th/nvim-cmp",
-
-    dependencies = {
-
-      { -- Tabnine
-        "tzachar/cmp-tabnine",
-
-        build = "./install.sh",
-        dependencies = "hrsh7th/nvim-cmp",
-
-        config = function(_, opts)
-          local tabnine = require "cmp_tabnine.config"
-          tabnine:setup { opts }
-        end,
-
-        opts = {
-          max_lines = 1000,
-          max_num_results = 20,
-          sort = true,
-          run_on_every_keystroke = true,
-          snippet_placeholder = "..",
-          ignored_file_types = {
-            -- default is not to ignore
-            -- uncomment to ignore in lua:
-            -- lua = true
-          },
-          show_prediction_strength = false,
-        },
-      },
-
-      { -- Copilot
-        "zbirenbaum/copilot-cmp",
-
-        dependencies = {
-          "zbirenbaum/copilot.lua",
-
-          opts = {
-            suggestion = {
-              enabled = false,
-              -- auto_trigger = false,
-            },
-
-            panel = {
-              enabled = false,
-            },
-          },
-        },
-
-        config = function()
-          require("copilot_cmp").setup()
-        end,
-      },
-    }, -- END NV-CMP DEPENDENCIES
-
-    -- ALL OPTS GET MERGED WITH DEFAULTS IN LAZY.nvim
-    opts = {
-      mapping = {
-        -- Disable <TAB> for autocompletion to not go crazy!!!
-        ["<Tab>"] = require("cmp").mapping(function(fallback)
-          if require("luasnip").expand_or_jumpable() then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-          else
-            fallback()
-          end
-        end, {
-          "i",
-          "s",
-        }),
-
-        ["<S-Tab>"] = require("cmp").mapping(function(fallback)
-          if require("luasnip").jumpable(-1) then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-          else
-            fallback()
-          end
-        end, {
-          "i",
-          "s",
-        }),
-      },
-
-      sources = {
-        -- -- AI
-        -- Copilot
-        { name = "copilot" },
-        -- Tabnine
-        { name = "cmp_tabnine" },
-
-        -- Other Sources
-        { name = "nvim_lsp" },
-        { name = "nvim_lua" },
-        { name = "path" },
-        { name = "luasnip" },
-        { name = "buffer" },
-        { name = "crates" },
-        -- { name = "calc" },
-      },
-    },
+    dependencies = require("custom.configs.cmp").dependencies,
+    opts = require("custom.configs.cmp").opts,
   },
 
   { -- Code runner
@@ -615,31 +332,31 @@ local plugins = {
     end,
   },
 
-  {
-    "willothy/moveline.nvim",
-    event = "VeryLazy",
+  -- { -- Default nvim motions are good enough
+  --   "willothy/moveline.nvim",
+  --   event = "VeryLazy",
+  --
+  --   --    keys = {
+  --   --      { "<C-M-j>", ':lua require("moveline").down<CR>', mode = "n", desc = "Move line down" },
+  --   --      { "<C-M-k>", ':lua require("moveline").up<CR>', mode = "n", desc = "Move line up" },
+  --   --
+  --   --      { "<C-M-j>", ':lua require("moveline").block_down<CR>', mode = "v", desc = "Move line down" },
+  --   --      { "<C-M-k>", ':lua require("moveline").block_up<CR>', mode = "v", desc = "Move line up" },
+  --   --    },
+  --
+  --   config = function()
+  --     local moveline = require "moveline"
+  --
+  --     -- My terminal has it's own M-j/k bindings so:
+  --     vim.keymap.set("n", "<C-M-k>", moveline.up)
+  --     vim.keymap.set("n", "<C-M-j>", moveline.down)
+  --     vim.keymap.set("v", "<C-M-k>", moveline.block_up)
+  --     vim.keymap.set("v", "<C-M-j>", moveline.block_down)
+  --   end,
+  --   build = "make",
+  -- },
 
-    --    keys = {
-    --      { "<C-M-j>", ':lua require("moveline").down<CR>', mode = "n", desc = "Move line down" },
-    --      { "<C-M-k>", ':lua require("moveline").up<CR>', mode = "n", desc = "Move line up" },
-    --
-    --      { "<C-M-j>", ':lua require("moveline").block_down<CR>', mode = "v", desc = "Move line down" },
-    --      { "<C-M-k>", ':lua require("moveline").block_up<CR>', mode = "v", desc = "Move line up" },
-    --    },
-
-    config = function()
-      local moveline = require "moveline"
-
-      -- My terminal has it's own M-j/k bindings so:
-      vim.keymap.set("n", "<C-M-k>", moveline.up)
-      vim.keymap.set("n", "<C-M-j>", moveline.down)
-      vim.keymap.set("v", "<C-M-k>", moveline.block_up)
-      vim.keymap.set("v", "<C-M-j>", moveline.block_down)
-    end,
-    build = "make",
-  },
-
-  {
+  { -- One of the most useful plugins I've ever seen
     "rktjmp/paperplanes.nvim",
 
     keys = {
@@ -678,111 +395,16 @@ local plugins = {
   {
     "ldelossa/gh.nvim",
 
-    dependencies = {
-      "ldelossa/litee.nvim",
-    },
-
+    dependencies = { "ldelossa/litee.nvim" },
+    opts = require("custom.configs.gh").opts,
+    cmd = { "GH" },
     keys = {
       { "<leader>gh", ":GH<CR>", mode = "n", desc = "Open Github Client" },
     },
 
-    config = function()
+    config = function(_, opts)
       require("litee.lib").setup()
-      require("litee.gh").setup {
-        -- deprecated, around for compatibility for now.
-        jump_mode = "invoking",
-        -- remap the arrow keys to resize any litee.nvim windows.
-        map_resize_keys = false,
-        -- do not map any keys inside any gh.nvim buffers.
-        disable_keymaps = false,
-        -- the icon set to use.
-        icon_set = "default",
-        -- any custom icons to use.
-        icon_set_custom = nil,
-        -- whether to register the @username and #issue_number omnifunc completion
-        -- in buffers which start with .git/
-        git_buffer_completion = true,
-        -- defines keymaps in gh.nvim buffers.
-        keymaps = {
-          -- when inside a gh.nvim panel, this key will open a node if it has
-          -- any futher functionality. for example, hitting <CR> on a commit node
-          -- will open the commit's changed files in a new gh.nvim panel.
-          open = "<CR>",
-          -- when inside a gh.nvim panel, expand a collapsed node
-          expand = "zo",
-          -- when inside a gh.nvim panel, collpased and expanded node
-          collapse = "zc",
-          -- when cursor is over a "#1234" formatted issue or PR, open its details
-          -- and comments in a new tab.
-          goto_issue = "gd",
-          -- show any details about a node, typically, this reveals commit messages
-          -- and submitted review bodys.
-          details = "d",
-          -- inside a convo buffer, submit a comment
-          submit_comment = "<C-s>",
-          -- inside a convo buffer, when your cursor is ontop of a comment, open
-          -- up a set of actions that can be performed.
-          actions = "<C-a>",
-          -- inside a thread convo buffer, resolve the thread.
-          resolve_thread = "<C-r>",
-          -- inside a gh.nvim panel, if possible, open the node's web URL in your
-          -- browser. useful particularily for digging into external failed CI
-          -- checks.
-          goto_web = "gx",
-        },
-      }
-
-      --      local wk = require "which-key"
-      --      wk.register({
-      --        g = {
-      --          name = "+Git",
-      --          h = {
-      --            name = "+Github",
-      --            c = {
-      --              name = "+Commits",
-      --              c = { "<cmd>GHCloseCommit<cr>", "Close" },
-      --              e = { "<cmd>GHExpandCommit<cr>", "Expand" },
-      --              o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
-      --              p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
-      --              z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
-      --            },
-      --            i = {
-      --              name = "+Issues",
-      --              p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
-      --            },
-      --            l = {
-      --              name = "+Litee",
-      --              t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
-      --            },
-      --            r = {
-      --              name = "+Review",
-      --              b = { "<cmd>GHStartReview<cr>", "Begin" },
-      --              c = { "<cmd>GHCloseReview<cr>", "Close" },
-      --              d = { "<cmd>GHDeleteReview<cr>", "Delete" },
-      --              e = { "<cmd>GHExpandReview<cr>", "Expand" },
-      --              s = { "<cmd>GHSubmitReview<cr>", "Submit" },
-      --              z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
-      --            },
-      --            p = {
-      --              name = "+Pull Request",
-      --              c = { "<cmd>GHClosePR<cr>", "Close" },
-      --              d = { "<cmd>GHPRDetails<cr>", "Details" },
-      --              e = { "<cmd>GHExpandPR<cr>", "Expand" },
-      --              o = { "<cmd>GHOpenPR<cr>", "Open" },
-      --              p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
-      --              r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
-      --              t = { "<cmd>GHOpenToPR<cr>", "Open To" },
-      --              z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
-      --            },
-      --            t = {
-      --              name = "+Threads",
-      --              c = { "<cmd>GHCreateThread<cr>", "Create" },
-      --              n = { "<cmd>GHNextThread<cr>", "Next" },
-      --              t = { "<cmd>GHToggleThread<cr>", "Toggle" },
-      --            },
-      --          },
-      --        },
-      --      }, { prefix = "<leader>" })
+      require("litee.gh").setup(opts)
     end,
   },
 
@@ -810,7 +432,7 @@ local plugins = {
     end,
   },
 
-  { -- C/C++ cpp <-> hpp file pairing
+  { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
     "Everduin94/nvim-quick-switcher",
 
     keys = {
@@ -832,23 +454,7 @@ local plugins = {
       require("refactoring").setup()
     end,
 
-    keys = {
-      { "<leader>ce", ":Refactor extract<CR>", mode = "n", desc = "Extract To Function" },
-      { "<leader>cv", ":Refactor extract_var<CR>", mode = "n", desc = "Extract To Variable" },
-      { "<leader>cb", ":Refactor extract_block<CR>", mode = "n", desc = "Extract To Block" },
-      { "<leader>ct", ":Refactor extract_block_to_file<CR>", mode = "n", desc = "Extract Block To File" },
-      { "<leader>cn", ":Refactor refactor_names<CR>", mode = "n", desc = "Refactor names" },
-      { "<leader>cf", ":Refactor extract_to_file<CR>", mode = "n", desc = "Extract to file" },
-      { "<leader>ci", ":Refactor inline_var<CR>", mode = "n", desc = "Inline Variable" },
-
-      { "<leader>ce", ":Refactor extract<CR>", mode = "v", desc = "Extract To Function" },
-      { "<leader>cv", ":Refactor extract_var<CR>", mode = "v", desc = "Extract To Variable" },
-      { "<leader>cb", ":Refactor extract_block<CR>", mode = "v", desc = "Extract To Block" },
-      { "<leader>ct", ":Refactor extract_block_to_file<CR>", mode = "v", desc = "Extract Block To File" },
-      { "<leader>cn", ":Refactor refactor_names<CR>", mode = "v", desc = "Refactor names" },
-      { "<leader>cf", ":Refactor extract_to_file<CR>", mode = "v", desc = "Extract to file" },
-      { "<leader>ci", ":Refactor inline_var<CR>", mode = "v", desc = "Inline Variable" },
-    },
+    keys = require("custom.configs.refactoring").keys,
   },
 
   {
@@ -856,103 +462,13 @@ local plugins = {
 
     dependencies = { "nvim-lua/plenary.nvim" },
 
-    config = function()
-      require("sg").setup {
-        -- ... other configuration options ...
-
-        -- Disable LSP suggestions
-        on_attach = function(client)
-          local buffer_name = vim.fn.expand "%:t"
-          if buffer_name ~= "COMMIT_EDITMSG" then
-            if client.supports_method "textDocument/formatting" then
-              vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-              vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                  vim.lsp.buf.format { bufnr = bufnr }
-                end,
-              })
-            end
-
-            if client.resolved_capabilities.document_highlight then
-              vim.api.nvim_exec(
-                [[
-        augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]],
-                false
-              )
-            end
-          end
-        end,
-      }
+    config = function(_, opts)
+      require("sg").setup { opts }
     end,
 
-    keys = {
+    opts = require("custom.configs.sg").opts,
 
-      { "<leader>ai", ":CodyChat<CR>", mode = "n", desc = "AI Assistant" },
-
-      {
-        "<leader>ad",
-        function()
-          local line = vim.fn.getline "."
-          local start = vim.fn.col "."
-          local finish = vim.fn.col "$"
-          local text = line:sub(start, finish)
-          vim.fn.setreg('"', text)
-          vim.cmd [[CodyDo 'Write document for current context']]
-        end,
-        mode = "n",
-        desc = "Generate Document with AI",
-      },
-
-      { "<leader>ac", ':CodyDo ""<Left>', mode = "n", desc = "Let AI Write Code" },
-
-      { "<leader>aa", ":CodyTaskAccept<CR>", mode = "n", desc = "Confirm AI work" },
-
-      {
-        "<leader>as",
-        "<cmd> lua require('sg.extensions.telescope').fuzzy_search_results()<CR>",
-        mode = "n",
-        desc = "AI Search",
-      },
-
-      { "<leader>ai", "y:CodyChat<CR><ESC>pG$a<CR>", mode = "v", desc = "Chat Selected Code" },
-
-      {
-        "<leader>ad",
-        "{:CodyDo 'Write document for current context<CR>'",
-        mode = "n",
-        desc = "Generate Document with AI",
-      },
-
-      {
-        "<leader>ar",
-        "y:CodyChat<CR>refactor following code:<CR><ESC>p<CR>",
-        mode = "v",
-        desc = "Request Refactoring",
-      },
-
-      { "<leader>ae", "y:CodyChat<CR>explain following code:<CR><ESC>p<CR>", mode = "v", desc = "Request Explanation" },
-
-      {
-        "<leader>af",
-        "y:CodyChat<CR>find potential vulnerabilities from following code:<CR><ESC>p<CR>",
-        mode = "v",
-        desc = "Request Potential Vulnerabilities",
-      },
-
-      {
-        "<leader>at",
-        "y:CodyChat<CR>rewrite following code more idiomatically:<CR><ESC>p<CR>",
-        mode = "v",
-        desc = "Request Idiomatic Rewrite",
-      },
-    },
+    keys = require("custom.configs.sg").keys,
 
     -- If you have a recent version of lazy.nvim, you don't need to add this!
     build = "nvim -l build/init.lua",
@@ -1034,39 +550,7 @@ local plugins = {
       dap.configurations.rust = dap.configurations.cpp
     end,
 
-    keys = {
-      { "<leader>dc", "<cmd>lua require('dap').continue()<CR>", mode = "n", desc = "Continue" },
-      { "<leader>ds", "<cmd>lua require('dap').step_over()<CR>", mode = "n", desc = "Step Over" },
-      { "<leader>di", "<cmd>lua require('dap').step_into()<CR>", mode = "n", desc = "Step Into" },
-      { "<leader>do", "<cmd>lua require('dap').step_out()<CR>", mode = "n", desc = "Step Out" },
-      { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<CR>", mode = "n", desc = "Toggle Breakpoint" },
-      {
-        "<leader>dB",
-        "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-        mode = "n",
-        desc = "Set Breakpoint",
-      },
-      {
-        "<leader>dl",
-        "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
-        mode = "n",
-        desc = "Log Point",
-      },
-      { "<leader>dl", "<cmd>lua require('dap').run_last()<CR>", mode = "n", desc = "Run Last" },
-      { "<leader>dr", "<cmd>lua require('dap').repl.open()<CR>", mode = "n", desc = "Open REPL" },
-      { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", mode = "n", desc = "Toggle UI" },
-      { "<leader>da", "<cmd>lua require('dapui').eval()<CR>", mode = "n", desc = "Evaluate" },
-      { "<leader>du", "<cmd>lua require('dapui').scopes()<CR>", mode = "n", desc = "Scopes" },
-      { "<leader>dv", "<cmd>lua require('dapui').variables()<CR>", mode = "n", desc = "Variables" },
-      { "<leader>dw", "<cmd>lua require('dapui').watches()<CR>", mode = "n", desc = "Watches" },
-      {
-        "<leader>de",
-        "<cmd>lua require('dapui').set_exception_breakpoints()<CR>",
-        mode = "n",
-        desc = "Exception Breakpoints",
-      },
-      { "<leader>di", "<cmd>lua require('dapui').pick_one()<CR>", mode = "n", desc = "Pick One" },
-    },
+    keys = require("custom.configs.nvim-dap").keys,
   },
 
   {
@@ -1092,122 +576,131 @@ local plugins = {
   --   end,
   -- },
 
-  -- { -- Leetcode session inside neovim. Need to set some cookies though
-  --   "Dhanus3133/LeetBuddy.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  --   event = "VeryLazy",
-  --
-  --   config = function()
-  --     require("leetbuddy").setup {}
-  --   end,
-  --   keys = {
-  --     { "<leader>lq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
-  --     { "<leader>ll", "<cmd>LBQuestion<cr>", desc = "View Question" },
-  --     { "<leader>lr", "<cmd>LBReset<cr>", desc = "Reset Code" },
-  --     { "<leader>lt", "<cmd>LBTest<cr>", desc = "Run Code" },
-  --     { "<leader>ls", "<cmd>LBSubmit<cr>", desc = "Submit Code" },
-  --   },
-  -- },
-
-  -- {
-  --   "ThePrimeagen/harpoon",
-  --   config = function()
-  --     require("harpoon").setup()
-  --   end,
-  -- },
-
-  { -- Optional file manager for telescope-project.nvim
-    "nvim-telescope/telescope-file-browser.nvim",
-
-    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-
-    keys = {
-      { "<leader>.", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Find File" },
+  { -- Leetcode session inside neovim. Need to set some cookies though
+    -- Refer to: https://github.com/Dhanus3133/Leetbuddy.nvim#login-to-your-account
+    -- Setup requires some additional things
+    "Dhanus3133/LeetBuddy.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
     },
+    -- event = "VeryLazy",
 
     config = function()
-      -- local fb_actions = require("telescope").extensions.file_browser.actions
-      require("telescope").setup {
-        extensions = {
-          file_browser = {
-            theme = "ivy",
-            -- disables netrw and use telescope-file-browser in its place
-            hijack_netrw = true,
-            mappings = {
-              ["i"] = {
-                -- your custom insert mode mappings
-                -- ["<TAB>"] = fb_actions.open, -- TODO
-              },
-              ["n"] = {
-                -- your custom normal mode mappings
+      require("leetbuddy").setup {}
+      -- require("telescope").load_extension "leetbuddy"
+    end,
+
+    keys = {
+      { "<leader>rqq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
+      { "<leader>rql", "<cmd>LBQuestion<cr>", desc = "View Question" },
+      { "<leader>rqr", "<cmd>LBReset<cr>", desc = "Reset Code" },
+      { "<leader>rqt", "<cmd>LBTest<cr>", desc = "Run Code" },
+      { "<leader>rqs", "<cmd>LBSubmit<cr>", desc = "Submit Code" },
+    },
+  },
+
+  { -- (Emacs) Dired-like Optional file manager for telescope-project.nvim
+    "nvim-telescope/telescope-file-browser.nvim",
+
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        opts = {
+          extensions = {
+            file_browser = {
+              theme = "ivy",
+              -- disables netrw and use telescope-file-browser in its place
+              hijack_netrw = true,
+              mappings = {
+                ["i"] = {
+                  -- local fb_actions = require("telescope").extensions.file_browser.actions
+                  -- your custom insert mode mappings
+                  -- ["<TAB>"] = fb_actions.open, -- TODO
+                },
+                ["n"] = {
+                  -- your custom normal mode mappings
+                },
               },
             },
           },
         },
-      }
+      },
+      {
+        "nvim-lua/plenary.nvim",
+      },
+    },
+
+    keys = {
+      {
+        "<leader>.",
+        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        desc = "File Manager",
+      },
+    },
+
+    config = function()
       -- To get telescope-file-browser loaded and working with telescope,
       -- you need to call load_extension, somewhere after setup function:
       require("telescope").load_extension "file_browser"
     end,
   },
 
-  { -- Telescope projects
-    "nvim-telescope/telescope-project.nvim",
+  -- { -- Telescope projects
+  -- -- Migrated to project.nvim
+  --   "nvim-telescope/telescope-project.nvim",
+  --
+  --   -- if you want to enable custom hook
+  --   -- dependencies = {
+  --   --   "ThePrimeagen/harpoon",
+  --   -- },
+  --
+  --   keys = {
+  --     {
+  --       "<leader>fp",
+  --       "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
+  --       desc = "Find Project",
+  --     },
+  --   },
+  --
+  --   config = function()
+  --     local project_actions = require "telescope._extensions.project.actions"
+  --     require("telescope").setup {
+  --       extensions = {
+  --         project = {
+  --           base_dirs = {
+  --             "~/Github",
+  --             "~/",
+  --             -- { "~/dev/src2" },
+  --             -- { "~/dev/src3", max_depth = 4 },
+  --             -- { path = "~/dev/src4" },
+  --             -- { path = "~/dev/src5", max_depth = 2 },
+  --           },
+  --           -- hidden_files = true, -- default: false --- .git files go brrr
+  --           -- theme = "dropdown",
+  --           order_by = "asc",
+  --           search_by = "title",
+  --           sync_with_nvim_tree = true, -- default false
+  --           -- default for on_project_selected = find project files
+  --           -- on_project_selected = function(prompt_bufnr)
+  --           --   -- Do anything you want in here. For example:
+  --           --   project_actions.change_working_directory(prompt_bufnr, false)
+  --           --   require("harpoon.ui").nav_file(1)
+  --           -- end,
+  --         },
+  --       },
+  --     }
+  --     require("telescope").load_extension "project"
+  --   end,
+  -- },
 
-    -- if you want to enable custom hook
-    -- dependencies = {
-    --   "ThePrimeagen/harpoon",
-    -- },
-
-    keys = {
-      {
-        "<leader>fp",
-        "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
-        desc = "Find Project",
-      },
-    },
-
-    config = function()
-      local project_actions = require "telescope._extensions.project.actions"
-      require("telescope").setup {
-        extensions = {
-          project = {
-            base_dirs = {
-              "~/Github",
-              "~/",
-              -- { "~/dev/src2" },
-              -- { "~/dev/src3", max_depth = 4 },
-              -- { path = "~/dev/src4" },
-              -- { path = "~/dev/src5", max_depth = 2 },
-            },
-            -- hidden_files = true, -- default: false --- .git files go brrr
-            -- theme = "dropdown",
-            order_by = "asc",
-            search_by = "title",
-            sync_with_nvim_tree = true, -- default false
-            -- default for on_project_selected = find project files
-            -- on_project_selected = function(prompt_bufnr)
-            --   -- Do anything you want in here. For example:
-            --   project_actions.change_working_directory(prompt_bufnr, false)
-            --   require("harpoon.ui").nav_file(1)
-            -- end,
-          },
-        },
-      }
-      require("telescope").load_extension "project"
-    end,
-  },
-
-  { -- Toggle case (CamelCase, snake_case, kebab-case, PascalCase, Title Case, UPPER CASE, lower case)
-    "UTFeight/vim-case-change",
-    keys = {
-      { "<M-S>", "<cmd>ToggleCase<cr>", mode = "v", desc = "Toggle Case" },
-      { "<M-S>", "<ESC>viw<cmd>ToggleCase<cr>", mode = { "i", "n" }, desc = "Toggle Case" },
-    },
-  },
+  -- { -- Toggle case (CamelCase, snake_case, kebab-case, PascalCase, Title Case, UPPER CASE, lower case)
+  --   "UTFeight/vim-case-change", -- FIXME
+  --   keys = {
+  --     { "<M-S>", "<cmd>ToggleCase<cr>", mode = "v", desc = "Toggle Case" },
+  --     { "<M-S>", "<ESC>viw<cmd>ToggleCase<cr>", mode = { "i", "n" }, desc = "Toggle Case" },
+  --   },
+  -- },
 
   { -- Regexplainer
     "tomiis4/Hypersonic.nvim",
@@ -1221,6 +714,7 @@ local plugins = {
   },
 
   { -- tasks.json, launch.json etc.
+    -- TODO: Replace with Overseer.nvim
     "Dax89/automaton.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -1229,42 +723,14 @@ local plugins = {
       "hrsh7th/nvim-cmp", -- Autocompletion for automaton workspace files (Optional)
       "L3MON4D3/LuaSnip", -- Snippet support for automaton workspace files (Optional)
     },
+
+    config = function(_, opts)
+      require("automaton").setup(opts)
+    end,
+
+    opts = require("custom.configs.automaton").opts,
+    keys = require("custom.configs.automaton").keys,
   },
-
-  -- {
-  --   "mg979/vim-visual-multi",
-  --   -- cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
-  --   keys = {
-  --     {
-  --       mode = { "v", "n" },
-  --       "<C-x>",
-  --       "<cmd>MCstart<cr>", -- invalid
-  --       desc = "Multi Cursors",
-  --     },
-  --   },
-  -- },
-
-  -- Using TreeSJ now.
-  -- { -- Opposite of vim's J (Join like)
-  --   "AckslD/nvim-trevJ.lua",
-  --   config = function()
-  --     require("trevj").setup {
-  --       containers = {
-  --         lua = {
-  --           table_constructor = { final_separator = ",", final_end_line = true },
-  --           arguments = { final_separator = false, final_end_line = true },
-  --           parameters = { final_separator = false, final_end_line = true },
-  --         },
-  --         -- ... -- other filetypes
-  --       },
-  --     }
-  --   end,
-  --
-  --   keys = {
-  --     { "<leader>jo", "<cmd>lua require('trevj').format_at_cursor()<cr>", mode = "n", desc = "Format" },
-  --     -- { "<leader>jo", "<cmd>lua require('trevj').format_at_cursor()<cr>", mode = "v", desc = "Format" },
-  --   },
-  -- },
 
   { -- nvim-dap installer MAYBE
     "jay-babu/mason-nvim-dap.nvim",
@@ -1384,85 +850,52 @@ local plugins = {
     },
   },
 
-  -- { -- Use builtin `:sort` instead
-  --   "sQVe/sort.nvim",
-  --
-  --   keys = {
-  --     {
-  --       "<leader>sq",
-  --       "<cmd> Sort<CR>",
-  --       mode = "v",
-  --       desc = "Sort Selection",
-  --     },
-  --   },
-  --
-  --   config = function(_, opts)
-  --     require("sort").setup {
-  --       opts,
-  --     }
-  --   end,
-  --
-  --   opts = {
-  --     -- Config
-  --   },
-  -- },
-
-  -- { -- Pretty buggy (and inperformant I think) but cool
-  --   "nvim-treesitter",
-  --   dependencies = {
-  --     "filNaj/tree-setter",
-  --   },
-  --
-  --   -- Override default config (By appending)
-  --   opts = {
-  --     tree_setter = {
-  --       enable = true,
-  --     },
-  --   },
-  -- },
-
-  --  -- Old toggle case plugin
-  --   "johmsalas/text-case.nvim",
-  --
-  --   keys = {
-  --     { "<leader>sq", "<cmd>lua require('textcase').toggle()<cr>", mode = "n", desc = "Toggle Case" },
-  --     { "<leader>sq", "<cmd>lua require('textcase').toggle()<cr>", mode = "v", desc = "Toggle Case" },
-  --   },
-  --
-  --   config = function()
-  --     require("textcase").setup {
-  --       prefix = "<leader>s",
-  --     }
-  --   end,
-  -- },
-
-  -- { -- COC-like virtual text type annotations
-  --   -- Didn't work though :(
-  --   -- Used with nvim_lsp which I don't
-  --   "jubnzv/virtual-types.nvim",
-  --   event = "VeryLazy",
-  -- },
-
   { -- Show lsp signature help when in a function (param info)
     "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    -- event = "VeryLazy", -- TODO: Add keys to enable as mode
     opts = {},
     config = function(_, opts)
       require("lsp_signature").setup(opts)
     end,
   },
 
-  -- { -- Highlight Args in functions etc.
-  --   -- I think this is a bloat for now
-  --   "m-demare/hlargs.nvim",
-  --   opts = {},
-  --   init = function(_)
-  --     require("hlargs").enable()
-  --   end,
-  --   config = function(_, opts)
-  --     require("hlargs").setup()
-  --   end,
-  -- },
+  { -- Highlight Args in functions etc. -- TODO: Add highlight-mode for this
+    -- I think this is a bloat for now
+    "m-demare/hlargs.nvim",
+    opts = {},
+    -- init = function(_) end, --  .enable function locates here by default
+    config = function(_, opts)
+      require("hlargs").setup(opts) -- Automatically enables the plugin
+      require("hlargs").disable() -- So disable it
+    end,
+
+    keys = {
+      {
+        "<leader>zt",
+        function()
+          require("hlargs").toggle()
+        end,
+        mode = "n",
+        desc = "Toggle Highlight Args",
+      },
+      {
+        "<leader>zd",
+        function()
+          require("hlargs").enable()
+        end,
+        mode = "n",
+        desc = "Enable Highlight Args",
+      },
+      {
+        "<leader>zl",
+        function()
+          require("hlargs").disable()
+        end,
+        mode = "n",
+        desc = "Disable Highlight Args",
+      },
+    },
+  },
 
   -- { -- Saved for later MAYBE
   --   "smoka7/multicursors.nvim",
@@ -1498,271 +931,54 @@ local plugins = {
   --   ---@param opts cn.ConfigSchema
   --   opts = { [[ your custom config here ]] },
   -- },
+
   { -- https://github.com/t-troebst/perfanno.nvim
     "t-troebst/perfanno.nvim",
-
-    dependencies = {
-      -- {
-      "nvim-telescope/telescope.nvim",
-      --   opts = {
-      --     extensions = {},
-      --   },
-      -- },
-    },
 
     config = function(_, opts)
       require("perfanno").setup(opts)
     end,
 
-    opts = {
-      -- -- List of highlights that will be used to highlight hot lines (or nil to disable highlighting)
-      -- line_highlights = nil,
-      -- -- Highlight used for virtual text annotations (or nil to disable virtual text)
-      -- vt_highlight = nil,
-      --
-      -- -- Annotation formats that can be cycled between via :PerfCycleFormat
-      -- --   "percent" controls whether percentages or absolute counts should be displayed
-      -- --   "format" is the format string that will be used to display counts / percentages
-      -- --   "minimum" is the minimum value below which lines will not be annotated
-      -- -- Note: this also controls what shows up in the telescope finders
-      -- formats = {
-      --   { percent = true, format = "%.2f%%", minimum = 0.5 },
-      --   { percent = false, format = "%d", minimum = 1 },
-      -- },
-      --
-      -- -- Automatically annotate files after :PerfLoadFlat and :PerfLoadCallGraph
-      -- annotate_after_load = true,
-      -- -- Automatically annotate newly opened buffers if information is available
-      -- annotate_on_open = true,
-      --
-      -- -- Options for telescope-based hottest line finders
-      -- telescope = {
-      --   -- Enable if possible, otherwise the plugin will fall back to vim.ui.select
-      --   enabled = pcall(require, "telescope"),
-      --   -- Annotate inside of the preview window
-      --   annotate = true,
-      -- },
-      --
-      -- -- Node type patterns used to find the function that surrounds the cursor
-      -- ts_function_patterns = {
-      --   -- These should work for most languages (at least those used with perf)
-      --   default = {
-      --     "function",
-      --     "method",
-      --   },
-      --   -- Otherwise you can add patterns for specific languages like:
-      --   -- weirdlang = {
-      --   --     "weirdfunc",
-      --   -- }
-      -- },
-    },
+    keys = require("custom.configs.perfanno").keys,
+    opts = require("custom.configs.perfanno").opts,
   },
 
-  {
+  { -- TODO: CHECKMEOUT
     "pwntester/octo.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
-
     config = function(_, opts)
       require("octo").setup(opts)
     end,
 
-    opts = {
-      use_local_fs = false, -- use local files on right side of reviews
-      enable_builtin = false, -- shows a list of builtin actions when no action is provided
-      default_remote = { "upstream", "origin" }, -- order to try remotes
-      ssh_aliases = {}, -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
-      reaction_viewer_hint_icon = "", -- marker for user reactions
-      user_icon = " ", -- user icon
-      timeline_marker = "", -- timeline marker
-      timeline_indent = "2", -- timeline indentation
-      right_bubble_delimiter = "", -- bubble delimiter
-      left_bubble_delimiter = "", -- bubble delimiter
-      github_hostname = "", -- GitHub Enterprise host
-      snippet_context_lines = 4, -- number or lines around commented lines
-      gh_env = {}, -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
-      timeout = 5000, -- timeout for requests between the remote server
-      ui = {
-        use_signcolumn = true, -- show "modified" marks on the sign column
-      },
-      issues = {
-        order_by = { -- criteria to sort results of `Octo issue list`
-          field = "CREATED_AT", -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-          direction = "DESC", -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
-        },
-      },
-      pull_requests = {
-        order_by = { -- criteria to sort the results of `Octo pr list`
-          field = "CREATED_AT", -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-          direction = "DESC", -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
-        },
-        always_select_remote_on_create = "false", -- always give prompt to select base remote repo when creating PRs
-      },
-      file_panel = {
-        size = 10, -- changed files panel rows
-        use_icons = true, -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
-      },
-      mappings = {
-        --   issue = {
-        --     close_issue = { lhs = "<space>ic", desc = "close issue" },
-        --     reopen_issue = { lhs = "<space>io", desc = "reopen issue" },
-        --     list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
-        --     reload = { lhs = "<C-r>", desc = "reload issue" },
-        --     open_in_browser = { lhs = "<C-b>", desc = "open issue in browser" },
-        --     copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
-        --     add_assignee = { lhs = "<space>aa", desc = "add assignee" },
-        --     remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
-        --     create_label = { lhs = "<space>lc", desc = "create label" },
-        --     add_label = { lhs = "<space>la", desc = "add label" },
-        --     remove_label = { lhs = "<space>ld", desc = "remove label" },
-        --     goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
-        --     add_comment = { lhs = "<space>ca", desc = "add comment" },
-        --     delete_comment = { lhs = "<space>cd", desc = "delete comment" },
-        --     next_comment = { lhs = "]c", desc = "go to next comment" },
-        --     prev_comment = { lhs = "[c", desc = "go to previous comment" },
-        --     react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
-        --     react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
-        --     react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
-        --     react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
-        --     react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
-        --     react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
-        --     react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
-        --     react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
-        --   },
-        --   pull_request = {
-        --     checkout_pr = { lhs = "<space>po", desc = "checkout PR" },
-        --     merge_pr = { lhs = "<space>pm", desc = "merge commit PR" },
-        --     squash_and_merge_pr = { lhs = "<space>psm", desc = "squash and merge PR" },
-        --     list_commits = { lhs = "<space>pc", desc = "list PR commits" },
-        --     list_changed_files = { lhs = "<space>pf", desc = "list PR changed files" },
-        --     show_pr_diff = { lhs = "<space>pd", desc = "show PR diff" },
-        --     add_reviewer = { lhs = "<space>va", desc = "add reviewer" },
-        --     remove_reviewer = { lhs = "<space>vd", desc = "remove reviewer request" },
-        --     close_issue = { lhs = "<space>ic", desc = "close PR" },
-        --     reopen_issue = { lhs = "<space>io", desc = "reopen PR" },
-        --     list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
-        --     reload = { lhs = "<C-r>", desc = "reload PR" },
-        --     open_in_browser = { lhs = "<C-b>", desc = "open PR in browser" },
-        --     copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
-        --     goto_file = { lhs = "gf", desc = "go to file" },
-        --     add_assignee = { lhs = "<space>aa", desc = "add assignee" },
-        --     remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
-        --     create_label = { lhs = "<space>lc", desc = "create label" },
-        --     add_label = { lhs = "<space>la", desc = "add label" },
-        --     remove_label = { lhs = "<space>ld", desc = "remove label" },
-        --     goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
-        --     add_comment = { lhs = "<space>ca", desc = "add comment" },
-        --     delete_comment = { lhs = "<space>cd", desc = "delete comment" },
-        --     next_comment = { lhs = "]c", desc = "go to next comment" },
-        --     prev_comment = { lhs = "[c", desc = "go to previous comment" },
-        --     react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
-        --     react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
-        --     react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
-        --     react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
-        --     react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
-        --     react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
-        --     react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
-        --     react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
-        --   },
-        --   review_thread = {
-        --     goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
-        --     add_comment = { lhs = "<space>ca", desc = "add comment" },
-        --     add_suggestion = { lhs = "<space>sa", desc = "add suggestion" },
-        --     delete_comment = { lhs = "<space>cd", desc = "delete comment" },
-        --     next_comment = { lhs = "]c", desc = "go to next comment" },
-        --     prev_comment = { lhs = "[c", desc = "go to previous comment" },
-        --     select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-        --     select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-        --     close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-        --     react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
-        --     react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
-        --     react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
-        --     react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
-        --     react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
-        --     react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
-        --     react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
-        --     react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
-        --   },
-        --   submit_win = {
-        --     approve_review = { lhs = "<C-a>", desc = "approve review" },
-        --     comment_review = { lhs = "<C-m>", desc = "comment review" },
-        --     request_changes = { lhs = "<C-r>", desc = "request changes review" },
-        --     close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-        --   },
-        --   review_diff = {
-        --     add_review_comment = { lhs = "<space>ca", desc = "add a new review comment" },
-        --     add_review_suggestion = { lhs = "<space>sa", desc = "add a new review suggestion" },
-        --     focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
-        --     toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
-        --     next_thread = { lhs = "]t", desc = "move to next thread" },
-        --     prev_thread = { lhs = "[t", desc = "move to previous thread" },
-        --     select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-        --     select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-        --     close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-        --     toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
-        --     goto_file = { lhs = "gf", desc = "go to file" },
-        --   },
-        --   file_panel = {
-        --     next_entry = { lhs = "j", desc = "move to next changed file" },
-        --     prev_entry = { lhs = "k", desc = "move to previous changed file" },
-        --     select_entry = { lhs = "<cr>", desc = "show selected changed file diffs" },
-        --     refresh_files = { lhs = "R", desc = "refresh changed files panel" },
-        --     focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
-        --     toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
-        --     select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-        --     select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-        --     close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-        --     toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
-        --   },
-      },
-    },
+    dependencies = require("custom.configs.octo").dependencies,
+    opts = require("custom.configs.octo").opts,
+    keys = require("custom.configs.octo").keys,
+    cmd = require("custom.configs.octo").cmd,
   },
 
   { -- Folding. The fancy way
     "kevinhwang91/nvim-ufo",
 
     -- event = "VeryLazy",
-
     keys = {
-      -- Use z_ instead
       {
-        --    INVALID!
         "<leader>lp",
         "",
         mode = "n",
         desc = "Enable UFO",
       },
-
-      -- {
-      --   "<leader>lR",
-      --   "<cmd>lua require('ufo').openAllFolds()<cr>",
-      --   mode = "n",
-      --   desc = "Open All Folds",
-      -- },
-      --
-      -- {
-      --   "<leader>lM",
-      --   "<cmd>lua require('ufo').closeAllFolds()<cr>",
-      --   mode = "n",
-      --   desc = "Close All Folds",
-      -- },
     },
 
     dependencies = {
       {
         "kevinhwang91/promise-async",
       },
-
       {
         "yaocccc/nvim-foldsign",
 
         -- event = "CursorHold",
 
-        config = function()
-          require("nvim-foldsign").setup()
+        config = function(_, opts)
+          require("nvim-foldsign").setup(opts)
         end,
 
         opts = {
@@ -1770,12 +986,13 @@ local plugins = {
           foldsigns = {
             open = "", -- mark the beginning of a fold
             close = "↪", -- show a closed fold
-            seps = { "│", "┃" }, -- open fold middle marker
+            seps = { "│", "┃" }, -- open fold middle marker -- TODO: ADD MORE
           },
         },
       },
     },
 
+    opts = require("custom.configs.ufo").opts,
     config = function(_, opts)
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
@@ -1811,27 +1028,6 @@ local plugins = {
         fold_virt_text_handler = handler,
       }
     end,
-
-    opts = {
-      open_fold_hl_timeout = 150,
-      -- close_fold_kinds = { "imports", "comment" },
-      preview = {
-        win_config = {
-          border = { "", "─", "", "", "", "─", "", "" },
-          winhighlight = "Normal:Folded",
-          winblend = 0,
-        },
-        mappings = {
-          scrollU = "<C-u>",
-          scrollD = "<C-d>",
-          jumpTop = "[",
-          jumpBot = "]",
-        },
-      },
-      provider_selector = function(bufnr, filetype, buftype)
-        return { "treesitter", "indent" }
-      end,
-    },
   },
 
   { -- Lsp lens Show References, Definitions etc. as virtual text
@@ -1862,37 +1058,6 @@ local plugins = {
     },
   },
 
-  -- { -- I don't like it
-  --   "HiPhish/rainbow-delimiters.nvim",
-  --
-  --   event = "VeryLazy",
-  --
-  --   config = function(_, opts)
-  --     require "rainbow-delimiters.setup" { opts }
-  --   end,
-  --
-  --   opts = { -- Erroneous
-  --     --   strategy = {
-  --     --     [""] = require("rainbow_delimiters").strategy["global"],
-  --     --     commonlisp = require("rainbow_delimiters").strategy["local"],
-  --     --   },
-  --     --   query = {
-  --     --     [""] = "rainbow-delimiters",
-  --     --     latex = "rainbow-blocks",
-  --     --   },
-  --     --   highlight = {
-  --     --     "RainbowDelimiterRed",
-  --     --     "RainbowDelimiterYellow",
-  --     --     "RainbowDelimiterBlue",
-  --     --     "RainbowDelimiterOrange",
-  --     --     "RainbowDelimiterGreen",
-  --     --     "RainbowDelimiterViolet",
-  --     --     "RainbowDelimiterCyan",
-  --     --   },
-  --     --   blacklist = { "c", "cpp" },
-  --   },
-  -- },
-
   { -- Show context on delimiter. (eg:..
     --   fn some(a, b ,c) {             |
     --   some_action();                 |
@@ -1906,7 +1071,7 @@ local plugins = {
       {
         "<leader>bb",
         function()
-          require("nvim-biscuits").toggle_biscuits()
+          -- require("nvim-biscuits").toggle_biscuits()
         end,
         mode = "n",
         desc = "Enable Biscuits",
@@ -1922,20 +1087,21 @@ local plugins = {
     end,
 
     opts = {
-      -- toggle_keybind = "<leader>bt", -- TODO: Add doc for which-key
+      toggle_keybind = "<leader>bt", -- TODO: Add doc for which-key
       cursor_line_only = true,
       show_on_start = true,
     },
   },
 
   { -- Built-in cheats
+    -- AWESOME
     "sudormrfbin/cheatsheet.nvim",
 
     cmd = { "Cheatsheet" },
 
     keys = {
       {
-        "<leader>ch",
+        "<leader>xc",
         "<cmd>Cheatsheet<cr>",
         mode = "n",
         desc = "Toggle Cheatsheet",
@@ -1953,192 +1119,15 @@ local plugins = {
     -- https://github.com/Saecki/crates.nvim#functions
     "Saecki/crates.nvim",
 
-    keys = {
-      {
-        "<leader>cxt",
-        function()
-          require("crates").toggle()
-        end,
-        mode = "n",
-        desc = "Toggle UI elements",
-      },
+    keys = require("custom.configs.rust").keys,
 
-      {
-        "<leader>cxr",
-        function()
-          require("crates").reload()
-        end,
-        mode = "n",
-        desc = "Reload",
-      },
-
-      {
-        "<leader>cxv",
-        function()
-          require("crates").show_versions_popup()
-        end,
-        mode = "n",
-        desc = "Show Version",
-      },
-
-      {
-        "<leader>cxf",
-        function()
-          require("crates").show_features_popup()
-        end,
-        mode = "n",
-        desc = "Show Feature",
-      },
-
-      {
-        "<leader>cxd",
-        function()
-          require("crates").show_dependencies_popup()
-        end,
-        mode = "n",
-        desc = "Show Dependencies",
-      },
-
-      {
-        "<leader>cxu",
-        function()
-          require("crates").update_crate()
-        end,
-        mode = "n",
-        desc = "Update Crate",
-      },
-
-      {
-        "<leader>cxu",
-        function()
-          require("crates").update_crates()
-        end,
-        mode = "v",
-        desc = "Update Selected Crates",
-      },
-
-      {
-        "<leader>cxa",
-        function()
-          require("crates").update_all_crates()
-        end,
-        mode = "n",
-        desc = "Update All Crates",
-      },
-
-      {
-        "<leader>cxU",
-        function()
-          require("crates").upgrade_crate()
-        end,
-        mode = "n",
-        desc = "Upgrade Crate",
-      },
-
-      {
-        "<leader>cxU",
-        function()
-          require("crates").upgrade_crates()
-        end,
-        mode = "v",
-        desc = "Upgrade Selected Crates",
-      },
-      {
-        "<leader>cxA",
-        function()
-          require("crates").upgrade_all_crates()
-        end,
-        mode = "n",
-        desc = "Upgrade All Crates",
-      },
-
-      {
-        "<leader>cxe",
-        function()
-          require("crates").expand_plain_crate_to_inline_table()
-        end,
-        mode = "n",
-        desc = "Inline Crate to Table",
-      },
-
-      {
-        "<leader>cxE",
-        function()
-          require("crates").extract_crate_into_table()
-        end,
-        mode = "n",
-        desc = "Extract Crate to table",
-      },
-
-      {
-        "<leader>cxH",
-        function()
-          require("crates").open_homepage()
-        end,
-        mode = "n",
-        desc = "Open Crate Home Page",
-      },
-
-      {
-        "<leader>cxR",
-        function()
-          require("crates").open_repository()
-        end,
-        mode = "n",
-        desc = "Open Crate Repository",
-      },
-
-      {
-        "<leader>cxD",
-        function()
-          require("crates").open_documentation()
-        end,
-        mode = "n",
-        desc = "Open Crate Documentation",
-      },
-
-      {
-        "<leader>cxC",
-        function()
-          require("crates").open_crates_io()
-        end,
-        mode = "n",
-        desc = "Open Crate on crates.io",
-      },
-
-      {
-        "<leader>cxK",
-        function()
-          local filetype = vim.bo.filetype
-          if vim.tbl_contains({ "vim", "help" }, filetype) then
-            vim.cmd("h " .. vim.fn.expand "<cword>")
-          elseif vim.tbl_contains({ "man" }, filetype) then
-            vim.cmd("Man " .. vim.fn.expand "<cword>")
-          elseif vim.fn.expand "%:t" == "Cargo.toml" and require("crates").popup_available() then
-            require("crates").show_popup()
-          else
-            vim.lsp.buf.hover()
-          end
-        end,
-        mode = "n",
-        desc = "Open Crate Documentation in a PopUp",
-      },
-    },
-
-    -- tag = "v0.3.0", -- Adventurous but Featureful
+    tag = "v0.3.0", -- Adventurous but Featureful
     event = "BufRead Cargo.toml",
     dependencies = { "nvim-lua/plenary.nvim" },
-
+    opts = require("custom.configs.rust").opts,
     config = function(_, opts)
       require("crates").setup(opts)
     end,
-
-    opts = {
-      null_ls = {
-        enabled = true,
-        name = "crates.nvim",
-      },
-    },
   },
 
   { -- Better quickfix window including telescope integration, code view etc.
@@ -2149,7 +1138,7 @@ local plugins = {
         "nvim-treesitter/nvim-treesitter",
       },
 
-      { -- OPTIONAL for fuzzy searching
+      { -- OPTIONAL for fuzzy searching TODO: Replace MAYBE
         "junegunn/fzf",
         build = function()
           vim.fn["fzf#install"]()
@@ -2161,60 +1150,8 @@ local plugins = {
       },
     },
 
-    keys = {
-      {
-        "<leader>fq",
-        [[ <cmd> vimgrep /\w\+/j % | copen<CR> ]],
-        mode = "n",
-        desc = "QuickFix Window",--[[ { noremap = true, silent = true } ]]
-      },
-
-      {
-        "<leader>li",
-        function()
-          vim.diagnostic.setloclist()
-        end,
-        mode = "n",
-        desc = "Diagnostic SetLocList",--[[ { noremap = true, silent = true } ]]
-      },
-
-      -- -- FIXME: Doesn't work
-      -- {
-      --   "gr",
-      --   function()
-      --     vim.lsp.buf.references()
-      --   end,
-      --   mode = "n",
-      --   desc = "LSP references",
-      -- },
-      --
-      -- {
-      --   "gi",
-      --   function()
-      --     vim.lsp.buf.implementation()
-      --   end,
-      --   mode = "n",
-      --   desc = "LSP implementation",
-      -- },
-      --
-      -- {
-      --   "gd",
-      --   function()
-      --     vim.lsp.buf.definition()
-      --   end,
-      --   mode = "n",
-      --   desc = "LSP definition",
-      -- },
-      --
-      -- {
-      --   "gD",
-      --   function()
-      --     vim.lsp.buf.declaration()
-      --   end,
-      --   mode = "n",
-      --   desc = "LSP declaration",
-      -- },
-    },
+    keys = require("custom.configs.nvim-bqf").keys,
+    opts = require("custom.configs.nvim-bqf").opts,
 
     config = function(_, opts)
       vim.cmd [[
@@ -2229,47 +1166,6 @@ local plugins = {
       -- https://github.com/kevinhwang91/nvim-bqf/tree/c920a55c6153766bd909e474b7feffa9739f07e8#format-new-quickfix
       -- https://github.com/kevinhwang91/nvim-bqf/tree/c920a55c6153766bd909e474b7feffa9739f07e8#rebuild-syntax-for-quickfix
     end,
-
-    opts = {
-      auto_enable = true,
-      auto_resize_height = true, -- highly recommended enable
-      preview = {
-        win_height = 12,
-        win_vheight = 12,
-        delay_syntax = 80,
-        border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
-        show_title = false,
-        should_preview_cb = function(bufnr, qwinid)
-          local ret = true
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-          local fsize = vim.fn.getfsize(bufname)
-          if fsize > 100 * 1024 then
-            -- skip file size greater than 102k
-            ret = false
-          elseif bufname:match "^fugitive://" then
-            -- skip fugitive buffer
-            ret = false
-          end
-          return ret
-        end,
-      },
-      -- make `drop` and `tab drop` to become preferred
-      func_map = {
-        drop = "o",
-        openc = "O",
-        split = "<C-s>",
-        tabdrop = "<C-t>",
-        -- set to empty string to disable
-        tabc = "",
-        ptogglemode = "z,",
-      },
-      filter = {
-        fzf = {
-          action_for = { ["ctrl-s"] = "split", ["ctrl-t"] = "tab drop" },
-          extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
-        },
-      },
-    },
   },
 
   { -- Jump Jump Jump
@@ -2284,69 +1180,15 @@ local plugins = {
     "jubnzv/mdeval.nvim",
 
     cmd = "MdEval",
-
-    keys = {
-      {
-        "<leader>cmd", -- TODO: refactor this to use <leader>c prefix
-        "<cmd> MdEval<cr>",
-        mode = "n",
-        desc = "Eval Code Snip",
-      },
-
-      config = function(_, opts)
-        require("mdeval").setup(opts)
-      end,
-
-      opts = {
-        -- Don't ask before executing code blocks
-        require_confirmation = false,
-        -- Change code blocks evaluation options.
-        eval_options = {
-          -- Set custom configuration for C++
-          cpp = {
-            command = { "clang++", "-std=c++20", "-O0" },
-            default_header = [[
-                              #include <iostream>
-                              #include <vector>
-                              using namespace std;
-                             ]],
-          },
-          -- Add new configuration for Racket
-          racket = {
-            command = { "racket" }, -- Command to run interpreter
-            language_code = "racket", -- Markdown language code
-            exec_type = "interpreted", -- compiled or interpreted
-            extension = "rkt", -- File extension for temporary files
-          },
-        },
-      },
-    },
+    keys = require("custom.configs.mdeval").keys,
   },
-
+  --| NOTE: Could be
   { -- Visualize git conflicts MAYBE
     "akinsho/git-conflict.nvim",
 
-    cmd = {
-      "GitConflictChooseOurs",
-      "GitConflictChooseTheirs",
-      "GitConflictChooseBoth",
-      "GitConflictChooseNone",
-      "GitConflictNextConflict",
-      "GitConflictPrevConflict",
-      "GitConflictListQf",
-    },
-
-    opts = {
-      default_mappings = true, -- disable buffer local mapping created by this plugin
-      default_commands = true, -- disable commands created by this plugin
-      disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
-      list_opener = "copen", -- command or function to open the conflicts list
-      highlights = { -- They must have background color, otherwise the default color will be used
-        incoming = "DiffAdd",
-        current = "DiffText",
-      },
-    },
-
+    -- TODO: Add keys
+    cmd = require("custom.configs.git-conflict").cmd,
+    opts = require("custom.configs.git-conflict").opts,
     version = "*",
 
     config = function(_, opts)
@@ -2354,38 +1196,787 @@ local plugins = {
     end,
   },
 
-  -- { -- custom w, e, b motions to navigate TextWritten_like_THIS
-  --   "chrisgrieser/nvim-spider",
+  { -- TODO: migrate to file
+    "krady21/compiler-explorer.nvim",
+
+    config = function(_, opts)
+      require("compiler-explorer").setup(opts)
+    end,
+
+    opts = {
+      url = "https://godbolt.org",
+      infer_lang = true, -- Try to infer possible language based on file extension.
+      line_match = {
+        -- FIXME: defaults are false and they don't work
+        -- highlight = true, -- highlight the matching line(s) in the other buffer.
+        -- jump = true, -- move the cursor in the other buffer to the first matching line.
+      },
+      open_qflist = true, --  Open qflist after compilation if there are diagnostics.
+      split = "split", -- How to split the window after the second compile (split/vsplit).
+      compiler_flags = "", -- Default flags passed to the compiler.
+      job_timeout_ms = 25000, -- Timeout for libuv job in milliseconds.
+      languages = { -- Language specific default compiler/flags
+        --c = {
+        --  compiler = "g121",
+        --  compiler_flags = "-O2 -Wall",
+        --},
+      },
+    },
+
+    -- cmd = { -- TODO
+    --   ":CECompile",
+    --   ":CECompileLive",
+    --   ":CEFormat",
+    --   ":CEAddLibrary",
+    --   ":CELoadExample",
+    --   ":CEOpenWebsite",
+    --   ":CEDeleteCache",
+    --   ":CEShowTooltip",
+    --
+    --   ":CEGotoLabel",
+    -- },
+    keys = { --- IDK wheter they work under v mode
+      { "<leader>nc", ":CECompile<CR>", mode = "n", desc = "Compile" },
+      { "<leader>nl", ":CECompileLive<CR>", mode = "n", desc = "Compile Live" },
+      { "<leader>nf", ":CEFormat<CR>", mode = "n", desc = "Format" },
+      { "<leader>na", ":CEAddLibrary<CR>", mode = "n", desc = "Add Library" },
+      { "<leader>ne", ":CELoadExample<CR>", mode = "n", desc = "Load Example" },
+      { "<leader>nw", ":CEOpenWebsite<CR>", mode = "n", desc = "Open Website" },
+      { "<leader>nd", ":CEDeleteCache<CR>", mode = "n", desc = "Delete Cache" },
+      { "<leader>ns", ":CEShowTooltip<CR>", mode = "n", desc = "Show Tooltip" },
+      { "<leader>ng", ":CEGotoLabel<CR>", mode = "n", desc = "Goto Label" },
+    },
+  },
+
+  -- { --- FIXME
+  --   "p00f/godbolt.nvim",
+  --
+  --   config = function(_, opts)
+  --     require("godbolt").setup(opts)
+  --   end,
+  --
+  --   opts = {
+  --     languages = {
+  --       cpp = { compiler = "g122", options = {} },
+  --       c = { compiler = "cg122", options = {} },
+  --       rust = { compiler = "r1650", options = {} },
+  --       -- any_additional_filetype = { compiler = ..., options = ... },
+  --     },
+  --     quickfix = {
+  --       enable = true, -- whether to populate the quickfix list in case of errors
+  --       auto_open = true, -- whether to open the quickfix list in case of errors
+  --     },
+  --     url = "https://godbolt.org", -- can be changed to a different godbolt instance
+  --   },
+  --
+  --   -- cmd = {
+  --   --   "Godbolt",
+  --   --   "GodboltCompiler",
+  --   -- },
+  --
   --   keys = {
-  --     { "w", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "o", "x" }, desc = "Spider-w" },
-  --     { "e", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "o", "x" }, desc = "Spider-e" },
-  --     { "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "o", "x" }, desc = "Spider-b" },
-  --     { "ge", "<cmd>lua require('spider').motion('ge')<CR>", mode = { "n", "o", "x" }, desc = "Spider-ge" },
+  --     { "<leader>nc", ":Godbolt<CR>", mode = { "n", "v" }, desc = "Compile" },
+  --     -- Note that telescope could be fzf, fzy + nvim-fzy, skim
+  --     { "<leader>nt", ":GodboltCompiler telescope<CR>", mode = { "n", "v" }, desc = "Telescope Compile" },
+  --   },
+  -- },
+
+  { -- TODO: Config
+    "rktjmp/lush.nvim",
+
+    cmd = {
+      "Lushify",
+      "LushImport",
+      "LushRunTutorial",
+    },
+
+    keys = {
+      { "<leader>mll", "<cmd> Lushify<CR>", mode = "n", desc = "Lushify Colorscheme" },
+      { "<leader>mli", "<cmd> LushImport<CR>", mode = "n", desc = "Lush Import" },
+      { "<leader>mlt", "<cmd> LushRunTutorial<CR>", mode = "n", desc = "Lush Tutorial" },
+      { "<leader>mlp", '"zp', mode = "n", desc = "Lush Paste" },
+    },
+  },
+
+  -- { -- TODO: Config && Remove vim one
+  --   "rgroli/other.nvim",
+  -- },
+
+  { -- TODO: Config
+    "folke/twilight.nvim",
+
+    cmd = {
+      "Twilight",
+      "TwilightEnable",
+      "TwilightDisable",
+    },
+
+    keys = {
+      { "<leader>mt", "<cmd>Twilight<CR>", mode = "n", desc = "Toggle Twilight" },
+    },
+
+    opts = {
+      dimming = {
+        alpha = 0.25, -- amount of dimming
+        -- we try to get the foreground from the highlight groups or fallback color
+        color = { "Normal", "#ffffff" },
+        term_bg = "#000000", -- if guibg=NONE, this will be used to calculate text color
+        inactive = false, -- when true, other windows will be fully dimmed (unless they contain the same buffer)
+      },
+      context = 10, -- amount of lines we will try to show around the current line
+      treesitter = true, -- use treesitter when available for the filetype
+      -- treesitter is used to automatically expand the visible text,
+      -- but you can further control the types of nodes that should always be fully expanded
+      expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+        "function",
+        "method",
+        "table",
+        "if_statement",
+      },
+      exclude = {}, -- exclude these filetypes
+    },
+  },
+
+  -- { -- FIXME: Breaks Lazy.nvim startup installation
+  --   "mawkler/modicator.nvim",
+  --   -- dependencies = 'mawkler/onedark.nvim', -- Add your colorscheme plugin here
   --
-  --     config = function(_, opts)
-  --       require("spider").setup(opts)
-  --     end,
+  --   event = "BufRead", -- TODO: Lazy load on key
   --
-  --     opts = {
-  --       skipInsignificantPunctuation = true,
+  --   init = function()
+  --     -- These are required for Modicator to work
+  --     vim.o.cursorline = true
+  --     vim.o.number = true
+  --     vim.o.termguicolors = true
+  --   end,
+  --
+  --   config = function(_, opts)
+  --     require("modicator").setup(opts)
+  --   end,
+  --
+  --   opts = {
+  --     -- Show warning if any required option is missing
+  --     show_warnings = true,
+  --     highlights = {
+  --       -- Default options for bold/italic
+  --       defaults = {
+  --         bold = true,
+  --         italic = false,
+  --       },
   --     },
   --   },
   -- },
+
+  {
+    "folke/zen-mode.nvim",
+
+    config = function(_, opts)
+      require("zen-mode").toggle(opts)
+    end,
+
+    keys = {
+      { "<leader>zz", "<cmd>ZenMode<CR>", mode = "n", desc = "Toggle Zen Mode" },
+    },
+
+    opts = {
+      {
+        window = {
+          backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+          -- height and width can be:
+          -- * an absolute number of cells when > 1
+          -- * a percentage of the width / height of the editor when <= 1
+          -- * a function that returns the width or the height
+          width = 120, -- width of the Zen window
+          height = 1, -- height of the Zen window
+          -- by default, no options are changed for the Zen window
+          -- uncomment any of the options below, or add other vim.wo options you want to apply
+          options = {
+            -- signcolumn = "no", -- disable signcolumn
+            -- number = false, -- disable number column
+            -- relativenumber = false, -- disable relative numbers
+            -- cursorline = false, -- disable cursorline
+            -- cursorcolumn = false, -- disable cursor column
+            -- foldcolumn = "0", -- disable fold column
+            -- list = false, -- disable whitespace characters
+          },
+        },
+        plugins = {
+          -- disable some global vim options (vim.o...)
+          -- comment the lines to not apply the options
+          options = {
+            enabled = true,
+            ruler = false, -- disables the ruler text in the cmd line area
+            showcmd = false, -- disables the command in the last line of the screen
+          },
+          twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+          gitsigns = { enabled = false }, -- disables git signs
+          tmux = { enabled = false }, -- disables the tmux statusline
+          -- this will change the font size on kitty when in zen mode
+          -- to make this work, you need to set the following kitty options:
+          -- - allow_remote_control socket-only
+          -- - listen_on unix:/tmp/kitty
+          kitty = {
+            enabled = false,
+            font = "+4", -- font size increment
+          },
+          -- this will change the font size on alacritty when in zen mode
+          -- requires  Alacritty Version 0.10.0 or higher
+          -- uses `alacritty msg` subcommand to change font size
+          alacritty = {
+            enabled = false,
+            font = "14", -- font size
+          },
+          -- this will change the font size on wezterm when in zen mode
+          -- See alse also the Plugins/Wezterm section in this projects README
+          wezterm = {
+            enabled = false,
+            -- can be either an absolute font size or the number of incremental steps
+            font = "+4", -- (10% increase per step)
+          },
+        },
+        -- callback where you can add custom code when the Zen window opens
+        on_open = function(win) end,
+        -- callback where you can add custom code when the Zen window closes
+        on_close = function() end,
+      },
+    },
+  },
+
+  { -- TODO add hlgroups according to repo
+    "ThePrimeagen/harpoon",
+
+    config = function(_, opts)
+      require("harpoon").setup(opts)
+      require("telescope").load_extension "harpoon"
+    end,
+
+    opts = {
+      global_settings = {
+        -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+        save_on_toggle = false,
+
+        -- saves the harpoon file upon every change. disabling is unrecommended.
+        save_on_change = true,
+
+        -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+        enter_on_sendcmd = false,
+
+        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+        tmux_autoclose_windows = false,
+
+        -- filetypes that you want to prevent from adding to the harpoon list menu.
+        excluded_filetypes = { "harpoon" },
+
+        -- set marks specific to each git branch inside git repository
+        mark_branch = false,
+
+        -- enable tabline with harpoon marks
+        tabline = false,
+        tabline_prefix = "   ",
+        tabline_suffix = "   ",
+      },
+    },
+
+    keys = {
+      {
+        "<leader>hm",
+        "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
+        mode = "n",
+        desc = "Toggle Harpoon Menu",
+      },
+
+      {
+        "<leader>ha",
+        "<cmd>lua require('harpoon.mark').add_file()<cr>",
+        mode = "n",
+        desc = "Add File",
+      },
+
+      {
+        "<leader>hn",
+        "<cmd>lua require('harpoon.ui').nav_next()<cr>",
+        mode = "n",
+        desc = "Jump to next file",
+      },
+
+      {
+        "<leader>hp",
+        "<cmd>lua require('harpoon.ui').nav_prev()<cr>",
+        mode = "n",
+        desc = "Jump to previous file",
+      },
+
+      { -- FIXME: doesn't work (after loading with :Telescope harpoon)
+        "<leader>ht",
+        "<cmd> Telescope harpoon marks<cr>", -- TODO: Lazy load them on this specific keystroke
+        mode = "n",
+        desc = "Telescope Harpoon",
+      },
+    },
+  },
+
+  -- { -- TODO: Config
+  --   "simrat39/rust-tools.nvim",
+  --
+  --   config = function(_, opts)
+  --     require("rust-tools").setup(opts)
+  --   end,
+  --   opts = {},
+  -- },
+
+  { -- TODO FIXME:
+    "AckslD/nvim-neoclip.lua",
+    dependencies = {
+      -- -- Restore from last session
+      -- { "kkharji/sqlite.lua", module = "sqlite" }, -- packer style
+
+      -- you'll need at least one of these
+      { "nvim-telescope/telescope.nvim" },
+      -- {'ibhagwan/fzf-lua'},
+    },
+
+    config = function(_, opts)
+      require("neoclip").setup(opts)
+      require("telescope").load_extension "neoclip"
+    end,
+
+    keys = {
+      { "<leader>yp", "<cmd>Telescope neoclip<cr>", mode = "n", desc = "Telescope Yanks" },
+
+      { -- NOTE: Macros are recorded after this plugin is loaded
+        "<leader>ym",
+        function()
+          require("telescope").extensions.macroscope.default()
+        end,
+        mode = "n",
+        desc = "Telescope Macros",
+      },
+    },
+
+    opts = {
+      history = 1000,
+      enable_persistent_history = false,
+      length_limit = 1048576,
+      continuous_sync = false,
+      db_path = vim.fn.stdpath "data" .. "/databases/neoclip.sqlite3",
+      filter = nil,
+      preview = true,
+      prompt = nil,
+      default_register = '"',
+      default_register_macros = "q",
+      enable_macro_history = true,
+      content_spec_column = true,
+      disable_keycodes_parsing = false,
+      on_select = {
+        move_to_front = false,
+        close_telescope = true,
+      },
+      on_paste = {
+        set_reg = false,
+        move_to_front = false,
+        close_telescope = true,
+      },
+      on_replay = {
+        set_reg = false,
+        move_to_front = false,
+        close_telescope = true,
+      },
+      on_custom_action = {
+        close_telescope = true,
+      },
+      keys = {
+        telescope = {
+          i = {
+            select = "<cr>",
+            paste = "<c-p>",
+            paste_behind = "<c-k>",
+            replay = "<c-q>", -- replay a macro
+            delete = "<c-d>", -- delete an entry
+            edit = "<c-e>", -- edit an entry
+            custom = {},
+          },
+          n = {
+            select = "<cr>",
+            paste = "p",
+            --- It is possible to map to more than one key.
+            -- paste = { 'p', '<c-p>' },
+            paste_behind = "P",
+            replay = "q",
+            delete = "d",
+            edit = "e",
+            custom = {},
+          },
+        },
+        fzf = {
+          select = "default",
+          paste = "ctrl-p",
+          paste_behind = "ctrl-k",
+          custom = {},
+        },
+      },
+    },
+  },
+
+  -- TODO: Add More cheatsheets.
+  -- TODO: Enable multicursors
+
+  { --  The superior project management solution for neovim.
+    "ahmedkhalf/project.nvim",
+    dependencies = {
+      {
+        "nvim-tree/nvim-tree.lua",
+        opts = {
+          sync_root_with_cwd = true,
+          respect_buf_cwd = true,
+          update_focused_file = {
+            enable = true,
+            update_root = true,
+          },
+        },
+      },
+    },
+
+    keys = {
+      {
+        "<leader>fp",
+        "<cmd>lua require('telescope').extensions.projects.projects{}<cr>",
+        mode = "n",
+        desc = "Telescope Projects",
+      },
+    },
+
+    config = function(_, opts)
+      require("project_nvim").setup(opts)
+      require("telescope").load_extension "projects" -- FIXME: Conflicting or smt with cmp-tabnine
+    end,
+
+    opts = {
+      -- Manual mode doesn't automatically change your root directory, so you have
+      -- the option to manually do so using `:ProjectRoot` command.
+      manual_mode = false,
+
+      -- Methods of detecting the root directory. **"lsp"** uses the native neovim
+      -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
+      -- order matters: if one is not detected, the other is used as fallback. You
+      -- can also delete or rearangne the detection methods.
+      detection_methods = { "lsp", "pattern" },
+
+      -- All the patterns used to detect root dir, when **"pattern"** is in
+      -- detection_methods
+      patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+
+      -- Table of lsp clients to ignore by name
+      -- eg: { "efm", ... }
+      ignore_lsp = {},
+
+      -- Don't calculate root dir on specific directories
+      -- Ex: { "~/.cargo/*", ... }
+      exclude_dirs = {},
+
+      -- Show hidden files in telescope
+      show_hidden = false,
+
+      -- When set to false, you will get a message when project.nvim changes your
+      -- directory.
+      silent_chdir = true,
+
+      -- What scope to change the directory, valid options are
+      -- * global (default)
+      -- * tab
+      -- * win
+      scope_chdir = "global",
+
+      -- Path where project.nvim will store the project history for use in
+      -- telescope
+      datapath = vim.fn.stdpath "data",
+    },
+  },
+
+  { --  🌻 A Vim alignment plugin
+    -- Nice
+    "junegunn/vim-easy-align",
+
+    keys = {
+      { "ga", "<Plug>(EasyAlign)", mode = { "x", "n" }, desc = "Easy Align" },
+    },
+  },
+
+  { -- Smooth scrolling
+    "karb94/neoscroll.nvim",
+
+    config = function(_, opts)
+      require("neoscroll").setup(opts)
+    end,
+
+    keys = {
+      { "<leader>ms", "", mode = "n", desc = "Enable Smooth Scrolling" },
+    },
+
+    opts = {
+      -- All these keys will be mapped to their corresponding default scrolling animation
+      mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt", "zz", "zb" },
+      hide_cursor = true, -- Hide cursor while scrolling
+      stop_eof = true, -- Stop at <EOF> when scrolling downwards
+      respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+      cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+      easing_function = "sine", -- Default easing function == nil
+      pre_hook = nil, -- Function to run before the scrolling animation starts
+      post_hook = nil, -- Function to run after the scrolling animation ends
+      performance_mode = false, -- Disable "Performance Mode" on all buffers.
+    },
+
+    -- You can create your own scrolling mappings using the following lua functions:
+    --
+    --     scroll(lines, move_cursor, time[, easing])
+    --     zt(half_win_time[, easing])
+    --     zz(half_win_time[, easing])
+    --     zb(half_win_time[, easing])
+  },
+
+  {
+    "folke/todo-comments.nvim",
+
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "kevinhwang91/nvim-bqf",
+    }, -- bqf is optional
+
+    keys = {
+      { "<leader>xq", "<cmd>TodoQuickFix<cr>", mode = "n", desc = "QuickFix TODOs" },
+      { "<leader>xt", "<cmd>TodoTelescope<cr>", mode = "n", desc = "Telescope TODOs" },
+      { "<leader>xl", "<cmd>TodoLocList<cr>", mode = "n", desc = "LocList TODOs" },
+      -- 🚦 :TodoTrouble is an option too!
+      {
+        "<leader>xt",
+        function()
+          require("todo-comments").jump_next() -- More arguments: {keywords = { "ERROR", "WARNING"}}
+        end,
+        mode = "n",
+        desc = "Next TODO",
+      },
+      {
+        "<leader>xp",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        mode = "n",
+        desc = "Prev TODO",
+      },
+    },
+
+    opts = {
+
+      signs = true, -- show icons in the signs column
+      sign_priority = 8, -- sign priority
+      -- keywords recognized as todo comments
+      keywords = {
+        FIX = {
+          icon = " ", -- icon used for the sign, and in search results
+          color = "error", -- can be a hex color, or a named color (see below)
+          alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+          -- signs = false, -- configure signs for some keywords individually
+        },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      },
+      gui_style = {
+        fg = "NONE", -- The gui style to use for the fg highlight group.
+        bg = "BOLD", -- The gui style to use for the bg highlight group.
+      },
+      merge_keywords = true, -- when true, custom keywords will be merged with the defaults
+      -- highlighting of the line containing the todo comment
+      -- * before: highlights before the keyword (typically comment characters)
+      -- * keyword: highlights of the keyword
+      -- * after: highlights after the keyword (todo text)
+      highlight = {
+        multiline = true, -- enable multine todo comments
+        multiline_pattern = "^.", -- lua pattern to match the next multiline from the start of the matched keyword
+        multiline_context = 10, -- extra lines that will be re-evaluated when changing a line
+        before = "", -- "fg" or "bg" or empty
+        keyword = "wide", -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+        after = "fg", -- "fg" or "bg" or empty
+        pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlighting (vim regex)
+        comments_only = true, -- uses treesitter to match keywords in comments only
+        max_line_len = 400, -- ignore lines longer than this
+        exclude = {}, -- list of file types to exclude highlighting
+      },
+      -- list of named colors where we try to extract the guifg from the
+      -- list of highlight groups or use the hex color if hl not found as a fallback
+      colors = {
+        error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+        warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
+        info = { "DiagnosticInfo", "#2563EB" },
+        hint = { "DiagnosticHint", "#10B981" },
+        default = { "Identifier", "#7C3AED" },
+        test = { "Identifier", "#FF00FF" },
+      },
+      search = {
+        command = "rg",
+        args = {
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+        },
+        -- regex that will be used to match keywords.
+        -- don't replace the (KEYWORDS) placeholder
+        pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+        -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+      },
+    },
+  },
+
+  {
+    "michaelb/sniprun",
+    build = "sh ./install.sh",
+    config = function(_, opts)
+      require("sniprun").setup(opts)
+    end,
+    -- lua require’sniprun’.run()
+    -- lua require’sniprun’.run(‘n’)
+    -- lua require’sniprun’.run(‘v’)
+    -- lua require’sniprun’.info()
+    -- lua require’sniprun’.reset()
+    -- lua require’sniprun’.clear_repl()
+    -- lua require’sniprun.display’.close_all()
+    -- lua require’sniprun.live_mode’.toggle()
+    -- lua require’sniprun.api’.run_range(..)
+    -- lua require’sniprun.api’.run_string(..)
+
+    keys = {
+      -- {
+      --   "<leader>sr",
+      --   function()
+      --     require("sniprun").run "n"
+      --   end,
+      --   mode = "n",
+      --   desc = "Sniprun",
+      -- },
+      {
+        "<leader>sr",
+        "<cmd> SnipRun<CR>",
+        mode = { "n", "v" },
+        desc = "Run Snippet",
+      },
+      {
+        "<leader>si",
+        function()
+          require("sniprun").info()
+        end,
+        mode = "n",
+        desc = "Info",
+      },
+      {
+        "<leader>se",
+        function()
+          require("sniprun").reset()
+        end,
+        mode = "n",
+        desc = "Reset",
+      },
+      {
+        "<leader>sc",
+        function()
+          require("sniprun").clear_repl()
+        end,
+        mode = "n",
+        desc = "Open Repl",
+      },
+      {
+        "<leader>sx",
+        function()
+          require("sniprun.display").close_all()
+        end,
+        mode = "n",
+        desc = "Close All",
+      },
+      {
+        "<leader>sl",
+        function()
+          require("sniprun.live_mode").toggle()
+        end,
+        mode = "n",
+        desc = "Toggle Live Mode",
+      },
+    },
+
+    opts = {
+      selected_interpreters = {}, --# use those instead of the default for the current filetype
+      repl_enable = {}, --# enable REPL-like behavior for the given interpreters
+      repl_disable = {}, --# disable REPL-like behavior for the given interpreters
+
+      interpreter_options = { --# interpreter-specific options, see doc / :SnipInfo <name>
+
+        --# use the interpreter name as key
+        GFM_original = {
+          use_on_filetypes = { "markdown.pandoc" }, --# the 'use_on_filetypes' configuration key is
+          --# available for every interpreter
+        },
+        Python3_original = {
+          error_truncate = "auto", --# Truncate runtime errors 'long', 'short' or 'auto'
+          --# the hint is available for every interpreter
+          --# but may not be always respected
+        },
+      },
+
+      --# you can combo different display modes as desired and with the 'Ok' or 'Err' suffix
+      --# to filter only sucessful runs (or errored-out runs respectively)
+      display = {
+        "Classic", --# display results in the command-line  area
+        "VirtualTextOk", --# display ok results as virtual text (multiline is shortened)
+
+        -- "VirtualText",             --# display results as virtual text
+        -- "TempFloatingWindow",      --# display results in a floating window
+        -- "LongTempFloatingWindow",  --# same as above, but only long results. To use with VirtualText[Ok/Err]
+        -- "Terminal",                --# display results in a vertical split
+        -- "TerminalWithCode",        --# display results and code history in a vertical split
+        -- "NvimNotify",              --# display with the nvim-notify plugin
+        -- "Api"                      --# return output to a programming interface
+      },
+
+      live_display = { "VirtualTextOk" }, --# display mode used in live_mode
+
+      display_options = {
+        terminal_scrollback = vim.o.scrollback, --# change terminal display scrollback lines
+        terminal_line_number = false, --# whether show line number in terminal window
+        terminal_signcolumn = false, --# whether show signcolumn in terminal window
+        terminal_persistence = true, --# always keep the terminal open (true) or close it at every occasion (false)
+        terminal_width = 45, --# change the terminal display option width
+        notification_timeout = 5, --# timeout for nvim_notify output
+      },
+
+      --# You can use the same keys to customize whether a sniprun producing
+      --# no output should display nothing or '(no output)'
+      show_no_output = {
+        "Classic",
+        "TempFloatingWindow", --# implies LongTempFloatingWindow, which has no effect on its own
+      },
+
+      --# customize highlight groups (setting this overrides colorscheme)
+      snipruncolors = {
+        SniprunVirtualTextOk = { bg = "#66eeff", fg = "#000000", ctermbg = "Cyan", cterfg = "Black" },
+        SniprunFloatingWinOk = { fg = "#66eeff", ctermfg = "Cyan" },
+        SniprunVirtualTextErr = { bg = "#881515", fg = "#000000", ctermbg = "DarkRed", cterfg = "Black" },
+        SniprunFloatingWinErr = { fg = "#881515", ctermfg = "DarkRed" },
+      },
+
+      live_mode_toggle = "off", --# live mode toggle, see Usage - Running for more info
+
+      --# miscellaneous compatibility/adjustement settings
+      inline_messages = false, --# boolean toggle for a one-line way to display messages
+      --# to workaround sniprun not being able to display anything
+
+      borders = "single", --# display borders around floating windows
+      --# possible values are 'none', 'single', 'double', or 'shadow'
+    },
+  },
 }
 
 return plugins
 
--- To make a plugin not be loaded
--- {
---   "NvChad/nvim-colorizer.lua",
---   enabled = false
---   f
--- },
-
--- All NvChad plugins are lazy-loaded by default
--- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
--- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
--- {
---   "mg979/vim-visual-multi",
---   lazy = false,
--- }
+-- TODO: Fix Lazy.nvim breaking the Nvdash (from some plugin that I installed)
