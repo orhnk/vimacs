@@ -66,65 +66,130 @@ A Neovim configuration heavily inspired by JetBrains products.
 
 - Advanced:
   - [x] Built-in AI Assistant (It's free! check it out
-        [here](https://github.com/sourcegraph/sg.nvim))
+        [here](https://github.com/sourcegraph/sg.nvim)) [OPT]
   - Github Copilot
   - TabNine AI
+  - [x] Leetcoding inside your editor
+  - [x] Built-in code profiler (suitible for PGO optimizers) (`perfanno.nvim`)
+  - [x] Built-in Compiler explorer (Byte-code, ASM etc. viewer)
+        (`compiler-explorer.nvim`)
+  - [x] crates.io integration (`crates.nvim`) [`RUST`]
 
 <br>
 
 - Efficient:
+  - [x] Cheatsheets (where cheating is legal, inside your editor)
+        (`cheatsheet.nvim`)
   - [x] Lazy loading
   - [x] Async
-  - [x] Insane fast jumping (Via `leap.nvim`)
+  - [x] Insane fast jumping (Via `flash.nvim`)
   - [x] Blazing fast movement using LSP declarations (Via
         `symbols-outline.nvim`)
-  - [x] File navigation
+  - [x] File navigation (`harpoon.nvim`)
   - [x] Paired Files (e.g `.cpp` and `.hpp`)
   - [x] Word motions (Via `vim-wordmotion`)
+  - [x] Clipboard Manager (`nvim-neoclip.lua`)
+  - [x]
+  - [x]
+  - [x]
+  - [x]
+
+<br>
+
+Beautiful:
+
+- [x] Mode indicator cursorline (`modicator.nvim`)
 
 <br>
 
 - IDE:
   - [x] On-Click Updates
+  - [x] Efficient Plugin Manager
+  - [x] LSP Package manager
   - [x] Decent Debugging Experience
   - [x] Auto-Complete
   - [x] Syntax Highlighting
   - [x] Smart Code Runner Applet (Via `compiler.nvim`)
   - [x] LSP Support (See [Installation section](#installation))
-  - [x] Smart scrollbar (Via `satellite.nvim`)
+  - [x] Smart scrollbar (Via `satellite.nvim`) [OPT]
   - [x] Integrated Terminal
   - [x] Integrated Testing framework
-  - [x] Advanced Task Runner
+  - [x] Advanced Task Runner (`Overseer.nvim`)
   - [x] Smooth bookmark navigation
-  - [x] Minimap (Via `codewind.nvim`)
-  - [x] Integrated Git management (Magit-like)
+  - [x] Minimap integrated with your config (Via `codewindow.nvim`)
   - [x] Advanced GitHub Integration (Reviewing, PRs, Issues etc.)
-  - [x] Browser integrated markdown preview
-  - [x] Built-in file manager (Emacs-like)
-  - [x] Project manager
-
-  > **Note** Going to deprecate Compiler.nvim
+  - [x] Built-in file manager (Emacs-like) (`telescope-file-manager`)
+  - [x] Project manager (Via `project.nvim`)
+  - [x] Key stroke helper (Via `which-key.nvim`)
+  - [x] Efficient Searching integrated with plugins (Via `Telescope.nvim`)
   - [x] Built-in Task runner (like Compiler.nvim)
+  - [x] Syntax-Highlighting (`tree-sitter`)
+  - [x] File Tree (`nvim-tree`)
+  - [x] Beautiful UI for default nvim (`NvChadUI` + `dressing.nvim`)
+  - [x] Vs-code like project dependant tasks (`automaton.nvim`)
+  - [x] Improvised LSP experience (`lsp_signature.nvim` + `null-ls` +
+        `lspconfig`)
+  - [x] Folding code (`nvim-UFO` + `nvim-foldsign`)
+  - [x] Biscuits (View complex code in ease) (`nvim-biscuits`)
+  - [x] Improved quick-fix loc-list experience (`nvim-bqf`)
+  - [x] Inline Snippet runner (`sniprun`)
+
+<br>
+
+- Git:
+  - [x] Integrated Git management (Magit-like)
+  - [x] CI viewer (`gh-actions`)
+  - [x] Git Merge Conflict viewer (`git-conflict.nvim`)
 
 <br>
 
 - Code Generation:
+  - [x] Document generation (`neogen`)
   - [x] C++ TS tools
   - [x] Github Copilot
   - [x] Built-in refactoring engine
+  - [x]
+  - [x]
 
 <br>
 
 - String Manipulation:
   - [x] Surrounding manipulation
+  - [x] Regexplainer (`Hypersonic.nvim`)
+  - [x] (inline formatting) Unjoining lines (`treesj`)
+  - [x] Custom AST code actions (`ts-node-action`)
+  - [x] Code Alignment
+  - [x]
 
 <br>
 
 - Misc:
-  - [x] Built in language Translator
+  - [x] Built in language Translator (With multiple backends)
   - [x] Gigantic Gylph Picker (Nerdfonts, emojis, alt characters etc.)
   - [x] Built-in color picker
   - [x] Undo Search
+  - [x] Better escape
+  - [x] Real-time colorscheme engine (create colorschemes on the fly)
+        (`lush.nvim`)
+
+<br>
+
+- Modes:
+  - [x] Argument highlighter (differentiate between args from vars)
+  - [x] LSP Lens (Show references definitions etc. as virtual text)
+        (`lsp-lens.nvim`)
+  - [x] Twilight Mode (highlighting the place your cursor is on while dimming
+        other places) (`twilight.nvim`)
+  - [x] Zen-mode (distraction-free code editing in minimalism) (`zen-mode.nvim`)
+  - [x] Smooth-scrolling (in `sine-mode`) (`neoscroll.nvim`)
+  - [x] TODO-mode (beautiful todo manager + highlighter) (`todo-comments.nvim`)
+  - [x]
+
+<br>
+
+- Document Writing:
+  - [x] Markdown code evaluation (`mdeval.nvim`)
+  - [x] Browser integrated markdown preview (`markdown-preview.nvim`)
 
 ## Installation
 
@@ -170,6 +235,8 @@ cd .. && rm -rf CamelVim && nvim
    yay -S codespell textlint markdownlint stylua
    ```
 
+7. Leet code:
+   - [Must-do](https://github.com/Dhanus3133/Leetbuddy.nvim#login-to-your-account)
 
 ## Credits
 
