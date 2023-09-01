@@ -65,6 +65,8 @@ A Neovim configuration heavily inspired by JetBrains products.
 ## Features
 
 - Advanced:
+  - Browser (#5) ([INSANE DEMO](https://github.com/UTFeight/CamelVim/issues/5))
+  - Browser (#6) (text-only)
   - [x] Built-in AI Assistant (It's free! check it out
         [here](https://github.com/sourcegraph/sg.nvim)) [OPT]
   - Github Copilot
@@ -89,10 +91,6 @@ A Neovim configuration heavily inspired by JetBrains products.
   - [x] Paired Files (e.g `.cpp` and `.hpp`)
   - [x] Word motions (Via `vim-wordmotion`)
   - [x] Clipboard Manager (`nvim-neoclip.lua`)
-  - [x]
-  - [x]
-  - [x]
-  - [x]
 
 <br>
 
@@ -148,8 +146,6 @@ Beautiful:
   - [x] C++ TS tools
   - [x] Github Copilot
   - [x] Built-in refactoring engine
-  - [x]
-  - [x]
 
 <br>
 
@@ -159,7 +155,6 @@ Beautiful:
   - [x] (inline formatting) Unjoining lines (`treesj`)
   - [x] Custom AST code actions (`ts-node-action`)
   - [x] Code Alignment
-  - [x]
 
 <br>
 
@@ -183,7 +178,6 @@ Beautiful:
   - [x] Zen-mode (distraction-free code editing in minimalism) (`zen-mode.nvim`)
   - [x] Smooth-scrolling (in `sine-mode`) (`neoscroll.nvim`)
   - [x] TODO-mode (beautiful todo manager + highlighter) (`todo-comments.nvim`)
-  - [x]
 
 <br>
 
@@ -192,6 +186,8 @@ Beautiful:
   - [x] Browser integrated markdown preview (`markdown-preview.nvim`)
 
 ## Installation
+
+> [!TODO]: Make INSTALL Script more interactive
 
 ```sh
 git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
@@ -232,7 +228,7 @@ cd .. && rm -rf CamelVim && nvim
 
 6. Null-ls
    ```sh
-   yay -S codespell textlint markdownlint stylua
+   yay -S codespell textlint markdownlint stylua ruff
    ```
 
 7. Leet code:
