@@ -4,10 +4,18 @@ local extern = require("custom.utils").extern
 
 M.browser = {
   n = {
-    ["<leader>br"] = {function ()
-      extern("browsh", "vertical")
-    end}
-  }
+    ["<leader>br"] = {
+      function()
+        extern("browsh", "vertical")
+      end,
+    },
+
+    ["<leader>bl"] = {
+      function()
+        extern("lynx", "vertical")
+      end,
+    },
+  },
 }
 
 M.general = {
