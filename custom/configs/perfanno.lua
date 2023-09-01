@@ -7,12 +7,14 @@ M.keys = { -- TODO: p -> Profiling | pl -> Load
     mode = "n",
     desc = "Load perf.data",
   },
+
   {
     "<LEADER>plg",
     ":PerfLoadCallGraph<CR>",
     mode = "n",
     desc = "Load Full Call Graph",
   },
+
   {
     "<LEADER>plo",
     ":PerfLoadFlameGraph<CR>",
@@ -40,60 +42,67 @@ M.keys = { -- TODO: p -> Profiling | pl -> Load
     mode = "n",
     desc = "Annotate All Buffers",
   },
+
   {
     "<LEADER>pf",
     ":PerfAnnotateFunction<CR>",
     mode = "n",
     desc = "Annotate Function",
   },
+
   {
     "<LEADER>pa",
     ":PerfAnnotateSelection<CR>",
     mode = "v",
     desc = "Anotate Selection",
   },
+
   {
     "<LEADER>pt",
     ":PerfToggleAnnotations<CR>",
     mode = "n",
     desc = "Toggle All Buffers Annotations",
   },
+
   {
     "<LEADER>ph",
     ":PerfHottestLines<CR>",
     mode = "n",
     desc = "Hottest Lines",
   },
+
   {
     "<LEADER>ps",
     ":PerfHottestSymbols<CR>",
     mode = "n",
     desc = "Hottest Symbols",
   },
+
   {
     "<LEADER>pc",
     ":PerfHottestCallersFunction<CR>",
     mode = "n",
     desc = "Hottest Symbols from Selection",
   },
+
   {
     "<LEADER>pc",
     ":PerfHottestCallersSelection<CR>",
     mode = "v",
     desc = "Hottest Lines from Selection",
   },
+
   {
     "<LEADER>pn",
-    ":PerfHottestCallersSelection<CR>",
     "<cmd> PerfLuaProfileStart<CR>",
-    mode = "v",
+    mode = "n",
     desc = "Start Profiling Lua",
   },
+
   {
     "<LEADER>pk",
-    ":PerfHottestCallersSelection<CR>",
     "<cmd> PerfLuaProfileStop<CR>",
-    mode = "v",
+    mode = "n",
     desc = "Stop Profiling Lua",
   },
 
@@ -106,9 +115,9 @@ M.keys = { -- TODO: p -> Profiling | pl -> Load
 
 M.opts = {
   -- List of highlights that will be used to highlight hot lines (or nil to disable highlighting)
-  line_highlights = true,
+  -- line_highlights = require("perfanno.util").make_bg_highlights(bgcolor, "#CC3300", 10),
   -- Highlight used for virtual text annotations (or nil to disable virtual text)
-  vt_highlight = nil,
+  -- vt_highlight = require("perfanno.util").make_fg_highlight("#CC3300"),
 
   -- Annotation formats that can be cycled between via :PerfCycleFormat
   --   "percent" controls whether percentages or absolute counts should be displayed
@@ -116,8 +125,16 @@ M.opts = {
   --   "minimum" is the minimum value below which lines will not be annotated
   -- Note: this also controls what shows up in the telescope finders
   formats = {
-    { percent = true, format = "%.2f%%", minimum = 0.5 },
-    { percent = false, format = "%d", minimum = 1 },
+    {
+      percent = true,
+      format = "%.2f%%",
+      minimum = 0.5,
+    },
+    {
+      percent = false,
+      format = "%d",
+      minimum = 1,
+    },
   },
 
   -- Automatically annotate files after :PerfLoadFlat and :PerfLoadCallGraph

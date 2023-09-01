@@ -937,6 +937,16 @@ local plugins = {
 
     config = function(_, opts)
       require("perfanno").setup(opts)
+
+      require("perfanno").setup {
+        -- Creates a 10-step RGB color gradient beween bgcolor and "#CC3300"
+        line_highlights = require("perfanno.util").make_bg_highlights(
+          vim.fn.synIDattr(vim.fn.hlID "Normal", "bg", "gui"),
+          "#CC3300",
+          10
+        ),
+        vt_highlight = require("perfanno.util").make_fg_highlight "#CC3300",
+      }
     end,
 
     keys = require("custom.configs.perfanno").keys,

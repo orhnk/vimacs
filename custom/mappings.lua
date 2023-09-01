@@ -8,12 +8,14 @@ M.browser = {
       function()
         extern("browsh", "vertical")
       end,
+      "Open Browsher"
     },
 
     ["<leader>bl"] = {
       function()
         extern("lynx", "vertical")
       end,
+      "Open Lynx"
     },
   },
 }
