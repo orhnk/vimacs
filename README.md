@@ -65,8 +65,8 @@ A Neovim configuration heavily inspired by JetBrains products.
 ## Features
 
 - Advanced:
-  - Browser (#5) ([INSANE DEMO](https://github.com/UTFeight/CamelVim/issues/5))
-  - Browser (#6) (text-only)
+  - [x] Browser (#5) ([INSANE DEMO](https://github.com/UTFeight/CamelVim/issues/5))
+  - [x] Browser (#6) (text-only)
   - [x] Built-in AI Assistant (It's free! check it out
         [here](https://github.com/sourcegraph/sg.nvim)) [OPT]
   - Github Copilot
