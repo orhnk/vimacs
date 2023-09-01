@@ -1337,35 +1337,39 @@ local plugins = {
     },
   },
 
-  -- { -- FIXME: Breaks Lazy.nvim startup installation
-  --   "mawkler/modicator.nvim",
-  --   -- dependencies = 'mawkler/onedark.nvim', -- Add your colorscheme plugin here
-  --
-  --   event = "BufRead", -- TODO: Lazy load on key
-  --
-  --   init = function()
-  --     -- These are required for Modicator to work
-  --     vim.o.cursorline = true
-  --     vim.o.number = true
-  --     vim.o.termguicolors = true
-  --   end,
-  --
-  --   config = function(_, opts)
-  --     require("modicator").setup(opts)
-  --   end,
-  --
-  --   opts = {
-  --     -- Show warning if any required option is missing
-  --     show_warnings = true,
-  --     highlights = {
-  --       -- Default options for bold/italic
-  --       defaults = {
-  --         bold = true,
-  --         italic = false,
-  --       },
-  --     },
-  --   },
-  -- },
+  { -- FIXME: Breaks Lazy.nvim startup installation
+    "mawkler/modicator.nvim",
+    -- dependencies = 'mawkler/onedark.nvim', -- Add your colorscheme plugin here
+
+    -- event = "BufRead",
+
+    keys = {
+      { "<leader>md", "", mode = "n", desc = "Enable Cursor Mod Line" },
+    },
+
+    init = function()
+      -- These are required for Modicator to work
+      vim.o.cursorline = true
+      vim.o.number = true
+      vim.o.termguicolors = true
+    end,
+
+    config = function(_, opts)
+      require("modicator").setup(opts)
+    end,
+
+    opts = {
+      -- Show warning if any required option is missing
+      show_warnings = true,
+      highlights = {
+        -- Default options for bold/italic
+        defaults = {
+          bold = true,
+          italic = false,
+        },
+      },
+    },
+  },
 
   {
     "folke/zen-mode.nvim",
@@ -1958,7 +1962,7 @@ local plugins = {
       },
 
       --# customize highlight groups (setting this overrides colorscheme)
-      snipruncolors = {
+      snipruncolors = { -- TODO: add hlgroups
         SniprunVirtualTextOk = { bg = "#66eeff", fg = "#000000", ctermbg = "Cyan", cterfg = "Black" },
         SniprunFloatingWinOk = { fg = "#66eeff", ctermfg = "Cyan" },
         SniprunVirtualTextErr = { bg = "#881515", fg = "#000000", ctermbg = "DarkRed", cterfg = "Black" },
@@ -1973,6 +1977,34 @@ local plugins = {
 
       borders = "single", --# display borders around floating windows
       --# possible values are 'none', 'single', 'double', or 'shadow'
+    },
+  },
+
+  {
+    "edKotinsky/Arduino.nvim",
+
+    config = function(_, opts)
+      require("arduino").setup { opts }
+
+      require("lspconfig")["arduino_language_server"].setup {
+        on_new_config = require("arduino").on_new_config,
+      }
+    end,
+
+    opts = {
+      default_fqbn = "arduino:avr:uno",
+
+      --Path to clangd (all paths must be full)
+      clangd = "/usr/bin/clangd",
+
+      --Path to arduino-cli
+      arduino = "/usr/bin/arduino",
+
+      --Data directory of arduino-cli
+      arduino_config_dir = "~/Arduino/config/",
+
+      --Extra options to arduino-language-server
+      extra_opts = {},
     },
   },
 }

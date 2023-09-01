@@ -1,5 +1,14 @@
 ---@type MappingsTable
 local M = {}
+local extern = require("custom.utils").extern
+
+M.browser = {
+  n = {
+    ["<leader>br"] = {function ()
+      extern("browsh", "vertical")
+    end}
+  }
+}
 
 M.general = {
   n = {
