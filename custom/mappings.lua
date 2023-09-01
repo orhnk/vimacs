@@ -2,24 +2,6 @@
 local M = {}
 local extern = require("custom.utils").extern
 
-M.browser = {
-  n = {
-    ["<leader>br"] = {
-      function()
-        extern("browsh", "vertical")
-      end,
-      "Open Browsher"
-    },
-
-    ["<leader>bl"] = {
-      function()
-        extern("lynx", "vertical")
-      end,
-      "Open Lynx"
-    },
-  },
-}
-
 M.general = {
   n = {
     ["<leader>ww"] = { "<cmd> w<cr>", "Save Changes", opts = { nowait = true } },
@@ -68,6 +50,35 @@ M.disabled = {
 
     -- Terminal
     ["<leader>pt"] = "", -- Pick hidden terminal TODO: remap this
+  },
+}
+
+M.irc = {
+  n = {
+    ["<leader>xi"] = {
+      function()
+        extern("weechat", "vertical")
+      end,
+      "IRC Client"
+    },
+  },
+}
+
+M.browser = {
+  n = {
+    ["<leader>br"] = {
+      function()
+        extern("browsh", "vertical")
+      end,
+      "Open Browsher"
+    },
+
+    ["<leader>bl"] = {
+      function()
+        extern("lynx", "vertical")
+      end,
+      "Open Lynx"
+    },
   },
 }
 
