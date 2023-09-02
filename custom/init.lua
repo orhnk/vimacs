@@ -39,6 +39,11 @@ vim.cmd [[
   augroup END
 ]]
 
+-- Change
+vim.cmd [[
+set autochdir
+]]
+
 ---- For alacritty:
 -- local function sed(from, to)
 --   vim.cmd(string.format("silent !sed -i 's/%s/%s/g' %s", from, to, "~/.config/alacritty/alacritty.yml"))
