@@ -7,6 +7,10 @@ end
 local b = null_ls.builtins
 
 local sources = {
+
+  -- Generally<F11>
+  b.code_actions.refactoring,
+
   -- All
   b.diagnostics.codespell, -- Smart spell checker, Does not check code, checks text. (comment only probably)
   -- b.completion.spell, -- txt LSP
@@ -65,7 +69,10 @@ local sources = {
 
   -- TreeSitter
   -- AWESOME THING!
-  null_ls.builtins.code_actions.ts_node_action,
+  b.code_actions.ts_node_action,
+
+  -- dictionary
+  b.hover.dictionary
 }
 
 null_ls.setup {
