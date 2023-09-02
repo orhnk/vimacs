@@ -1,5 +1,5 @@
 -- TODO: Remove telescope as a dependency and lazy load plugins later for squeezed performance.confconf
-
+local telescope_actions = require "telescope.actions"
 local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
 local plugins = {
@@ -18,7 +18,7 @@ local plugins = {
   { -- Overriding NvChad Telescope options. (Dirty hack)
     "nvim-telescope/telescope.nvim",
 
-    dependencies = {
+    dependencies = { -- TODO: Remove these
       "t-troebst/perfanno.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "debugloop/telescope-undo.nvim",
@@ -31,6 +31,24 @@ local plugins = {
           layout_strategy = "vertical",
           layout_config = {
             preview_height = 0.8,
+          },
+        },
+      },
+      defaults = {
+        mappings = {
+          i = {
+            -- remap TAB to CR
+            -- ["<CR>"] = telescope_actions.toggle_selection + telescope_actions.move_selection_worse,
+            -- ["<S-CR>"] = telescope_actions.toggle_selection + telescope_actions.move_selection_better,
+            -- Emacs style TAB nav
+            ["<TAB>"] = telescope_actions.select_default,
+          },
+          n = {
+            -- remap TAB to CR
+            -- ["<CR>"] = telescope_actions.toggle_selection + telescope_actions.move_selection_worse,
+            -- ["<S-CR>"] = telescope_actions.toggle_selection + telescope_actions.move_selection_better,
+            -- Emacs style TAB nav
+            ["<TAB>"] = telescope_actions.select_default,
           },
         },
       },
@@ -393,22 +411,6 @@ local plugins = {
   },
 
   {
-    "ldelossa/gh.nvim",
-
-    dependencies = { "ldelossa/litee.nvim" },
-    opts = require("custom.configs.gh").opts,
-    cmd = { "GH" },
-    keys = {
-      { "<leader>gh", ":GH<CR>", mode = "n", desc = "Open Github Client" },
-    },
-
-    config = function(_, opts)
-      require("litee.lib").setup()
-      require("litee.gh").setup(opts)
-    end,
-  },
-
-  {
     "debugloop/telescope-undo.nvim",
 
     keys = {
@@ -452,6 +454,7 @@ local plugins = {
 
     config = function()
       require("refactoring").setup()
+      -- require("telescope").load_extension "refactoring" -- Unnede When dressing.nvim is a thing
     end,
 
     keys = require("custom.configs.refactoring").keys,
@@ -471,7 +474,7 @@ local plugins = {
     keys = require("custom.configs.sg").keys,
 
     -- If you have a recent version of lazy.nvim, you don't need to add this!
-    build = "nvim -l build/init.lua",
+    -- build = "nvim -l build/init.lua",
   },
 
   { -- TODO: Fix
@@ -612,16 +615,15 @@ local plugins = {
               theme = "ivy",
               -- disables netrw and use telescope-file-browser in its place
               hijack_netrw = true,
-              mappings = {
-                ["i"] = {
-                  -- local fb_actions = require("telescope").extensions.file_browser.actions
-                  -- your custom insert mode mappings
-                  -- ["<TAB>"] = fb_actions.open, -- TODO
-                },
-                ["n"] = {
-                  -- your custom normal mode mappings
-                },
-              },
+              -- mappings = {
+              --   ["i"] = {
+              --     -- your custom insert mode mappings
+              --     -- ["<TAB>"] = require("telescope").extensions.file_browser.actions.open, -- TODO
+              --   },
+              --   ["n"] = {
+              --     -- your custom normal mode mappings
+              --   },
+              -- },
             },
           },
         },
@@ -934,6 +936,10 @@ local plugins = {
 
   { -- https://github.com/t-troebst/perfanno.nvim
     "t-troebst/perfanno.nvim",
+
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
 
     config = function(_, opts)
       require("perfanno").setup(opts)
@@ -1987,34 +1993,6 @@ local plugins = {
 
       borders = "single", --# display borders around floating windows
       --# possible values are 'none', 'single', 'double', or 'shadow'
-    },
-  },
-
-  {
-    "edKotinsky/Arduino.nvim",
-
-    config = function(_, opts)
-      require("arduino").setup { opts }
-
-      require("lspconfig")["arduino_language_server"].setup {
-        on_new_config = require("arduino").on_new_config,
-      }
-    end,
-
-    opts = {
-      default_fqbn = "arduino:avr:uno",
-
-      --Path to clangd (all paths must be full)
-      clangd = "/usr/bin/clangd",
-
-      --Path to arduino-cli
-      arduino = "/usr/bin/arduino",
-
-      --Data directory of arduino-cli
-      arduino_config_dir = "~/Arduino/config/",
-
-      --Extra options to arduino-language-server
-      extra_opts = {},
     },
   },
 }
