@@ -49,7 +49,16 @@ M.disabled = {
     ["<leader>n"] = "", -- linenr
 
     -- Terminal
-    ["<leader>pt"] = "", -- Pick hidden terminal TODO: remap this
+    ["<leader>pt"] = "",
+  },
+}
+
+M.terms = {
+  n = {
+    ["<leader>ft"] = {
+      "<cmd> Telescope terms <CR>",
+      "Pick hidden term",
+    },
   },
 }
 
