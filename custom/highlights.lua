@@ -55,6 +55,29 @@ M.add = {
   -- Stutusline
   StCopilot = { fg = "yellow", bg = "black2" },
   -- end Statusline
+
+  -- neotest
+  -- stylua: ignore start
+  NeotestAdapterName  = { fg = "red"           },
+  NeotestBorder       = { fg = "purple"        },
+  NeotestDir          = { fg = "teal"          },
+  NeotestFailed       = { fg = "red"           },
+  NeotestFile         = { fg = "white"         },
+  NeotestFocused      = { fg = "green"         },
+  NeotestExpandMarker = { fg = "sun"           },
+  NeotestIndent       = { fg = "sun"           },
+  NeotestMarked       = { fg = "red"           },
+  NeotestNamespace    = { fg = "purple"        },
+  NeotestPassed       = { fg = "green"         },
+  NeotestRunning      = { fg = "grey"          },
+  NeotestWinSelect    = { fg = "baby_pink"     },
+  NeotestSkipped      = { fg = "grey_fg2"      },
+  NeotestTarget       = { fg = "vibrant_green" },
+  NeotestTest         = { fg = "dark_purple"   },
+  NeotestUnknown      = { fg = "grey"          },
+  NeotestWatching     = { fg = "light_grey"    },
+  -- stylua: ignore end
+  -- end neotest
 }
 
 return M
