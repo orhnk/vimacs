@@ -7,41 +7,59 @@ M.prefixes = function()
   -- WhichKey prefixes:
   wk.register {
     ["<leader>"] = {
+
       -- stylua: ignore start
-      a  = { name = " AI"                }, --   󰧑
-      b  = { name = "󱂬 Buffer"            },
-      c  = { name = "󱃖 Code"              },
-      cm = { name = " Markdown"          },
-      cp = { name = " Cpp"               }, --   󰙲
-      cx = { name = "󱣘 Cargo.toml"        },
-      d  = { name = " Debug"             },
-      e  = { name = " Edit"              },
-      f  = { name = " Find"              },
-      g  = { name = " Git"               },
-      h  = { name = "󱕘 Harpoon"           },
-      i  = { name = " Automation"        },
-      io = { name = " Open"              },
-      j  = { name = " Join"              },
-      k  = { name = " Color"             },
-      l  = { name = " LSP"               },
-      m  = { name = " Modes"             },
-      ml = { name = "󰉦 Lush"              },
-      n  = { name = " Compiler Explorer" }, -- 
-      o  = { name = " Open"              },
-      p  = { name = " Profile"           }, -- 
-      pl = { name = "󱑤 Load"              },
-      r  = { name = " Run"               },
-      rq = { name = " LeetCode"          },
-      s  = { name = "󱝆 Surf"              },
-      t  = { name = "󰙨 Test"              },
-      ts = { name = "󱘎 TreeSitter"        },
-      u  = { name = "󰚰 Update"            },
-      v  = { name = " Vertical"          },
-      y  = { name = "󱘣 Neoclip"           }, -- TODO
-      w  = { name = " Workspace"         },
-      x  = { name = "󰟃 Other"             },
-      z  = { name = " Zen"               },
+      [" "] = { name = " Quick"             },
+      a     = { name = " AI"                },   --   󰧑
+      b     = { name = "󱂬 Buffer"            },
+      c     = { name = "󱃖 Code"              },
+      cl    = { name = "󰡱 LeetCode"          },
+      cm    = { name = " Markdown"          },
+      cp    = { name = " Cpp"               },   --   󰙲
+      cs    = { name = "󱝆 Surf"              },
+      cx    = { name = "󱣘 Cargo.toml"        },
+      cz    = { name = " Snippet"           },
+      d     = { name = " Debug"             },
+      e     = { name = " Edit"              },   -- TODO
+      f     = { name = " Find"              },
+      g     = { name = " Git"               },
+      gh    = { name = " GitHub"            },
+      ghc   = { name = " Card"              },
+      ghi   = { name = " Issue"             },
+      ghj   = { name = " Comment"           },
+      gho   = { name = "󱓨 Assignee"          },
+      ghp   = { name = " Repo"              },
+      ghn   = { name = "󰓂 PR"                },
+      ghr   = { name = " Review"            },
+      ghl   = { name = "󰌕 Label"             },
+      ght   = { name = "󱇫 Thread"            },
+      ghu   = { name = " React"             },
+      h     = { name = "󱕘 Harpoon"           },
+      i     = { name = " Automation"        },
+      io    = { name = " Open"              },
+      j     = { name = " Join"              },
+      k     = { name = " Color"             },
+      l     = { name = "󱃕 Lists"             },
+      lt    = { name = " TODO"              },
+      m     = { name = " Modes"             },
+      ml    = { name = "󰉦 Lush"              },
+      n     = { name = " Compiler Explorer" },   -- 
+      nt    = { name = "󱘎 TreeSitter"        },
+      o     = { name = " Open"              },
+      p     = { name = " Profile"           },   -- 
+      pl    = { name = "󱑤 Load"              },
+      r     = { name = " Run"               },
+      rq    = { name = " LeetCode"          },
+      s     = { name = " LSP"               },   -- LSP | move this to +cs
+      t     = { name = "󰙨 Test"              },
+      u     = { name = "󰚰 Update"            },
+      v     = { name = " Vertical"          },
+      w     = { name = " Workspace"         },
+      x     = { name = " External"          },
+      y     = { name = "󱘣 Neoclip"           },
+      z     = { name = "󰟃 Other"             },
       -- stylua: ignore end
+
     },
   }
 end
