@@ -11,6 +11,7 @@ local plugins = {
       require("which-key").setup(opts) --<-- From NvChad's config'
       require("custom.configs.which-key").prefixes()
     end,
+    opts = require("custom.configs.which-key").opts,
   },
 
   -- Override plugin definition options
@@ -18,22 +19,7 @@ local plugins = {
   { -- Overriding NvChad Telescope options. (Dirty hack)
     "nvim-telescope/telescope.nvim",
 
-    dependencies = { -- TODO: Remove these
-      "t-troebst/perfanno.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
-      "debugloop/telescope-undo.nvim",
-    },
-
     opts = {
-      extensions = {
-        undo = {
-          side_by_side = true,
-          layout_strategy = "vertical",
-          layout_config = {
-            preview_height = 0.8,
-          },
-        },
-      },
       defaults = {
         mappings = {
           i = {
@@ -51,15 +37,6 @@ local plugins = {
             ["<TAB>"] = telescope_actions.select_default,
           },
         },
-      },
-      extensions_list = {
-        -- "file_browser", -- Lazy loading it
-        "undo", -- FIXME: Lazy load
-        -- others are lazy loaded
-
-        -- NvChad defaults
-        "themes",
-        "terms",
       },
     },
 
@@ -420,6 +397,18 @@ local plugins = {
     config = function()
       require("telescope").load_extension "undo"
     end,
+
+    opts = {
+      extensions = {
+        undo = {
+          side_by_side = true,
+          layout_strategy = "vertical",
+          layout_config = {
+            preview_height = 0.8,
+          },
+        },
+      },
+    },
   },
 
   {
