@@ -2,7 +2,7 @@ local M = {}
 
 M.keys = {
   {
-    "<leader>fq",
+    "<leader>lq",
     [[ <cmd> vimgrep /\w\+/j % | copen<CR> ]],
     mode = "n",
     desc = "QuickFix Window",--[[ { noremap = true, silent = true } ]]

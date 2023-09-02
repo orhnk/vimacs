@@ -109,7 +109,49 @@ local plugins = {
       require("copilot").setup { opts }
     end,
 
-    opts = require("custom.configs.copilot").opts,
+    opts = {
+      panel = {
+        enabled = true,
+        auto_refresh = true, -- Refresh suggestions when typing to the buffer
+        keymap = {
+          jump_prev = "[[",
+          jump_next = "]]",
+          accept = "<CR>",
+          refresh = "gr",
+          open = "<M-CR>",
+        },
+        layout = {
+          position = "right", -- | top | left | right
+          ratio = 0.4,
+        },
+      },
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        debounce = 75,
+        keymap = {
+          accept = "<M-Tab>",
+          accept_word = false,
+          accept_line = false,
+          next = "<C-l>",
+          prev = "<C-h>",
+          dismiss = "<C-q>",
+        },
+      },
+      filetypes = {
+        yaml = true,
+        markdown = true,
+        help = true,
+        gitcommit = true,
+        gitrebase = true,
+        hgcommit = true,
+        svn = true,
+        cvs = true,
+        ["."] = false,
+      },
+      copilot_node_command = "node", -- Node.js version must be > 16.x
+      server_opts_overrides = {},
+    },
   },
 
   -- C++ development
@@ -175,8 +217,8 @@ local plugins = {
   { -- Code runner
     "Zeioth/compiler.nvim",
     keys = {
-      { "<leader>rr", ":CompilerOpen<CR>", mode = "n", desc = "Open project runner" },
-      { "<leader>rt", ":CompilerToggleResults<CR>", mode = "n", desc = "Toggle project runner window" },
+      { "<leader>rr", ":CompilerOpen<CR>", mode = "n", desc = "Run Project" },
+      { "<leader>rt", ":CompilerToggleResults<CR>", mode = "n", desc = "Toggle Results" },
     },
 
     cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
@@ -207,8 +249,18 @@ local plugins = {
     "nvim-neotest/neotest",
 
     keys = {
-      { "<leader>to", ":Neotest summary<CR>", mode = "n", desc = "Open interactive test session" },
-      { "<leader>te", ":Neotest run<CR>", mode = "n", desc = "Run tests for the session" },
+      {
+        "<leader>to",
+        ":Neotest summary<CR>",
+        mode = "n",
+        desc = "Open interactive test session",
+      },
+      {
+        "<leader>te",
+        ":Neotest run<CR>",
+        mode = "n",
+        desc = "Run tests for the session",
+      },
     },
 
     dependencies = {
@@ -266,22 +318,22 @@ local plugins = {
     end,
   },
 
-  {
-    "stevearc/overseer.nvim",
-
-    dependencies = { "stevearc/dressing.nvim" },
-
-    keys = {
-      { "<leader>tt", ":OverseerToggle<CR>", mode = "n", desc = "Toggle Task Runner UI" },
-      { "<leader>tr", ":OverseerRun<CR>", mode = "n", desc = "Run tasks" },
-    },
-
-    config = function()
-      require("overseer").setup()
-    end,
-
-    opts = {},
-  },
+  -- { -- TODO replace this with automaton
+  --   "stevearc/overseer.nvim",
+  --
+  --   dependencies = { "stevearc/dressing.nvim" },
+  --
+  --   keys = {
+  --     { "<leader>tt", ":OverseerToggle<CR>", mode = "n", desc = "Toggle Task Runner UI" },
+  --     { "<leader>tr", ":OverseerRun<CR>", mode = "n", desc = "Run tasks" },
+  --   },
+  --
+  --   config = function()
+  --     require("overseer").setup()
+  --   end,
+  --
+  --   opts = {},
+  -- },
 
   -- { -- Using flash.nvim now
   --   "ggandor/leap.nvim",
@@ -355,8 +407,8 @@ local plugins = {
     "rktjmp/paperplanes.nvim",
 
     keys = {
-      { "<leader>pp", ":PP<CR>", mode = "n", desc = "Send Buffer to Pastebin Client" },
-      { "<leader>pp", ":PP<CR>", mode = "v", desc = "Send Seleceted Code to Pastebin Client" },
+      { "<leader><leader>p", ":PP<CR>", mode = "n", desc = "Send Buffer to Pastebin Client" },
+      { "<leader><leader>p", ":PP<CR>", mode = "v", desc = "Send Seleceted Code to Pastebin Client" },
     },
 
     config = function()
@@ -415,7 +467,7 @@ local plugins = {
     "simrat39/symbols-outline.nvim",
 
     keys = {
-      { "<leader>ss", ":SymbolsOutline<CR>", mode = "n", desc = "Surf declarations" },
+      { "<leader>fs", ":SymbolsOutline<CR>", mode = "n", desc = "Find Symbols" },
     },
 
     config = function()
@@ -424,11 +476,11 @@ local plugins = {
   },
 
   { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
-    "Everduin94/nvim-quick-switcher",
+    "Everduin94/nvim-quick-switcher", -- TODO: use other.nvim
 
     keys = {
       {
-        "<leader>sw",
+        "<leader>zs",
         ":lua require('nvim-quick-switcher').toggle('cpp', 'hpp')<CR>",
         mode = "n",
         desc = "Switch To Pair File",
@@ -584,11 +636,13 @@ local plugins = {
     end,
 
     keys = {
-      { "<leader>rqq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
-      { "<leader>rql", "<cmd>LBQuestion<cr>", desc = "View Question" },
-      { "<leader>rqr", "<cmd>LBReset<cr>", desc = "Reset Code" },
-      { "<leader>rqt", "<cmd>LBTest<cr>", desc = "Run Code" },
-      { "<leader>rqs", "<cmd>LBSubmit<cr>", desc = "Submit Code" },
+      -- stylua: ignore start
+      { "<leader>clq", "<cmd>LBQuestions<cr>", desc = "List Questions" },
+      { "<leader>cll", "<cmd>LBQuestion<cr>",  desc = "View Question"  },
+      { "<leader>clr", "<cmd>LBReset<cr>",     desc = "Reset Code"     },
+      { "<leader>clt", "<cmd>LBTest<cr>",      desc = "Run Code"       },
+      { "<leader>cls", "<cmd>LBSubmit<cr>",    desc = "Submit Code"    },
+      -- stylua: ignore end
     },
   },
 
@@ -637,61 +691,61 @@ local plugins = {
     end,
   },
 
-  -- { -- Telescope projects
-  -- -- Migrated to project.nvim
-  --   "nvim-telescope/telescope-project.nvim",
-  --
-  --   -- if you want to enable custom hook
-  --   -- dependencies = {
-  --   --   "ThePrimeagen/harpoon",
-  --   -- },
-  --
-  --   keys = {
-  --     {
-  --       "<leader>fp",
-  --       "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
-  --       desc = "Find Project",
-  --     },
-  --   },
-  --
-  --   config = function()
-  --     local project_actions = require "telescope._extensions.project.actions"
-  --     require("telescope").setup {
-  --       extensions = {
-  --         project = {
-  --           base_dirs = {
-  --             "~/Github",
-  --             "~/",
-  --             -- { "~/dev/src2" },
-  --             -- { "~/dev/src3", max_depth = 4 },
-  --             -- { path = "~/dev/src4" },
-  --             -- { path = "~/dev/src5", max_depth = 2 },
-  --           },
-  --           -- hidden_files = true, -- default: false --- .git files go brrr
-  --           -- theme = "dropdown",
-  --           order_by = "asc",
-  --           search_by = "title",
-  --           sync_with_nvim_tree = true, -- default false
-  --           -- default for on_project_selected = find project files
-  --           -- on_project_selected = function(prompt_bufnr)
-  --           --   -- Do anything you want in here. For example:
-  --           --   project_actions.change_working_directory(prompt_bufnr, false)
-  --           --   require("harpoon.ui").nav_file(1)
-  --           -- end,
-  --         },
-  --       },
-  --     }
-  --     require("telescope").load_extension "project"
-  --   end,
-  -- },
+  { -- Telescope projects
+    -- Migrated to project.nvim
+    "nvim-telescope/telescope-project.nvim",
 
-  -- { -- Toggle case (CamelCase, snake_case, kebab-case, PascalCase, Title Case, UPPER CASE, lower case)
-  --   "UTFeight/vim-case-change", -- FIXME
-  --   keys = {
-  --     { "<M-S>", "<cmd>ToggleCase<cr>", mode = "v", desc = "Toggle Case" },
-  --     { "<M-S>", "<ESC>viw<cmd>ToggleCase<cr>", mode = { "i", "n" }, desc = "Toggle Case" },
-  --   },
-  -- },
+    -- if you want to enable custom hook
+    -- dependencies = {
+    --   "ThePrimeagen/harpoon",
+    -- },
+
+    keys = {
+      {
+        "<leader>fp",
+        "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
+        desc = "Find Project",
+      },
+    },
+
+    config = function()
+      local project_actions = require "telescope._extensions.project.actions"
+      require("telescope").setup {
+        extensions = {
+          project = {
+            base_dirs = {
+              "~/Github",
+              "~/",
+              -- { "~/dev/src2" },
+              -- { "~/dev/src3", max_depth = 4 },
+              -- { path = "~/dev/src4" },
+              -- { path = "~/dev/src5", max_depth = 2 },
+            },
+            -- hidden_files = true, -- default: false --- .git files go brrr
+            -- theme = "dropdown",
+            order_by = "asc",
+            search_by = "title",
+            sync_with_nvim_tree = true, -- default false
+            -- default for on_project_selected = find project files
+            -- on_project_selected = function(prompt_bufnr)
+            --   -- Do anything you want in here. For example:
+            --   project_actions.change_working_directory(prompt_bufnr, false)
+            --   require("harpoon.ui").nav_file(1)
+            -- end,
+          },
+        },
+      }
+      require("telescope").load_extension "project"
+    end,
+  },
+
+  { -- Toggle case (CamelCase, snake_case, kebab-case, PascalCase, Title Case, UPPER CASE, lower case)
+    "UTFeight/vim-case-change", -- FIXME
+    keys = {
+      { "<M-S>", "<cmd>ToggleCase<cr>", mode = "v", desc = "Toggle Case" },
+      { "<M-S>", "<ESC>viw<cmd>ToggleCase<cr>", mode = { "i", "n" }, desc = "Toggle Case" },
+    },
+  },
 
   { -- Regexplainer
     "tomiis4/Hypersonic.nvim",
@@ -700,7 +754,7 @@ local plugins = {
     end,
 
     keys = {
-      { "<leader>re", "<cmd>Hypersonic<cr>", mode = { "n", "v" }, desc = "Hypersonic" },
+      { "<leader>re", "<cmd>Hypersonic<cr>", mode = { "n", "v" }, desc = "RegExplain" },
     },
   },
 
@@ -862,7 +916,7 @@ local plugins = {
 
     keys = {
       {
-        "<leader>zt",
+        "<leader>mh",
         function()
           require("hlargs").toggle()
         end,
@@ -966,10 +1020,10 @@ local plugins = {
     -- event = "VeryLazy",
     keys = {
       {
-        "<leader>lp",
+        "<leader>mu",
         "",
         mode = "n",
-        desc = "Enable UFO",
+        desc = "UFO Mode",
       },
     },
 
@@ -1040,7 +1094,12 @@ local plugins = {
     "VidocqH/lsp-lens.nvim",
 
     keys = {
-      { "<leader>cl", "<cmd> LspLensToggle<CR>", mode = "n", desc = "Enable Lsp Lens" },
+      {
+        "<leader>cj",
+        "<cmd> LspLensToggle<CR>",
+        mode = "n",
+        desc = "Enable Lsp Lens",
+      },
     },
 
     config = function(_, opts)
@@ -1074,12 +1133,12 @@ local plugins = {
 
     keys = {
       {
-        "<leader>bb",
+        "<leader>mb",
         function()
           -- require("nvim-biscuits").toggle_biscuits()
         end,
         mode = "n",
-        desc = "Enable Biscuits",
+        desc = "Biscuit Mode", -- TODO: MAYBE rename this
       },
     },
 
@@ -1106,10 +1165,10 @@ local plugins = {
 
     keys = {
       {
-        "<leader>xc",
+        "<leader>fi",
         "<cmd>Cheatsheet<cr>",
         mode = "n",
-        desc = "Toggle Cheatsheet",
+        desc = "Find Cheat",
       },
     },
 
@@ -1158,7 +1217,7 @@ local plugins = {
     keys = require("custom.configs.nvim-bqf").keys,
     opts = require("custom.configs.nvim-bqf").opts,
 
-    config = function(_, opts)
+    config = function(_, opts) -- TODO: add hlgroups
       vim.cmd [[
           hi BqfPreviewBorder guifg=#3e8e2d ctermfg=71
           hi BqfPreviewTitle guifg=#3e8e2d ctermfg=71
@@ -1384,7 +1443,7 @@ local plugins = {
     end,
 
     keys = {
-      { "<leader>zz", "<cmd>ZenMode<CR>", mode = "n", desc = "Toggle Zen Mode" },
+      { "<leader>mz", "<cmd>ZenMode<CR>", mode = "n", desc = "Zen Mode" },
     },
 
     opts = {
@@ -1516,7 +1575,7 @@ local plugins = {
       },
 
       { -- FIXME: doesn't work (after loading with :Telescope harpoon)
-        "<leader>ht",
+        "<leader>hs",
         "<cmd> Telescope harpoon marks<cr>", -- TODO: Lazy load them on this specific keystroke
         mode = "n",
         desc = "Telescope Harpoon",
@@ -1626,80 +1685,79 @@ local plugins = {
     },
   },
 
-  -- TODO: Add More cheatsheets.
   -- TODO: Enable multicursors
 
-  { --  The superior project management solution for neovim.
-    "ahmedkhalf/project.nvim",
-    dependencies = {
-      {
-        "nvim-tree/nvim-tree.lua",
-        opts = {
-          sync_root_with_cwd = true,
-          respect_buf_cwd = true,
-          update_focused_file = {
-            enable = true,
-            update_root = true,
-          },
-        },
-      },
-    },
-
-    keys = {
-      {
-        "<leader>fp",
-        "<cmd>lua require('telescope').extensions.projects.projects{}<cr>",
-        mode = "n",
-        desc = "Telescope Projects",
-      },
-    },
-
-    config = function(_, opts)
-      require("project_nvim").setup(opts)
-      require("telescope").load_extension "projects" -- FIXME: Conflicting or smt with cmp-tabnine
-    end,
-
-    opts = {
-      -- Manual mode doesn't automatically change your root directory, so you have
-      -- the option to manually do so using `:ProjectRoot` command.
-      manual_mode = false,
-
-      -- Methods of detecting the root directory. **"lsp"** uses the native neovim
-      -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
-      -- order matters: if one is not detected, the other is used as fallback. You
-      -- can also delete or rearangne the detection methods.
-      detection_methods = { "lsp", "pattern" },
-
-      -- All the patterns used to detect root dir, when **"pattern"** is in
-      -- detection_methods
-      patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
-
-      -- Table of lsp clients to ignore by name
-      -- eg: { "efm", ... }
-      ignore_lsp = {},
-
-      -- Don't calculate root dir on specific directories
-      -- Ex: { "~/.cargo/*", ... }
-      exclude_dirs = {},
-
-      -- Show hidden files in telescope
-      show_hidden = false,
-
-      -- When set to false, you will get a message when project.nvim changes your
-      -- directory.
-      silent_chdir = true,
-
-      -- What scope to change the directory, valid options are
-      -- * global (default)
-      -- * tab
-      -- * win
-      scope_chdir = "global",
-
-      -- Path where project.nvim will store the project history for use in
-      -- telescope
-      datapath = vim.fn.stdpath "data",
-    },
-  },
+  -- { --  The superior project management solution for neovim.
+  --   "ahmedkhalf/project.nvim",
+  --   dependencies = {
+  --     {
+  --       "nvim-tree/nvim-tree.lua",
+  --       opts = {
+  --         sync_root_with_cwd = true,
+  --         respect_buf_cwd = true,
+  --         update_focused_file = {
+  --           enable = true,
+  --           update_root = true,
+  --         },
+  --       },
+  --     },
+  --   },
+  --
+  --   keys = {
+  --     {
+  --       "<leader>fp",
+  --       "<cmd>lua require('telescope').extensions.projects.projects{}<cr>",
+  --       mode = "n",
+  --       desc = "Telescope Projects",
+  --     },
+  --   },
+  --
+  --   config = function(_, opts)
+  --     require("project_nvim").setup(opts)
+  --     require("telescope").load_extension "projects" -- FIXME: Conflicting or smt with cmp-tabnine
+  --   end,
+  --
+  --   opts = {
+  --     -- Manual mode doesn't automatically change your root directory, so you have
+  --     -- the option to manually do so using `:ProjectRoot` command.
+  --     manual_mode = false,
+  --
+  --     -- Methods of detecting the root directory. **"lsp"** uses the native neovim
+  --     -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
+  --     -- order matters: if one is not detected, the other is used as fallback. You
+  --     -- can also delete or rearangne the detection methods.
+  --     detection_methods = { "lsp", "pattern" },
+  --
+  --     -- All the patterns used to detect root dir, when **"pattern"** is in
+  --     -- detection_methods
+  --     patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "^Github" },
+  --
+  --     -- Table of lsp clients to ignore by name
+  --     -- eg: { "efm", ... }
+  --     ignore_lsp = {},
+  --
+  --     -- Don't calculate root dir on specific directories
+  --     -- Ex: { "~/.cargo/*", ... }
+  --     exclude_dirs = {},
+  --
+  --     -- Show hidden files in telescope
+  --     show_hidden = false,
+  --
+  --     -- When set to false, you will get a message when project.nvim changes your
+  --     -- directory.
+  --     silent_chdir = true,
+  --
+  --     -- What scope to change the directory, valid options are
+  --     -- * global (default)
+  --     -- * tab
+  --     -- * win
+  --     scope_chdir = "global",
+  --
+  --     -- Path where project.nvim will store the project history for use in
+  --     -- telescope
+  --     datapath = vim.fn.stdpath "data",
+  --   },
+  -- },
 
   { --  🌻 A Vim alignment plugin
     -- Nice
@@ -1751,12 +1809,12 @@ local plugins = {
     }, -- bqf is optional
 
     keys = {
-      { "<leader>xq", "<cmd>TodoQuickFix<cr>", mode = "n", desc = "QuickFix TODOs" },
-      { "<leader>xt", "<cmd>TodoTelescope<cr>", mode = "n", desc = "Telescope TODOs" },
-      { "<leader>xl", "<cmd>TodoLocList<cr>", mode = "n", desc = "LocList TODOs" },
+      { "<leader>ltq", "<cmd>TodoQuickFix<cr>", mode = "n", desc = "QuickFix TODOs" },
+      { "<leader>ltt", "<cmd>TodoTelescope<cr>", mode = "n", desc = "Telescope TODOs" },
+      { "<leader>ltl", "<cmd>TodoLocList<cr>", mode = "n", desc = "LocList TODOs" },
       -- 🚦 :TodoTrouble is an option too!
       {
-        "<leader>xt",
+        "<leader>ltn",
         function()
           require("todo-comments").jump_next() -- More arguments: {keywords = { "ERROR", "WARNING"}}
         end,
@@ -1764,7 +1822,7 @@ local plugins = {
         desc = "Next TODO",
       },
       {
-        "<leader>xp",
+        "<leader>ltp",
         function()
           require("todo-comments").jump_prev()
         end,
@@ -1815,7 +1873,7 @@ local plugins = {
       },
       -- list of named colors where we try to extract the guifg from the
       -- list of highlight groups or use the hex color if hl not found as a fallback
-      colors = {
+      colors = { -- TODO. Add hlgroups
         error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
         warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
         info = { "DiagnosticInfo", "#2563EB" },
@@ -1867,13 +1925,13 @@ local plugins = {
       --   desc = "Sniprun",
       -- },
       {
-        "<leader>sr",
+        "<leader>czr",
         "<cmd> SnipRun<CR>",
         mode = { "n", "v" },
         desc = "Run Snippet",
       },
       {
-        "<leader>si",
+        "<leader>czi",
         function()
           require("sniprun").info()
         end,
@@ -1881,7 +1939,7 @@ local plugins = {
         desc = "Info",
       },
       {
-        "<leader>se",
+        "<leader>cze",
         function()
           require("sniprun").reset()
         end,
@@ -1889,7 +1947,7 @@ local plugins = {
         desc = "Reset",
       },
       {
-        "<leader>sc",
+        "<leader>czc",
         function()
           require("sniprun").clear_repl()
         end,
@@ -1897,7 +1955,7 @@ local plugins = {
         desc = "Open Repl",
       },
       {
-        "<leader>sx",
+        "<leader>czx",
         function()
           require("sniprun.display").close_all()
         end,
@@ -1905,7 +1963,7 @@ local plugins = {
         desc = "Close All",
       },
       {
-        "<leader>sl",
+        "<leader>czl",
         function()
           require("sniprun.live_mode").toggle()
         end,

@@ -6,9 +6,6 @@ M.general = {
   n = {
     ["<leader>ww"] = { "<cmd> w<cr>", "Save Changes", opts = { nowait = true } },
     ["<leader>q"] = { "<cmd> qa<cr>", "Quit Editor", opts = { nowait = true } },
-    -- ["<leader>q"] = { "<cmd> qa!<cr>", "Quit Editor", opts = { nowait = true } },
-
-    ["<leader>ln"] = { "<cmd> set nu!<cr>", "Toggle line number", opts = { nowait = true } },
   },
 }
 
@@ -50,6 +47,18 @@ M.disabled = {
 
     -- Terminal
     ["<leader>pt"] = "",
+
+    -- LSP
+    ["<leader>ls"] = "",
+
+    -- NvChad
+    ["<leader>th"] = "",
+  },
+}
+
+M.themes = {
+  n = {
+    ["<leader>ht"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
   },
 }
 
@@ -86,14 +95,14 @@ M.map = {
 
 M.browser = {
   n = {
-    ["<leader>br"] = {
+    ["<leader>xr"] = {
       function()
         extern("browsh", "vertical")
       end,
       "Open Browsher",
     },
 
-    ["<leader>bl"] = {
+    ["<leader>xl"] = {
       function()
         extern("lynx", "vertical")
       end,
@@ -104,9 +113,9 @@ M.browser = {
 
 M.treesitter = {
   n = {
-    ["<leader>tss"] = { "<cmd> Inspect<CR>", "HL groups Under Cursor" },
-    ["<leader>tst"] = { "<cmd> InspectTree<CR>", "Parsed Syntax Tree" },
-    ["<leader>tsq"] = { "<cmd> PreviewQuery<CR>", "Query Editor" },
+    ["<leader>nts"] = { "<cmd> Inspect<CR>", "HL groups Under Cursor" },
+    ["<leader>ntt"] = { "<cmd> InspectTree<CR>", "Parsed Syntax Tree" },
+    ["<leader>ntq"] = { "<cmd> PreviewQuery<CR>", "Query Editor" },
   },
 }
 
@@ -120,25 +129,6 @@ M.buffer = {
         require("nvchad.tabufline").close_buffer()
       end,
       "Close buffer", -- Terminals are hidden
-    },
-  },
-}
-
-M.diagnostics = {
-  n = {
-    -- now lazy loads nvim-bqf
-    -- ["<leader>li"] = {
-    --   function()
-    --     vim.diagnostic.setloclist()
-    --   end,
-    --   "Diagnostic setloclist",
-    -- },
-
-    ["<leader>xz"] = {
-      function()
-        vim.diagnostic.open_float { border = "rounded" }
-      end,
-      "Floating diagnostic",
     },
   },
 }
@@ -209,7 +199,7 @@ M.config = {
 -- { "  Find Command", "Spc f c", "Telescope builtin" },
 M.telescope = {
   n = {
-    ["<leader>fs"] = { ":Telescope builtin<CR>", "Find Editor Command" },
+    ["<leader>fc"] = { ":Telescope builtin<CR>", "Find Editor Command" },
   },
 }
 
@@ -221,13 +211,13 @@ M.update = {
 
 M.lazy = {
   n = {
-    ["<leader>ll"] = { ":Lazy<CR>", "Open Plugin Manager" },
+    ["<leader>ol"] = { ":Lazy<CR>", "Open Plugin Manager" },
   },
 }
 
 M.mason = {
   n = {
-    ["<leader>mi"] = { ":Mason<CR>", "Open LSP Installer" },
+    ["<leader>om"] = { ":Mason<CR>", "Open LSP Installer" },
   },
 }
 
@@ -239,13 +229,55 @@ M.git = {
 
 M.code = {
   v = {
-    ["<leader>cz"] = { ":Telescope lsp_range_code_actions", "Code actions for refactoring" },
+    ["<leader>cz"] = {
+      ":Telescope lsp_range_code_actions",
+      "Code actions for refactoring",
+    },
+
     ["<leader>ca"] = {
       function()
         vim.lsp.buf.code_action()
       end,
       "LSP Code Action",
     },
+  },
+
+  n = {
+    ["<leader>ss"] = {
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      "LSP Signature Help",
+    },
+
+    ["<leader>sa"] = {
+      function()
+        require("nvchad.renamer").open()
+      end,
+      "LSP rename",
+    },
+
+    -- now lazy loads nvim-bqf
+    -- ["<leader>li"] = {
+    --   function()
+    --     vim.diagnostic.setloclist()
+    --   end,
+    --   "Diagnostic setloclist",
+    -- },
+
+    ["<leader>sq"] = { -- in v mode it sorts
+      function()
+        vim.diagnostic.open_float { border = "rounded" }
+      end,
+      "Floating diagnostic",
+    },
+  },
+}
+
+M.other = {
+  n = {
+    ["<leader>zn"] = { "<cmd> set nu!<cr>", "Toggle line number", opts = { nowait = true } },
+    ["<leader>zr"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
   },
 }
 
