@@ -59,7 +59,18 @@ M.irc = {
       function()
         extern("weechat", "vertical")
       end,
-      "IRC Client"
+      "IRC Client",
+    },
+  },
+}
+
+M.map = {
+  n = {
+    ["<leader>xw"] = {
+      function()
+        extern("mapscii", "vertical")
+      end,
+      "Open World Map",
     },
   },
 }
@@ -70,14 +81,14 @@ M.browser = {
       function()
         extern("browsh", "vertical")
       end,
-      "Open Browsher"
+      "Open Browsher",
     },
 
     ["<leader>bl"] = {
       function()
         extern("lynx", "vertical")
       end,
-      "Open Lynx"
+      "Open Lynx",
     },
   },
 }
@@ -214,6 +225,18 @@ M.mason = {
 M.git = {
   n = {
     ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
+  },
+}
+
+M.code = {
+  v = {
+    ["<leader>cz"] = { ":Telescope lsp_range_code_actions", "Code actions for refactoring" },
+    ["<leader>ca"] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+      "LSP Code Action",
+    },
   },
 }
 
