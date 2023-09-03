@@ -71,57 +71,6 @@ M.terms = {
   },
 }
 
-M.irc = {
-  n = {
-    ["<leader>xi"] = {
-      function()
-        extern("weechat", "vertical")
-      end,
-      "IRC Client",
-    },
-  },
-}
-
-M.discord = {
-  n = {
-    ["<leader>xd"] = {
-      function()
-        extern("discordo", "vertical")
-      end,
-      "Discord",
-    },
-  },
-}
-
-M.map = {
-  n = {
-    ["<leader>xw"] = {
-      function()
-        extern("mapscii", "vertical")
-      end,
-      "Open World Map",
-    },
-  },
-}
-
-M.browser = {
-  n = {
-    ["<leader>xr"] = {
-      function()
-        extern("browsh", "vertical")
-      end,
-      "Open Browsher",
-    },
-
-    ["<leader>xl"] = {
-      function()
-        extern("lynx", "vertical")
-      end,
-      "Open Lynx",
-    },
-  },
-}
-
 M.treesitter = {
   n = {
     ["<leader>nts"] = { "<cmd> Inspect<CR>", "HL groups Under Cursor" },
@@ -295,6 +244,68 @@ M.other = {
 M.dashboard = {
   n = {
     ["<leader>bd"] = { "<cmd> Nvdash<CR>", "Open Dashboard" },
+  },
+}
+
+M.irc = {
+  n = {
+    ["<leader>xi"] = {
+      function()
+        extern("weechat", "vertical")
+      end,
+      "IRC Client",
+    },
+  },
+}
+
+M.discord = {
+  n = {
+    ["<leader>xd"] = {
+      function()
+        extern("discordo", "vertical")
+      end,
+      "Discord",
+    },
+  },
+}
+
+M.map = {
+  n = {
+    ["<leader>xw"] = {
+      function()
+        extern("mapscii", "vertical")
+      end,
+      "Open World Map",
+    },
+  },
+}
+
+M.browser = {
+  n = {
+    ["<leader>xb"] = {
+      function()
+        extern("browsh", "vertical")
+      end,
+      "Open Browsher",
+    },
+
+    ["<leader>xl"] = {
+      function()
+        extern("lynx", "vertical")
+      end,
+      "Open Lynx",
+    },
+  },
+}
+
+M.reddit = {
+  n = {
+    ["<leader>xr"] = {
+      function()
+        extern("tuir", "vertical")
+      end,
+      "Reddit Client",
+    },
   },
 }
 
