@@ -1,17 +1,15 @@
 # TODO
 
-- Featurefull Bar: 
-    - Extensions for NvChad bar (e.g Github Copilot)
-- Remove `GH.nvim` migrate to `Octo.nvim`
-- Better alignment plugin
-- More terminal `extern(...)`'s (using TUI's power from neovim)
-
-
-
+- Featurefull Bar:
+  - Extensions for NvChad bar (e.g Github Copilot)
+- [x] Remove `GH.nvim` migrate to `Octo.nvim`
+- [x] Better alignment plugin (It's already good)
+- [x] More terminal `extern(...)`'s (using TUI's power from neovim)
+- [ ] Optional INSTALL Script for multiple platforms
 
 ## LICENSE
 
-```
+```md
 A neovim configuration inspired by Emacs and JetBrains. Based on NvChad
 Copyright © 2023 utfeight
 
