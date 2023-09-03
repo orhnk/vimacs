@@ -1,6 +1,6 @@
-# CamelVim
+# Vimacs
 
-A Neovim configuration heavily inspired by JetBrains products.
+Neovim configuration heavily inspired by emacs philosophy
 
 ## Philosophy
 
