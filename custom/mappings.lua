@@ -82,6 +82,17 @@ M.irc = {
   },
 }
 
+M.discord = {
+  n = {
+    ["<leader>xd"] = {
+      function()
+        extern("discordo", "vertical")
+      end,
+      "Discord",
+    },
+  },
+}
+
 M.map = {
   n = {
     ["<leader>xw"] = {

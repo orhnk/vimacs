@@ -65,7 +65,9 @@ A Neovim configuration heavily inspired by JetBrains products.
 ## Features
 
 - Advanced:
-  - [x] Browser (#5) ([INSANE DEMO](https://github.com/UTFeight/CamelVim/issues/5))
+  - [x] Discord Client (See [TOU](#discordo))
+  - [x] Browser (#5)
+        ([INSANE DEMO](https://github.com/UTFeight/CamelVim/issues/5))
   - [x] Browser (#6) (text-only)
   - [x] IRC Client
   - [x] Built-in AI Assistant (It's free! check it out
@@ -160,6 +162,7 @@ Beautiful:
 <br>
 
 - Misc:
+
   - [x] Built in language Translator (With multiple backends)
   - [x] Gigantic Gylph Picker (Nerdfonts, emojis, alt characters etc.)
   - [x] Built-in color picker
@@ -246,3 +249,14 @@ cd .. && rm -rf CamelVim && nvim
 ## TODO
 
 - [ ] Fix nvim-dap-virtual-text
+
+---
+
+## Terms of usage
+
+### Discordo
+
+Automated user accounts or "self-bots" are against Discord's Terms of Service. I
+am not responsible for any loss caused by using "self-bots" or Discordo.
+
+(See [Discordo](https://github.com/ayn2op/discordo#readme))
