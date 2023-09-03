@@ -292,6 +292,12 @@ M.other = {
   },
 }
 
+M.dashboard = {
+  n = {
+    ["<leader>bd"] = { "<cmd> Nvdash<CR>", "Open Dashboard" },
+  },
+}
+
 -- M. = {
 --   n = {
 --  [""] = { "", "" },
