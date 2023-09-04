@@ -1945,6 +1945,17 @@ local plugins = {
     },
   },
 
+  { -- Nice actions using your buffers text
+    "Eandrju/cellular-automaton.nvim",
+
+    cmd = "CellularAutomaton",
+
+    keys = {
+      { "<leader>vr", "<cmd> CellularAutomaton make_it_rain<CR>", mode = "n", desc = "Rain" },
+      { "<leader>vl", "<cmd> CellularAutomaton game_of_life<CR>", mode = "n", desc = "Game of Life" },
+      { "<leader>vx", "<cmd> CellularAutomaton scramble<CR>", mode = "n", desc = "Scrable" },
+    },
+  },
 }
 
 return plugins
