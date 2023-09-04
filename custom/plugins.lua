@@ -1921,6 +1921,30 @@ local plugins = {
       { "<leader>vt", "<cmd> Tetris<CR>", mode = "n", desc = "Play Tetris" },
     },
   },
+
+  { -- One of the nices things ever!
+    "seandewar/killersheep.nvim",
+
+    config = function(_, opts)
+      require("killersheep").setup(opts)
+    end,
+
+    opts = {
+      gore = true, -- Enables/disables blood and gore.
+      keymaps = {
+        move_left = "h", -- Keymap to move cannon to the left.
+        move_right = "l", -- Keymap to move cannon to the right.
+        shoot = "<Space>", -- Keymap to shoot the cannon.
+      },
+    },
+
+    cmd = "KillKillKill",
+
+    keys = {
+      { "<leader>vk", "<cmd> KillKillKill<CR>", mode = "n", desc = "Play Killer Sheep" },
+    },
+  },
+
 }
 
 return plugins
