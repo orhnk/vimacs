@@ -1907,6 +1907,19 @@ local plugins = {
     keys = require("custom.configs.sniprun").keys,
     opts = require("custom.configs.sniprun").opts,
   },
+
+  ------- GAMES -------
+  {
+    "jim-fx/sudoku.nvim",
+    cmd = "Sudoku",
+
+    config = function(_, opts)
+      require("sudoku").setup(opts)
+    end,
+
+    opts = require("custom.configs.sudoku").opts,
+    keys = require("custom.configs.sudoku").keys,
+  },
 }
 
 return plugins
