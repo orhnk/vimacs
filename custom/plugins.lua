@@ -1911,6 +1911,16 @@ local plugins = {
       { "<leader>vg", "<cmd> VimBeGood<CR>", mode = "n", desc = "Play VimBeGood" },
     },
   },
+
+  {
+    "alec-gibson/nvim-tetris",
+
+    cmd = "Tetris",
+
+    keys = {
+      { "<leader>vt", "<cmd> Tetris<CR>", mode = "n", desc = "Play Tetris" },
+    },
+  },
 }
 
 return plugins
