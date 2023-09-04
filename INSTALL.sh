@@ -1,5 +1,6 @@
 #!/bin/sh
 
+yay -S so-git # Stack Overflow Queries
 yay -S perf browsh gh
 
 yay -S weechat # ranger is unneded (we already have an awesome file manager)
