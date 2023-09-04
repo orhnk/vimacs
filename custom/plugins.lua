@@ -1956,6 +1956,16 @@ local plugins = {
       { "<leader>vx", "<cmd> CellularAutomaton scramble<CR>", mode = "n", desc = "Scrable" },
     },
   },
+
+  {
+    "seandewar/nvimesweeper",
+
+    cmd = "Nvimesweeper",
+
+    keys = {
+      { "<leader>vw", "<cmd> Nvimesweeper<CR>", mode = "n", desc = "Play MineSweeper" },
+    },
+  },
 }
 
 return plugins
