@@ -82,13 +82,12 @@ M.dependencies = {
   -- },
 
   -- cmp sources plugins
-  { -- TODO: Make sure Copilot and Tabnine is not needed here
-    "saadparwaiz1/cmp_luasnip",
-    "hrsh7th/cmp-nvim-lua",
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
-  },
+  -- TODO: Make sure Copilot and Tabnine is not needed here
+  "saadparwaiz1/cmp_luasnip",
+  "hrsh7th/cmp-nvim-lua",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
 } -- END NV-CMP DEPENDENCIES
 
 -- ALL OPTS GET MERGED WITH DEFAULTS IN LAZY.nvim

@@ -10,17 +10,17 @@ M.prefixes = function()
 
       -- stylua: ignore start
       [" "] = { name = " Quick"             },
-      a     = { name = " AI"                },   --   󰧑
+      a     = { name = " AI"                }, --   󰧑
       b     = { name = "󱂬 Buffer"            },
       c     = { name = "󱃖 Code"              },
       cl    = { name = "󰡱 LeetCode"          },
       cm    = { name = " Markdown"          },
-      cp    = { name = " Cpp"               },   --   󰙲
+      cp    = { name = " Cpp"               }, --   󰙲
       cs    = { name = "󱝆 Surf"              },
       cx    = { name = "󱣘 Cargo.toml"        },
       cz    = { name = " Snippet"           },
       d     = { name = " Debug"             },
-      e     = { name = " Edit"              },   -- TODO
+      e     = { name = " Edit"              }, -- TODO: Move these to their groups
       f     = { name = " Find"              },
       g     = { name = " Git"               },
       gh    = { name = " GitHub"            },
@@ -43,23 +43,22 @@ M.prefixes = function()
       lt    = { name = " TODO"              },
       m     = { name = " Modes"             },
       ml    = { name = "󰉦 Lush"              },
-      n     = { name = " Compiler Explorer" },   -- 
+      n     = { name = " Compiler Explorer" }, -- 
       nt    = { name = "󱘎 TreeSitter"        },
       o     = { name = " Open"              },
-      p     = { name = " Profile"           },   -- 
+      p     = { name = " Profile"           }, -- 
       pl    = { name = "󱑤 Load"              },
       r     = { name = " Run"               },
       rq    = { name = " LeetCode"          },
-      s     = { name = " LSP"               },   -- LSP | move this to +cs
+      s     = { name = " LSP"               },
       t     = { name = "󰙨 Test"              },
       u     = { name = "󰚰 Update"            },
-      v     = { name = " Vertical"          },
+      v     = { name = " Games"             },
       w     = { name = " Workspace"         },
       x     = { name = " External"          },
       y     = { name = "󱘣 Neoclip"           },
       z     = { name = "󰟃 Other"             },
       -- stylua: ignore end
-
     },
   }
 end
