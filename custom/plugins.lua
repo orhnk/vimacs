@@ -1907,27 +1907,6 @@ local plugins = {
     keys = require("custom.configs.sniprun").keys,
     opts = require("custom.configs.sniprun").opts,
   },
-
-  ------- GAMES -------
-  {
-    "jim-fx/sudoku.nvim",
-    cmd = "Sudoku",
-
-    config = function(_, opts)
-      require("sudoku").setup(opts)
-    end,
-
-    opts = require("custom.configs.sudoku").opts,
-    keys = require("custom.configs.sudoku").keys,
-  },
-
-  {
-    "ThePrimeagen/vim-be-good",
-    cmd = "VimBeGood",
-    keys = {
-      { "<leader>vg", "<cmd> VimBeGood<CR>", mode = "n", desc = "Play VimBeGood" },
-    },
-  },
 }
 
 return plugins
