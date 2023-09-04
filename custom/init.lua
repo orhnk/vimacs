@@ -85,3 +85,26 @@ set autochdir
 -- TODO: Check wheter this is needed
 -- -- Improves startup time
 -- vim.loader.enable()
+
+-- Stack Overflow Wrapper:
+
+-- Define the Soq command
+-- vim.cmd [[
+--   command! -nargs=* Soq call v:lua.run_soq(<q-args>)
+-- ]]
+
+-- Define the Lua function to execute the Soq command
+function run_soq(query)
+  local cmd = "so " .. query
+  require("custom.utils").extern(cmd, "vertical")
+end
+
+-- Create the Soq command using nvim_create_user_command
+vim.api.nvim_create_user_command(
+  "Soq",
+  "lua run_soq(<q-args>)",
+  {
+    nargs = "*",
+    -- complete = "shellcmd",
+  }
+)
