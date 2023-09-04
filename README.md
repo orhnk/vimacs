@@ -65,7 +65,8 @@ Neovim configuration heavily inspired by emacs philosophy
 ## Features
 
 - Advanced:
-  - [x] Integrated Reddit Client (See [DEMO](https://github.com/UTFeight/vimacs/assets/101834410/85a24510-58a8-44e1-aa9b-8cfe96073b76))
+  - [x] Integrated Reddit Client (See
+        [DEMO](https://github.com/UTFeight/vimacs/assets/101834410/85a24510-58a8-44e1-aa9b-8cfe96073b76))
   - [x] Discord Client (See [TOU](#discordo))
   - [x] Browser (#5)
         ([INSANE DEMO](https://github.com/UTFeight/CamelVim/issues/5))
@@ -238,6 +239,13 @@ cd .. && rm -rf CamelVim && nvim
 
 7. Leet code:
    - [Must-do](https://github.com/Dhanus3133/Leetbuddy.nvim#login-to-your-account)
+
+8. Email Client:
+   - Gmail:
+     > [!IMPORTANT] You need Two factor authentication enabled!
+
+     Then follow the instructions from
+     [this site](https://seniormars.github.io/posts/neomutt/).
 
 ## Credits
 
