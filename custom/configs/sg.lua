@@ -45,13 +45,13 @@ M.keys = {
       local finish = vim.fn.col "$"
       local text = line:sub(start, finish)
       vim.fn.setreg('"', text)
-      vim.cmd [[CodyDo 'Write document for current context']]
+      vim.cmd [[CodyTask 'Write document for current context']]
     end,
     mode = "n",
     desc = "Generate Document with AI",
   },
 
-  { "<leader>ac", ':CodyDo ""<Left>', mode = "n", desc = "Let AI Write Code" },
+  { "<leader>ac", ':CodyTask ""<Left>', mode = "n", desc = "Let AI Write Code" },
 
   { "<leader>aa", ":CodyTaskAccept<CR>", mode = "n", desc = "Confirm AI work" },
 
@@ -64,12 +64,12 @@ M.keys = {
 
   { "<leader>ai", "y:CodyChat<CR><ESC>pG$a<CR>", mode = "v", desc = "Chat Selected Code" },
 
-  {
-    "<leader>ad",
-    "{:CodyDo 'Write document for current context<CR>'",
-    mode = "n",
-    desc = "Generate Document with AI",
-  },
+  -- {
+  --   "<leader>ad",
+  --   "{:CodyTask 'Write document for current context<CR>'",
+  --   mode = "n",
+  --   desc = "Generate Document with AI",
+  -- },
 
   {
     "<leader>ar",
