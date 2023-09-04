@@ -309,6 +309,17 @@ M.reddit = {
   },
 }
 
+M.mail = {
+  n = {
+    ["<leader>xm"] = {
+      function()
+        extern("mutt", "vertical")
+      end,
+      "Email Client",
+    },
+  },
+}
+
 -- M. = {
 --   n = {
 --  [""] = { "", "" },
