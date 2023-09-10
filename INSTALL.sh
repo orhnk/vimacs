@@ -18,6 +18,9 @@ pipx install tuir # Reddit
 
 yay -S discordo-git # Discord Client
 
+
+yay -S mutt
+
 # # Create a key and follow the instructions that are prompted:
 # gpg --full-generate-key
 #
