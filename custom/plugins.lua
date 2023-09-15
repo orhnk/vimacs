@@ -106,7 +106,7 @@ local plugins = {
     event = "InsertEnter",
 
     config = function(_, opts)
-      require("copilot").setup { opts }
+      require("copilot").setup(opts)
     end,
 
     opts = {
