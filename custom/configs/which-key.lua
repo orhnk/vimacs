@@ -48,6 +48,7 @@ M.prefixes = function()
       o     = { name = " Open"              },
       p     = { name = " Profile"           }, -- 
       pl    = { name = "󱑤 Load"              },
+      q     = { name = "󰗼 Quit"              },
       r     = { name = " Run"               },
       rq    = { name = " LeetCode"          },
       s     = { name = " LSP"               },
@@ -57,7 +58,7 @@ M.prefixes = function()
       w     = { name = " Workspace"         },
       x     = { name = " External"          },
       y     = { name = "󱘣 Neoclip"           },
-      z     = { name = "󰟃 Other"             },
+      z     = { name = " Neorg"             },
       -- stylua: ignore end
     },
   }
