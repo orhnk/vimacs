@@ -5,7 +5,9 @@ local extern = require("custom.utils").extern
 M.general = {
   n = {
     ["<leader>ww"] = { "<cmd> w<cr>", "Save Changes", opts = { nowait = true } },
-    ["<leader>q"] = { "<cmd> qa<cr>", "Quit Editor", opts = { nowait = true } },
+    ["<leader>qq"] = { "<cmd> qa<cr>", "Quit Editor", opts = { nowait = true } },
+    ["<leader>fq"] = { "<cmd> qa!<cr>", "Force Quit Editor", opts = { nowait = true } },
+    ["<leader>wq"] = { "<cmd> wq<cr>", "Write Quit Editor", opts = { nowait = true } },
   },
 }
 
@@ -53,6 +55,7 @@ M.disabled = {
 
     -- NvChad
     ["<leader>th"] = "",
+    ["<leader>fo"] = "", -- moved: <leader>fr
   },
 }
 
@@ -156,10 +159,24 @@ M.config = {
   },
 }
 
--- { "  Find Command", "Spc f c", "Telescope builtin" },
+-- VIMSCRIPT:
+-- function! ZathuraOpenPdf()
+-- 	let fullPath = expand("%:p")
+-- 	let pdfFile = substitute(fullPath, ".tex", ".pdf", "")
+-- 	execute "silent !zathura '" . pdfFile . "' &"
+-- endfunction
+-- END
+--
+-- M.zathura = {
+--   n = {
+--     ["<leader>oz"] = { ":next ~/.config/nvim/lua/custom/*.lua<CR>", "Open in Zathura" },
+--   },
+-- }
+
 M.telescope = {
   n = {
     ["<leader>fc"] = { ":Telescope builtin<CR>", "Find Editor Command" },
+    ["<leader>fr"] = { "<cmd> Telescope oldfiles<CR>", "Recent Files" },
   },
 }
 
@@ -171,7 +188,7 @@ M.update = {
 
 M.lazy = {
   n = {
-    ["<leader>ol"] = { ":Lazy<CR>", "Open Plugin Manager" },
+    ["<leader>ll"] = { ":Lazy<CR>", "Open Plugin Manager" },
   },
 }
 
@@ -236,8 +253,8 @@ M.code = {
 
 M.other = {
   n = {
-    ["<leader>zn"] = { "<cmd> set nu!<cr>", "Toggle line number", opts = { nowait = true } },
-    ["<leader>zr"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+    ["<leader>bl"] = { "<cmd> set nu!<cr>", "Toggle line number", opts = { nowait = true } },
+    ["<leader>br"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
   },
 }
 
@@ -271,7 +288,7 @@ M.discord = {
 
 M.map = {
   n = {
-    ["<leader>xw"] = {
+    ["<leader>xm"] = {
       function()
         extern("mapscii", "vertical")
       end,
@@ -309,13 +326,46 @@ M.reddit = {
   },
 }
 
+M.stackoverflow = {
+  n = {
+    ["<leader>xs"] = {
+      function()
+        extern("so", "vertical")
+      end,
+      "Query StackOverflow",
+    },
+  },
+}
+
 M.mail = {
   n = {
-    ["<leader>xm"] = {
+    ["<leader>xq"] = {
       function()
         extern("mutt", "vertical")
       end,
       "Email Client",
+    },
+  },
+}
+
+M.ncmpcpp = {
+  n = {
+    ["<leader>xa"] = {
+      function()
+        extern("ncmpcpp", "vertical")
+      end,
+      "Music Player",
+    },
+  },
+}
+
+M.whatsapp = {
+  n = {
+    ["<leader>xw"] = {
+      function()
+        extern("nchat", "vertical")
+      end,
+      "WhatsApp Client",
     },
   },
 }
