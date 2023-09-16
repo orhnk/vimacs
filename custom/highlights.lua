@@ -174,6 +174,13 @@ M.add = {
   -- NeogitCommandCodeError        = { fg = "white" },
   -- stylua: ignore end
   -- end neogit
+
+  -- stylua: ignore start
+  BqfPreviewBorder = { fg = "grey_fg2" },
+  BqfPreviewTitle  = { fg = "white"    },
+  BqfPreviewThumb  = { fg = "white"    },
+  BqfPreviewRange  = { fg = "white"    },
+  -- stylua: ignore end
 }
 
 return M
