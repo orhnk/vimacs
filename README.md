@@ -13,7 +13,9 @@ Neovim configuration heavily inspired by emacs philosophy
 
 ![image](https://github.com/UTFeight/CamelVim/assets/101834410/f16cfff5-61c9-4ab4-99a1-eb37601ba6f5)
 
-<details><summary><b>Feature Showcase (Click to expand!)</b></summary>
+<details><summary><b>
+    Feature Showcase (Click to expand!)
+</b></summary>
 
 1. Built-in AI Assistant:
    ![image](https://github.com/UTFeight/CamelVim/assets/101834410/4290f494-3c9f-4464-8acc-83259a302e81)
