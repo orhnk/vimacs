@@ -24,6 +24,22 @@ M.dependencies = {
       history = true,
       updateevents = "TextChanged,TextChangedI",
     },
+
+    keys = {
+      {
+        "<C-s>",
+        function()
+          local ls = require "luasnip"
+          if ls.choice_active() then
+            ls.change_choice(1)
+          end
+        end,
+
+        mode = { "i", "s" },
+        silent = true,
+      },
+    },
+
     config = function(_, opts)
       require("plugins.configs.others").luasnip(opts)
     end,
