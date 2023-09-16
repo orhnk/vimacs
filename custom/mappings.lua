@@ -330,7 +330,8 @@ M.stackoverflow = {
   n = {
     ["<leader>xs"] = {
       function()
-        extern("so", "vertical")
+        local q = vim.fn.input("Query: ")
+        extern("so " .. q, "vertical")
       end,
       "Query StackOverflow",
     },
