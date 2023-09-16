@@ -29,9 +29,9 @@ M.dependencies = {
     end,
   },
 
-  -- These integrates with nvim-cmp with both Github Copilot and Tabnine AI
-  -- I find it uncomfortable to use, so I disabled them
-  -- If you want to enable them don't forget to turn on them in `sources` too!
+  -- -- These integrates with nvim-cmp with both Github Copilot and Tabnine AI
+  -- -- I find it uncomfortable to use, so I disabled them
+  -- -- >>> If you want to enable them don't forget to turn on them in `sources` too! <<<
   -- { -- Tabnine
   --   "tzachar/cmp-tabnine",
   --
@@ -40,7 +40,7 @@ M.dependencies = {
   --
   --   config = function(_, opts)
   --     local tabnine = require "cmp_tabnine.config"
-  --     tabnine:setup { opts }
+  --     tabnine:setup(opts)
   --   end,
   --
   --   opts = {
@@ -66,12 +66,11 @@ M.dependencies = {
   --
   --     opts = {
   --       suggestion = {
-  --         enabled = true,
-  --         auto_trigger = true,
+  --         enabled = false,
   --       },
   --
   --       panel = {
-  --         enabled = true,
+  --         enabled = false,
   --       },
   --     },
   --   },
@@ -82,12 +81,12 @@ M.dependencies = {
   -- },
 
   -- cmp sources plugins
-  -- TODO: Make sure Copilot and Tabnine is not needed here
   "saadparwaiz1/cmp_luasnip",
   "hrsh7th/cmp-nvim-lua",
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
+  "Saecki/crates.nvim",
 } -- END NV-CMP DEPENDENCIES
 
 -- ALL OPTS GET MERGED WITH DEFAULTS IN LAZY.nvim
