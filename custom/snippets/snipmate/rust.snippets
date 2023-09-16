@@ -158,11 +158,6 @@ snippet for "for ... in ... loop"
 	for ${1:i} in ${2} {
 		${0}
 	}
-# TODO commenting
-snippet todo "TODO comment"
-	// TODO: $0
-snippet fixme "FIXME comment"
-	// FIXME: $0
 # Struct
 snippet st "Struct definition"
 	struct ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} {
