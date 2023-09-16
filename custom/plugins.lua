@@ -67,6 +67,7 @@ local plugins = {
         end,
       },
     },
+
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
@@ -89,7 +90,6 @@ local plugins = {
     opts = overrides.nvimtree,
   },
 
-  -- Install a plugin
   {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
@@ -109,49 +109,7 @@ local plugins = {
       require("copilot").setup(opts)
     end,
 
-    opts = {
-      panel = {
-        enabled = true,
-        auto_refresh = true, -- Refresh suggestions when typing to the buffer
-        keymap = {
-          jump_prev = "[[",
-          jump_next = "]]",
-          accept = "<CR>",
-          refresh = "gr",
-          open = "<M-CR>",
-        },
-        layout = {
-          position = "right", -- | top | left | right
-          ratio = 0.4,
-        },
-      },
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        debounce = 75,
-        keymap = {
-          accept = "<M-Tab>",
-          accept_word = false,
-          accept_line = false,
-          next = "<C-l>",
-          prev = "<C-h>",
-          dismiss = "<C-q>",
-        },
-      },
-      filetypes = {
-        yaml = true,
-        markdown = true,
-        help = true,
-        gitcommit = true,
-        gitrebase = true,
-        hgcommit = true,
-        svn = true,
-        cvs = true,
-        ["."] = false,
-      },
-      copilot_node_command = "node", -- Node.js version must be > 16.x
-      server_opts_overrides = {},
-    },
+    opts = require("custom.configs.copilot").opts,
   },
 
   -- C++ development
@@ -186,26 +144,38 @@ local plugins = {
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup {
-        -- Configuration here, or leave empty to use defaults
-      }
+
+    -- event = "VeryLazy",
+    keys = { "cs", "ds", "ys" },
+
+    config = function(_, opts)
+      require("nvim-surround").setup(opts)
     end,
+
+    opts = {
+      -- Configuration here, or leave empty to use defaults
+    },
   },
 
   { -- Emoji Picker
     "ziontee113/icon-picker.nvim",
 
     keys = {
-      { "<leader>fe", ":PickEverything<CR>", mode = "n", desc = "Glyph Picker" }, -- Gigantic Search Base
+      {
+        "<leader>fe",
+        ":PickEverything<CR>",
+        mode = "n",
+        desc = "Glyph Picker",
+      }, -- Gigantic Search Base
     },
 
-    config = function()
-      require("icon-picker").setup {
-        disable_legacy_commands = false,
-      }
+    config = function(_, opts)
+      require("icon-picker").setup(opts)
     end,
+
+    opts = {
+      disable_legacy_commands = false,
+    },
   },
 
   { -- FIXME: Some snippets are not working: e.g fix (toggleable)
@@ -214,22 +184,90 @@ local plugins = {
     opts = require("custom.configs.cmp").opts,
   },
 
+  -- -- load luasnips + cmp related in insert mode only
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --     {
+  --       -- snippet plugin
+  --       "L3MON4D3/LuaSnip",
+  --       dependencies = "rafamadriz/friendly-snippets",
+  --       opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+  --       config = function(_, opts)
+  --         require("plugins.configs.others").luasnip(opts)
+  --       end,
+  --     },
+  --
+  --     -- autopairing of (){}[] etc
+  --     {
+  --       "windwp/nvim-autopairs",
+  --       opts = {
+  --         fast_wrap = {},
+  --         disable_filetype = { "TelescopePrompt", "vim" },
+  --       },
+  --       config = function(_, opts)
+  --         require("nvim-autopairs").setup(opts)
+  --
+  --         -- setup cmp for autopairs
+  --         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+  --         require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+  --       end,
+  --     },
+  --
+  --     -- cmp sources plugins
+  --     {
+  --       "saadparwaiz1/cmp_luasnip",
+  --       "hrsh7th/cmp-nvim-lua",
+  --       "hrsh7th/cmp-nvim-lsp",
+  --       "hrsh7th/cmp-buffer",
+  --       "hrsh7th/cmp-path",
+  --     },
+  --   },
+  --   opts = function()
+  --     return require "plugins.configs.cmp"
+  --   end,
+  --   config = function(_, opts)
+  --     require("cmp").setup(opts)
+  --   end,
+  -- },
+
   { -- Code runner
     "Zeioth/compiler.nvim",
     keys = {
-      { "<leader>rr", ":CompilerOpen<CR>", mode = "n", desc = "Run Project" },
-      { "<leader>rt", ":CompilerToggleResults<CR>", mode = "n", desc = "Toggle Results" },
+      {
+        "<leader>rr",
+        ":CompilerOpen<CR>",
+        mode = "n",
+        desc = "Run Project",
+      },
+      {
+        "<leader>rt",
+        ":CompilerToggleResults<CR>",
+        mode = "n",
+        desc = "Toggle Results",
+      },
     },
 
-    cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
-    dependencies = { "stevearc/overseer.nvim" },
+    cmd = {
+      "CompilerOpen",
+      "CompilerToggleResults",
+      "CompilerRedo",
+    },
+    dependencies = {
+      "stevearc/overseer.nvim",
+    },
     opts = {},
   },
 
   { -- The task runner for compiler.nvim
     "stevearc/overseer.nvim",
     commit = "3047ede61cc1308069ad1184c0d447ebee92d749",
-    cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+    cmd = {
+      "CompilerOpen",
+      "CompilerToggleResults",
+      "CompilerRedo",
+    },
     opts = {
       task_list = {
         direction = "bottom",
@@ -274,7 +312,7 @@ local plugins = {
       "antoinemadec/FixCursorHold.nvim",
     },
 
-    config = function()
+    config = function(_, opts)
       require("neotest").setup {
         adapters = {
           require "neotest-rust",
@@ -306,17 +344,36 @@ local plugins = {
   --   },
   -- },
 
-  { -- Overseer prettifier
+  { -- This plugin overrides the default vim selector ui (e.g <leader>ca)
     "stevearc/dressing.nvim",
 
-    event = "VeryLazy", -- FIXME
+    event = "VeryLazy", -- FIXME: maybe lazy loadable?
 
-    config = function()
-      require("dressing").setup {
-        default_prompt = "❯ ",
-      }
+    config = function(_, opts)
+      require("dressing").setup(opts)
     end,
+
+    opts = {
+      default_prompt = "❯ ",
+    },
   },
+
+  -- { -- TODO replace this with automaton
+  --   "stevearc/overseer.nvim",
+  --
+  --   dependencies = { "stevearc/dressing.nvim" },
+  --
+  --   keys = {
+  --     { "<leader>tt", ":OverseerToggle<CR>", mode = "n", desc = "Toggle Task Runner UI" },
+  --     { "<leader>tr", ":OverseerRun<CR>", mode = "n", desc = "Run tasks" },
+  --   },
+  --
+  --   config = function()
+  --     require("overseer").setup()
+  --   end,
+  --
+  --   opts = {},
+  -- },
 
   -- { -- Using flash.nvim now
   --   "ggandor/leap.nvim",
@@ -330,19 +387,31 @@ local plugins = {
     "gorbit99/codewindow.nvim",
 
     keys = {
-      { "<leader>mo", "codewindow.toggle_minimap()", mode = "n", desc = "Toggle Minimap" },
-      { "<leader>mm", "codewindow.toggle_focus()", mode = "n", desc = "Focus Minimap" },
+      {
+        "<leader>mo",
+        "codewindow.toggle_minimap()",
+        mode = "n",
+        desc = "Toggle Minimap",
+      },
+      {
+        "<leader>mm",
+        "codewindow.toggle_focus()",
+        mode = "n",
+        desc = "Focus Minimap",
+      },
     },
 
-    config = function()
+    config = function(_, opts)
       local codewindow = require "codewindow"
-      codewindow.setup {
-        show_cursor = false,
-        screen_bounds = "lines",
-        window_border = "none",
-      }
+      codewindow.setup(opts)
       codewindow.apply_default_keybinds()
     end,
+
+    opts = {
+      show_cursor = false,
+      screen_bounds = "lines",
+      window_border = "none",
+    },
   },
 
   {
@@ -356,10 +425,11 @@ local plugins = {
     -- optional, you can also install and use `yq` instead.
     dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
 
-    opts = {},
     config = function(_, opts)
       require("gh-actions").setup(opts)
     end,
+
+    opts = {},
   },
 
   -- { -- Default nvim motions are good enough
@@ -390,25 +460,42 @@ local plugins = {
     "rktjmp/paperplanes.nvim",
 
     keys = {
-      { "<leader><leader>p", ":PP<CR>", mode = "n", desc = "Send Buffer to Pastebin Client" },
-      { "<leader><leader>p", ":PP<CR>", mode = "v", desc = "Send Seleceted Code to Pastebin Client" },
+      {
+        "<leader><leader>p",
+        ":PP<CR>",
+        mode = "n",
+        desc = "Send Buffer to Pastebin Client",
+      },
+      {
+        "<leader><leader>p",
+        ":PP<CR>",
+        mode = "v",
+        desc = "Send Seleceted Code to Pastebin Client",
+      },
     },
 
-    config = function()
-      require("paperplanes").setup {
-        register = "+",
-        provider = "0x0.st",
-        provider_options = {},
-        notifier = vim.notify or print,
-      }
+    config = function(_, opts)
+      require("paperplanes").setup(opts)
     end,
+
+    opts = {
+      register = "+",
+      provider = "0x0.st",
+      provider_options = {},
+      notifier = vim.notify or print,
+    },
   },
 
   {
     "NeogitOrg/neogit",
 
     keys = {
-      { "<leader>gg", "<cmd> Neogit<CR>", mode = "n", desc = "Open Neogit" },
+      {
+        "<leader>gg",
+        "<cmd> Neogit<CR>",
+        mode = "n",
+        desc = "Open Neogit",
+      },
     },
 
     dependencies = {
@@ -417,9 +504,11 @@ local plugins = {
       "sindrets/diffview.nvim", -- optional
     },
 
-    config = function()
-      require("neogit").setup()
+    config = function(_, opts)
+      require("neogit").setup(opts)
     end,
+
+    opts = {},
   },
 
   {
@@ -429,33 +518,45 @@ local plugins = {
       { "<leader>tu", ":Telescope undo<CR>", mode = "n", desc = "Open Undo History" },
     },
 
-    config = function()
-      require("telescope").load_extension "undo"
-    end,
-
-    opts = {
-      extensions = {
-        undo = {
-          side_by_side = true,
-          layout_strategy = "vertical",
-          layout_config = {
-            preview_height = 0.8,
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        opts = {
+          extensions = {
+            undo = {
+              side_by_side = true,
+              layout_strategy = "vertical",
+              layout_config = {
+                preview_height = 0.8,
+              },
+            },
           },
         },
       },
     },
+
+    config = function(_, opts)
+      require("telescope").load_extension "undo"
+    end,
   },
 
   {
     "simrat39/symbols-outline.nvim",
 
     keys = {
-      { "<leader>fs", ":SymbolsOutline<CR>", mode = "n", desc = "Find Symbols" },
+      {
+        "<leader>fs",
+        ":SymbolsOutline<CR>",
+        mode = "n",
+        desc = "Find Symbols",
+      },
     },
 
-    config = function()
-      require("symbols-outline").setup()
+    config = function(_, opts)
+      require("symbols-outline").setup(opts)
     end,
+
+    opts = {},
   },
 
   { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
@@ -463,7 +564,7 @@ local plugins = {
 
     keys = {
       {
-        "<leader>zs",
+        "<leader>sw",
         ":lua require('nvim-quick-switcher').toggle('cpp', 'hpp')<CR>",
         mode = "n",
         desc = "Switch To Pair File",
@@ -490,26 +591,31 @@ local plugins = {
     dependencies = { "nvim-lua/plenary.nvim" },
 
     config = function(_, opts)
-      require("sg").setup { opts }
+      require("sg").setup(opts)
     end,
 
     opts = require("custom.configs.sg").opts,
-
     keys = require("custom.configs.sg").keys,
 
     -- If you have a recent version of lazy.nvim, you don't need to add this!
-    -- build = "nvim -l build/init.lua",
+    build = "nvim -l build/init.lua",
   },
 
   { -- TODO: Fix
     "iamcco/markdown-preview.nvim",
 
-    ft = { "markdown" },
-
+    ft = {
+      "markdown",
+    },
     build = ":call mkdp#util#install()",
 
     keys = {
-      { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", mode = "n", desc = "Markdown Preview" },
+      {
+        "<leader>mp",
+        "<cmd>MarkdownPreviewToggle<cr>",
+        mode = "n",
+        desc = "Markdown Preview",
+      },
     },
 
     config = function()
@@ -525,16 +631,16 @@ local plugins = {
   { -- nvim-dap UI
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dapui").setup()
+    config = function(_, opts)
+      require("dapui").setup(opts)
     end,
   },
 
   { -- nvim-dap virtual text
     "theHamsta/nvim-dap-virtual-text",
     dependencies = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dap-virtual-text").setup()
+    config = function(_, opts)
+      require("dap-virtual-text").setup(opts)
     end,
   },
 
@@ -583,13 +689,21 @@ local plugins = {
   {
     "danymat/neogen",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("neogen").setup {
-        snippet_engine = "luasnip",
-      }
+    config = function(_, opts)
+      require("neogen").setup(opts)
     end,
+
+    opts = {
+      snippet_engine = "luasnip",
+    },
+
     keys = {
-      { "<leader>cd", "<cmd>lua require('neogen').generate()<CR>", mode = "n", desc = "Generate Base Documentation" },
+      {
+        "<leader>cd",
+        "<cmd>lua require('neogen').generate()<CR>",
+        mode = "n",
+        desc = "Generate Base Documentation",
+      },
     },
   },
 
@@ -609,12 +723,12 @@ local plugins = {
     "Dhanus3133/LeetBuddy.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
+      -- "nvim-telescope/telescope.nvim",
     },
     -- event = "VeryLazy",
 
-    config = function()
-      require("leetbuddy").setup {}
+    config = function(_, opts)
+      require("leetbuddy").setup(opts)
       -- require("telescope").load_extension "leetbuddy"
     end,
 
@@ -626,6 +740,11 @@ local plugins = {
       { "<leader>clt", "<cmd>LBTest<cr>",      desc = "Run Code"       },
       { "<leader>cls", "<cmd>LBSubmit<cr>",    desc = "Submit Code"    },
       -- stylua: ignore end
+    },
+
+    opts = {
+      domain = "com", -- `cn` for chinese leetcode
+      language = "rs",
     },
   },
 
@@ -679,9 +798,39 @@ local plugins = {
     "nvim-telescope/telescope-project.nvim",
 
     -- if you want to enable custom hook
-    -- dependencies = {
-    --   "ThePrimeagen/harpoon",
-    -- },
+    dependencies = {
+      -- {
+      -- "ThePrimeagen/harpoon",
+      -- }
+      {
+        "nvim-telescope/telescope.nvim",
+        opts = {
+          extensions = {
+            project = {
+              base_dirs = {
+                "~/Github",
+                "~/",
+                -- { "~/dev/src2" },
+                -- { "~/dev/src3", max_depth = 4 },
+                -- { path = "~/dev/src4" },
+                -- { path = "~/dev/src5", max_depth = 2 },
+              },
+              -- hidden_files = true, -- default: false --- .git files go brrr
+              -- theme = "dropdown",
+              order_by = "recent",
+              search_by = "title",
+              sync_with_nvim_tree = true, -- default false
+              -- default for on_project_selected = find project files
+              -- on_project_selected = function(prompt_bufnr)
+              --   -- Do anything you want in here. For example:
+              --   project_actions.change_working_directory(prompt_bufnr, false)
+              --   require("harpoon.ui").nav_file(1)
+              -- end,
+            },
+          },
+        },
+      },
+    },
 
     keys = {
       {
@@ -692,32 +841,7 @@ local plugins = {
     },
 
     config = function()
-      local project_actions = require "telescope._extensions.project.actions"
-      require("telescope").setup {
-        extensions = {
-          project = {
-            base_dirs = {
-              "~/Github",
-              "~/",
-              -- { "~/dev/src2" },
-              -- { "~/dev/src3", max_depth = 4 },
-              -- { path = "~/dev/src4" },
-              -- { path = "~/dev/src5", max_depth = 2 },
-            },
-            -- hidden_files = true, -- default: false --- .git files go brrr
-            -- theme = "dropdown",
-            order_by = "asc",
-            search_by = "title",
-            sync_with_nvim_tree = true, -- default false
-            -- default for on_project_selected = find project files
-            -- on_project_selected = function(prompt_bufnr)
-            --   -- Do anything you want in here. For example:
-            --   project_actions.change_working_directory(prompt_bufnr, false)
-            --   require("harpoon.ui").nav_file(1)
-            -- end,
-          },
-        },
-      }
+      -- local project_actions = require "telescope._extensions.project.actions"
       require("telescope").load_extension "project"
     end,
   },
@@ -725,16 +849,29 @@ local plugins = {
   { -- Toggle case (CamelCase, snake_case, kebab-case, PascalCase, Title Case, UPPER CASE, lower case)
     "UTFeight/vim-case-change", -- FIXME
     keys = {
-      { "<M-S>", "<cmd>ToggleCase<cr>", mode = "v", desc = "Toggle Case" },
-      { "<M-S>", "<ESC>viw<cmd>ToggleCase<cr>", mode = { "i", "n" }, desc = "Toggle Case" },
+      -- NOTE: This is M-Shift-s actually.
+      {
+        "<M-S>",
+        "<cmd>ToggleCase<cr>",
+        mode = "v",
+        desc = "Toggle Case",
+      },
+      {
+        "<M-S>",
+        "<ESC>viw<cmd>ToggleCase<cr>",
+        mode = { "i", "n" },
+        desc = "Toggle Case",
+      },
     },
   },
 
   { -- Regexplainer
     "tomiis4/Hypersonic.nvim",
-    config = function()
-      require("hypersonic").setup {}
+    config = function(_, opts)
+      require("hypersonic").setup(opts)
     end,
+
+    opts = {},
 
     keys = {
       { "<leader>re", "<cmd>Hypersonic<cr>", mode = { "n", "v" }, desc = "RegExplain" },
@@ -756,6 +893,7 @@ local plugins = {
   --     require("automaton").setup(opts)
   --   end,
   --
+  -- -- WARNING: Rename file from .automaton to automaton in custom/config/g
   --   opts = require("custom.configs.automaton").opts,
   --   keys = require("custom.configs.automaton").keys,
   -- },
@@ -822,7 +960,7 @@ local plugins = {
     },
 
     config = function(_, opts)
-      require("treesj").setup { opts }
+      require("treesj").setup(opts)
     end,
 
     opts = {
@@ -852,7 +990,7 @@ local plugins = {
 
     config = function(_, opts)
       -- Repo says it is not required if not using custom actions
-      require("ts-node-action").setup { opts }
+      require("ts-node-action").setup(opts)
     end,
     opts = {},
   },
@@ -870,7 +1008,7 @@ local plugins = {
     },
 
     config = function(_, opts)
-      require("ccc").setup { opts }
+      require("ccc").setup(opts)
     end,
 
     opts = {
@@ -906,22 +1044,22 @@ local plugins = {
         mode = "n",
         desc = "Toggle Highlight Args",
       },
-      {
-        "<leader>zd",
-        function()
-          require("hlargs").enable()
-        end,
-        mode = "n",
-        desc = "Enable Highlight Args",
-      },
-      {
-        "<leader>zl",
-        function()
-          require("hlargs").disable()
-        end,
-        mode = "n",
-        desc = "Disable Highlight Args",
-      },
+      -- {
+      --   "<leader>zd",
+      --   function()
+      --     require("hlargs").enable()
+      --   end,
+      --   mode = "n",
+      --   desc = "Enable Highlight Args",
+      -- },
+      -- {
+      --   "<leader>zl",
+      --   function()
+      --     require("hlargs").disable()
+      --   end,
+      --   mode = "n",
+      --   desc = "Disable Highlight Args",
+      -- },
     },
   },
 
@@ -1118,7 +1256,7 @@ local plugins = {
       {
         "<leader>mb",
         function()
-          -- require("nvim-biscuits").toggle_biscuits()
+          -- require("nvim-biscuits").toggle_biscuits() -- moved to opts
         end,
         mode = "n",
         desc = "Biscuit Mode", -- TODO: MAYBE rename this
@@ -1169,9 +1307,10 @@ local plugins = {
     keys = require("custom.configs.rust").keys,
 
     tag = "v0.3.0", -- Adventurous but Featureful
-    event = "BufRead Cargo.toml",
+    event = "BufEnter Cargo.toml",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = require("custom.configs.rust").opts,
+
     config = function(_, opts)
       require("crates").setup(opts)
     end,
@@ -1201,14 +1340,7 @@ local plugins = {
     opts = require("custom.configs.nvim-bqf").opts,
 
     config = function(_, opts) -- TODO: add hlgroups
-      vim.cmd [[
-          hi BqfPreviewBorder guifg=#3e8e2d ctermfg=71
-          hi BqfPreviewTitle guifg=#3e8e2d ctermfg=71
-          hi BqfPreviewThumb guibg=#3e8e2d ctermbg=71
-          hi link BqfPreviewRange Search
-      ]]
-
-      require("bqf").setup { opts }
+      require("bqf").setup(opts)
       -- Better UI in quickfix window:
       -- https://github.com/kevinhwang91/nvim-bqf/tree/c920a55c6153766bd909e474b7feffa9739f07e8#format-new-quickfix
       -- https://github.com/kevinhwang91/nvim-bqf/tree/c920a55c6153766bd909e474b7feffa9739f07e8#rebuild-syntax-for-quickfix
@@ -1283,15 +1415,17 @@ local plugins = {
     --   ":CEGotoLabel",
     -- },
     keys = { --- IDK wheter they work under v mode
-      { "<leader>nc", ":CECompile<CR>", mode = "n", desc = "Compile" },
+      -- stylua: ignore start
+      { "<leader>nc", ":CECompile<CR>",     mode = "n", desc = "Compile"      },
       { "<leader>nl", ":CECompileLive<CR>", mode = "n", desc = "Compile Live" },
-      { "<leader>nf", ":CEFormat<CR>", mode = "n", desc = "Format" },
-      { "<leader>na", ":CEAddLibrary<CR>", mode = "n", desc = "Add Library" },
+      { "<leader>nf", ":CEFormat<CR>",      mode = "n", desc = "Format"       },
+      { "<leader>na", ":CEAddLibrary<CR>",  mode = "n", desc = "Add Library"  },
       { "<leader>ne", ":CELoadExample<CR>", mode = "n", desc = "Load Example" },
       { "<leader>nw", ":CEOpenWebsite<CR>", mode = "n", desc = "Open Website" },
       { "<leader>nd", ":CEDeleteCache<CR>", mode = "n", desc = "Delete Cache" },
       { "<leader>ns", ":CEShowTooltip<CR>", mode = "n", desc = "Show Tooltip" },
-      { "<leader>ng", ":CEGotoLabel<CR>", mode = "n", desc = "Goto Label" },
+      { "<leader>ng", ":CEGotoLabel<CR>",   mode = "n", desc = "Goto Label"   },
+      -- stylua: ignore end
     },
   },
 
@@ -1338,10 +1472,12 @@ local plugins = {
     },
 
     keys = {
-      { "<leader>mll", "<cmd> Lushify<CR>", mode = "n", desc = "Lushify Colorscheme" },
-      { "<leader>mli", "<cmd> LushImport<CR>", mode = "n", desc = "Lush Import" },
-      { "<leader>mlt", "<cmd> LushRunTutorial<CR>", mode = "n", desc = "Lush Tutorial" },
-      { "<leader>mlp", '"zp', mode = "n", desc = "Lush Paste" },
+      -- stylua: ignore start
+      { "<leader>mll", "<cmd> Lushify<CR>",         mode = "n", desc = "Lushify Colorscheme" },
+      { "<leader>mli", "<cmd> LushImport<CR>",      mode = "n", desc = "Lush Import"         },
+      { "<leader>mlt", "<cmd> LushRunTutorial<CR>", mode = "n", desc = "Lush Tutorial"       },
+      { "<leader>mlp", '"zp',                       mode = "n", desc = "Lush Paste"          },
+      -- stylua: ignore end
     },
   },
 
@@ -1426,7 +1562,12 @@ local plugins = {
     end,
 
     keys = {
-      { "<leader>mz", "<cmd>ZenMode<CR>", mode = "n", desc = "Zen Mode" },
+      {
+        "<leader>mz",
+        "<cmd> ZenMode<CR>",
+        mode = "n",
+        desc = "Zen Mode",
+      },
     },
 
     opts = {
@@ -1747,7 +1888,12 @@ local plugins = {
     "junegunn/vim-easy-align",
 
     keys = {
-      { "ga", "<Plug>(EasyAlign)", mode = { "x", "n" }, desc = "Easy Align" },
+      {
+        "ga",
+        "<Plug>(EasyAlign)",
+        mode = { "x", "n" },
+        desc = "Easy Align",
+      },
     },
   },
 
@@ -1759,7 +1905,12 @@ local plugins = {
     end,
 
     keys = {
-      { "<leader>ms", "", mode = "n", desc = "Enable Smooth Scrolling" },
+      {
+        "<leader>ms",
+        "",
+        mode = "n",
+        desc = "Enable Smooth Scrolling",
+      },
     },
 
     opts = {
@@ -1792,9 +1943,24 @@ local plugins = {
     }, -- bqf is optional
 
     keys = {
-      { "<leader>ltq", "<cmd>TodoQuickFix<cr>", mode = "n", desc = "QuickFix TODOs" },
-      { "<leader>ltt", "<cmd>TodoTelescope<cr>", mode = "n", desc = "Telescope TODOs" },
-      { "<leader>ltl", "<cmd>TodoLocList<cr>", mode = "n", desc = "LocList TODOs" },
+      {
+        "<leader>ltq",
+        "<cmd>TodoQuickFix<cr>",
+        mode = "n",
+        desc = "QuickFix TODOs",
+      },
+      {
+        "<leader>ltt",
+        "<cmd>TodoTelescope<cr>",
+        mode = "n",
+        desc = "Telescope TODOs",
+      },
+      {
+        "<leader>ltl",
+        "<cmd>TodoLocList<cr>",
+        mode = "n",
+        desc = "LocList TODOs",
+      },
       -- 🚦 :TodoTrouble is an option too!
       {
         "<leader>ltn",
@@ -1889,6 +2055,397 @@ local plugins = {
     end,
     keys = require("custom.configs.sniprun").keys,
     opts = require("custom.configs.sniprun").opts,
+  },
+
+  ------- GAMES -------
+  {
+    "jim-fx/sudoku.nvim",
+    cmd = "Sudoku",
+
+    config = function(_, opts)
+      require("sudoku").setup(opts)
+    end,
+
+    opts = require("custom.configs.sudoku").opts,
+    keys = require("custom.configs.sudoku").keys,
+  },
+
+  {
+    "ThePrimeagen/vim-be-good",
+    cmd = "VimBeGood",
+    keys = {
+      { "<leader>vg", "<cmd> VimBeGood<CR>", mode = "n", desc = "Play VimBeGood" },
+    },
+  },
+
+  {
+    "alec-gibson/nvim-tetris",
+
+    cmd = "Tetris",
+
+    keys = {
+      { "<leader>vt", "<cmd> Tetris<CR>", mode = "n", desc = "Play Tetris" },
+    },
+  },
+
+  { -- One of the nices things ever!
+    "seandewar/killersheep.nvim",
+
+    config = function(_, opts)
+      require("killersheep").setup(opts)
+    end,
+
+    opts = {
+      gore = true, -- Enables/disables blood and gore.
+      keymaps = {
+        move_left = "h", -- Keymap to move cannon to the left.
+        move_right = "l", -- Keymap to move cannon to the right.
+        shoot = "<Space>", -- Keymap to shoot the cannon.
+      },
+    },
+
+    cmd = "KillKillKill",
+
+    keys = {
+      { "<leader>vk", "<cmd> KillKillKill<CR>", mode = "n", desc = "Play Killer Sheep" },
+    },
+  },
+
+  { -- Nice actions using your buffers text
+    "Eandrju/cellular-automaton.nvim",
+
+    cmd = "CellularAutomaton",
+
+    keys = {
+      { "<leader>vr", "<cmd> CellularAutomaton make_it_rain<CR>", mode = "n", desc = "Rain" },
+      { "<leader>vl", "<cmd> CellularAutomaton game_of_life<CR>", mode = "n", desc = "Game of Life" },
+      { "<leader>vx", "<cmd> CellularAutomaton scramble<CR>", mode = "n", desc = "Scrable" },
+    },
+  },
+
+  {
+    "seandewar/nvimesweeper",
+
+    cmd = "Nvimesweeper",
+
+    keys = {
+      { "<leader>vw", "<cmd> Nvimesweeper<CR>", mode = "n", desc = "Play MineSweeper" },
+    },
+  },
+
+  {
+    "madskjeldgaard/cppman.nvim",
+
+    dependencies = {
+      {
+        "MunifTanjim/nui.nvim",
+      },
+    },
+
+    cmd = {
+      "CPPMan",
+    },
+
+    keys = {
+      {
+        "<leader>fd",
+        function()
+          require("cppman").open_cppman_for(vim.fn.expand "<cword>")
+        end,
+        mode = "n",
+        desc = "Open Cpp Manual",
+      },
+
+      {
+        "<leader>fx",
+        function()
+          require("cppman").input()
+        end,
+        mode = "n",
+        desc = "Search Cpp Manual",
+      },
+    },
+
+    config = function()
+      require("cppman").setup()
+    end,
+  },
+
+  {
+    "sindrets/winshift.nvim",
+
+    keys = {
+      {
+        "<leader>mw",
+        "<cmd> WinShift<CR>",
+        mode = "n",
+        desc = "Window Shift Mode",
+      },
+    },
+
+    config = function(_, opts)
+      require("winshift").setup(opts)
+    end,
+
+    opts = {
+      highlight_moving_win = true, -- Highlight the window being moved
+      focused_hl_group = "Visual", -- The highlight group used for the moving window
+
+      moving_win_options = {
+        -- These are local options applied to the moving window while it's
+        -- being moved. They are unset when you leave Win-Move mode.
+        wrap = false,
+        cursorline = false,
+        cursorcolumn = false,
+        colorcolumn = "",
+      },
+
+      keymaps = {
+        disable_defaults = false, -- Disable the default keymaps
+        win_move_mode = {
+          ["h"] = "left",
+          ["j"] = "down",
+          ["k"] = "up",
+          ["l"] = "right",
+          ["H"] = "far_left",
+          ["J"] = "far_down",
+          ["K"] = "far_up",
+          ["L"] = "far_right",
+          ["<left>"] = "left",
+          ["<down>"] = "down",
+          ["<up>"] = "up",
+          ["<right>"] = "right",
+          ["<S-left>"] = "far_left",
+          ["<S-down>"] = "far_down",
+          ["<S-up>"] = "far_up",
+          ["<S-right>"] = "far_right",
+        },
+      },
+      ---A function that should prompt the user to select a window.
+      ---
+      ---The window picker is used to select a window while swapping windows with
+      ---`:WinShift swap`.
+      ---@return integer? winid # Either the selected window ID, or `nil` to
+      ---   indicate that the user cancelled / gave an invalid selection.
+      window_picker = function()
+        return require("winshift.lib").pick_window {
+          -- A string of chars used as identifiers by the window picker.
+          picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          filter_rules = {
+            -- This table allows you to indicate to the window picker that a window
+            -- should be ignored if its buffer matches any of the following criteria.
+            cur_win = true, -- Filter out the current window
+            floats = true, -- Filter out floating windows
+            filetype = {}, -- List of ignored file types
+            buftype = {}, -- List of ignored buftypes
+            bufname = {}, -- List of vim regex patterns matching ignored buffer names
+          },
+          ---A function used to filter the list of selectable windows.
+          ---@param winids integer[] # The list of selectable window IDs.
+          ---@return integer[] filtered # The filtered list of window IDs.
+          filter_func = nil,
+        }
+      end,
+    },
+  },
+
+  {
+    "pocco81/true-zen.nvim",
+
+    -- stylua: ignore start
+    keys = {
+      { "<leader>mn", "<cmd> TZNarrow<CR>",      mode  = "n", desc = "Narrow Mode"     },
+      { "<leader>mn", "<cmd> '<,'>TZNarrow<CR>", mode  = "v", desc = "Narrow Mode"     },
+      { "<leader>mf", "<cmd> TZFocus<CR>",       mode  = "n", desc = "Focus Mode"      },
+      { "<leader>mi", "<cmd> TZMinimalist<CR>",  mode  = "n", desc = "Minimalist Mode" },
+      { "<leader>mx", "<cmd> TZAtaraxis<CR>",    mode  = "n", desc = "Atarix Mode"     },
+    },
+    -- stylua: ignore end
+
+    -- config = function(_, opts)
+    --   require("true-zen").setup(opts)
+    -- end,
+
+    -- opts = {
+    --   modes = { -- configurations per mode
+    --     ataraxis = {
+    --       shade = "dark", -- if `dark` then dim the padding windows, otherwise if it's `light` it'll brighten said windows
+    --       backdrop = 0, -- percentage by which padding windows should be dimmed/brightened. Must be a number between 0 and 1. Set to 0 to keep the same background color
+    --       minimum_writing_area = { -- minimum size of main window
+    --         width = 70,
+    --         height = 44,
+    --       },
+    --       quit_untoggles = true, -- type :q or :qa to quit Ataraxis mode
+    --       padding = { -- padding windows
+    --         left = 52,
+    --         right = 52,
+    --         top = 0,
+    --         bottom = 0,
+    --       },
+    --       callbacks = { -- run functions when opening/closing Ataraxis mode
+    --         open_pre = nil,
+    --         open_pos = nil,
+    --         close_pre = nil,
+    --         close_pos = nil,
+    --       },
+    --     },
+    --     minimalist = {
+    --       ignored_buf_types = { "nofile" }, -- save current options from any window except ones displaying these kinds of buffers
+    --       options = { -- options to be disabled when entering Minimalist mode
+    --         number = false,
+    --         relativenumber = false,
+    --         showtabline = 0,
+    --         signcolumn = "no",
+    --         statusline = "",
+    --         cmdheight = 1,
+    --         laststatus = 0,
+    --         showcmd = false,
+    --         showmode = false,
+    --         ruler = false,
+    --         numberwidth = 1,
+    --       },
+    --       callbacks = { -- run functions when opening/closing Minimalist mode
+    --         open_pre = nil,
+    --         open_pos = nil,
+    --         close_pre = nil,
+    --         close_pos = nil,
+    --       },
+    --     },
+    --     narrow = {
+    --       --- change the style of the fold lines. Set it to:
+    --       --- `informative`: to get nice pre-baked folds
+    --       --- `invisible`: hide them
+    --       --- function() end: pass a custom func with your fold lines. See :h foldtext
+    --       folds_style = "informative",
+    --       run_ataraxis = true, -- display narrowed text in a Ataraxis session
+    --       callbacks = { -- run functions when opening/closing Narrow mode
+    --         open_pre = nil,
+    --         open_pos = nil,
+    --         close_pre = nil,
+    --         close_pos = nil,
+    --       },
+    --     },
+    --     focus = {
+    --       callbacks = { -- run functions when opening/closing Focus mode
+    --         open_pre = nil,
+    --         open_pos = nil,
+    --         close_pre = nil,
+    --         close_pos = nil,
+    --       },
+    --     },
+    --   },
+    --   integrations = {
+    --     tmux = false, -- hide tmux status bar in (minimalist, ataraxis)
+    --     kitty = { -- increment font size in Kitty. Note: you must set `allow_remote_control socket-only` and `listen_on unix:/tmp/kitty` in your personal config (ataraxis)
+    --       enabled = false,
+    --       font = "+3",
+    --     },
+    --     twilight = false, -- enable twilight (ataraxis)
+    --     lualine = false, -- hide nvim-lualine (ataraxis)
+    --   },
+    -- },
+  },
+
+  {
+    "nvim-neorg/neorg",
+
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+
+    cmd = "Neorg",
+    event = "BufEnter *.norg",
+
+    keys = {
+      {
+        "<leader>zc",
+        "<cmd> Neorg keybind all core.looking-glass.magnify-code-block<CR>",
+        mode = "n",
+        desc = "Neorg Code Buffer",
+      },
+      {
+        "<leader>zm",
+        "<cmd> Neorg toggle-concealer<CR>",
+        mode = "n",
+        desc = "Toggle Markdown",
+      },
+      {
+        "<leader>zn",
+        "<cmd> Neorg keybind all core.integrationg.treesitter.next.heading<CR>",
+        mode = "n",
+        desc = "Next Heading",
+      },
+      {
+        "<leader>zp",
+        "<cmd> Neorg keybind all core.integrationg.treesitter.previous.heading<CR>",
+        mode = "n",
+        desc = "Previous Heading",
+      },
+      {
+        "<leader>zl",
+        "<cmd> Neorg keybind all core.integrationg.treesitter.next.link<CR>",
+        mode = "n",
+        desc = "Next Link",
+      },
+      {
+        "<leader>zn",
+        "<cmd> Neorg keybind all core.integrationg.treesitter.previous.link<CR>",
+        mode = "n",
+        desc = "Previous Link",
+      },
+
+      -- {
+      --   "<leader>z",
+      --   "<cmd> Neorg <CR>",
+      --   mode = "n",
+      --   desc = "Neorg ",
+      -- },
+    },
+
+    config = function(_, opts)
+      require("neorg").setup(opts)
+    end,
+
+    opts = {
+      load = {
+        ["core.defaults"] = {}, -- Loads default behaviour
+        ["core.integrations.nvim-cmp"] = {},
+
+        -- ["core.integrations.treesitter "] = {}, -- FIXME
+
+        ["core.completion"] = {
+          config = {
+            engine = "nvim-cmp",
+          },
+        },
+        ["core.ui.calendar"] = {},
+        ["core.presenter"] = {
+          config = {
+            zen_mode = "zen-mode",
+          },
+        },
+        ["core.summary"] = {},
+        ["core.export.markdown"] = {},
+        ["core.export"] = {},
+        ["core.qol.toc"] = {
+          config = {
+            close_after_use = true,
+          },
+        },
+        -- [""] = {},
+        -- [""] = {},
+        -- [""] = {},
+        -- [""] = {},
+        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.dirman"] = { -- Manages Neorg workspaces
+          config = {
+            workspaces = {
+              -- NOTE: for multiple workspaces check out the README
+              notes = "~/Notes",
+            },
+          },
+        },
+      },
+    },
   },
 }
 
