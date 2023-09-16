@@ -2447,6 +2447,19 @@ local plugins = {
       },
     },
   },
+
+  {
+    "junegunn/goyo.vim",
+    cmd = "Goyo",
+    keys = {
+      {
+        "<leader>mg",
+        "<cmd> Goyo<CR>",
+        mode = "n",
+        desc = "Goyo Mode",
+      },
+    },
+  }
 }
 
 return plugins
