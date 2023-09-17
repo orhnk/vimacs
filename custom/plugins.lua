@@ -2842,11 +2842,41 @@ local plugins = {
     end,
 
     keys = {
-      { "<leader>vc", "<cmd> APeoplesCalendar<CR>", mode = "n", desc = "Daily Calendar"},
+      { "<leader>vc", "<cmd> APeoplesCalendar<CR>", mode = "n", desc = "Daily Calendar" },
     },
 
     opts = {
       -- auto_teaser_filetypes = { "dashboard", "alpha", "starter" }, -- will enable running the teaser automatically for listed filetypes
+    },
+  },
+
+  {
+    "nguyenvukhang/nvim-toggler",
+
+    keys = {
+      {
+        "<leader>ii",
+        function()
+          require("nvim-toggler").toggle()
+        end,
+        mode = { "n", "v" },
+        desc = "Custom Toggle",
+      },
+    },
+
+    config = function(_, opts)
+      require("nvim-toggler").setup(opts)
+    end,
+
+    opts = {
+      -- your own inverses
+      inverses = {
+        ["vim"] = "emacs",
+      },
+      -- removes the default <leader>i keymap
+      remove_default_keybinds = true,
+      -- -- removes the default set of inverses
+      -- remove_default_inverses = true,
     },
   },
 }
