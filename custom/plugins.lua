@@ -312,14 +312,13 @@ local plugins = {
     },
 
     dependencies = {
-      "rouge8/neotest-rust", -- Rust development
-    },
-
-    requires = {
       -- Required
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
+
+      -- Dev
+      "rouge8/neotest-rust", -- Rust development
     },
 
     config = function(_, opts)
