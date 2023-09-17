@@ -107,6 +107,7 @@ local plugins = {
 
     config = function(_, opts)
       require("copilot").setup(opts)
+      status.copilot = true
     end,
 
     opts = require("custom.configs.copilot").opts,
@@ -458,6 +459,7 @@ local plugins = {
 
     config = function(_, opts)
       require("neogit").setup(opts)
+      status.git = true
     end,
 
     opts = {},
@@ -544,6 +546,7 @@ local plugins = {
 
     config = function(_, opts)
       require("sg").setup(opts)
+      status.cody = true
     end,
 
     opts = require("custom.configs.sg").opts,
@@ -585,6 +588,7 @@ local plugins = {
     dependencies = { "mfussenegger/nvim-dap" },
     config = function(_, opts)
       require("dapui").setup(opts)
+      status.debug = true
     end,
   },
 
@@ -1079,6 +1083,7 @@ local plugins = {
     "pwntester/octo.nvim",
     config = function(_, opts)
       require("octo").setup(opts)
+      status.github = true
     end,
 
     dependencies = require("custom.configs.octo").dependencies,
@@ -2016,6 +2021,7 @@ local plugins = {
 
     config = function(_, opts)
       require("sudoku").setup(opts)
+      status.games = true
     end,
 
     opts = require("custom.configs.sudoku").opts,
@@ -2025,6 +2031,10 @@ local plugins = {
   {
     "ThePrimeagen/vim-be-good",
     cmd = "VimBeGood",
+
+    config = function(_, opts)
+      status.games = true
+    end,
     keys = {
       { "<leader>vg", "<cmd> VimBeGood<CR>", mode = "n", desc = "Play VimBeGood" },
     },
@@ -2034,6 +2044,10 @@ local plugins = {
     "alec-gibson/nvim-tetris",
 
     cmd = "Tetris",
+
+    config = function(_, opts)
+      status.games = true
+    end,
 
     keys = {
       { "<leader>vt", "<cmd> Tetris<CR>", mode = "n", desc = "Play Tetris" },
@@ -2045,6 +2059,7 @@ local plugins = {
 
     config = function(_, opts)
       require("killersheep").setup(opts)
+      status.games = true
     end,
 
     opts = {
@@ -2079,6 +2094,10 @@ local plugins = {
     "seandewar/nvimesweeper",
 
     cmd = "Nvimesweeper",
+
+    config = function(_, opts)
+      status.games = true
+    end,
 
     keys = {
       { "<leader>vw", "<cmd> Nvimesweeper<CR>", mode = "n", desc = "Play MineSweeper" },
