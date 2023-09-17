@@ -1,5 +1,8 @@
 local M = {}
 
+--- Plugin Status
+M.status = {}
+
 M.extern = function(cmd, opts)
   -- Example:
   --  extern("vim", "vertical")
