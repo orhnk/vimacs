@@ -2851,34 +2851,62 @@ local plugins = {
   },
 
   {
-    "nguyenvukhang/nvim-toggler",
+    "monaqa/dial.nvim",
 
     keys = {
       {
         "<leader>ii",
         function()
-          require("nvim-toggler").toggle()
+          require("dial.map").manipulate("increment", "visual")
         end,
-        mode = { "n", "v" },
+        mode = "v",
+        desc = "Custom Toggle",
+      },
+      {
+        "<leader>ii",
+        function()
+          require("dial.map").manipulate("increment", "normal")
+        end,
+        mode = "n",
         desc = "Custom Toggle",
       },
     },
 
     config = function(_, opts)
-      require("nvim-toggler").setup(opts)
-    end,
+      local augend = require "dial.augend"
+      require("dial.config").augends:register_group {
+        -- default augends used when no group name is specified
+        default = {
+          augend.integer.alias.decimal, -- nonnegative decimal number (0, 1, 2, 3, ...)
+          augend.integer.alias.hex, -- nonnegative hex number  (0x01, 0x1a1f, etc.)
+          augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
+          augend.integer.alias.decimal,
+          augend.constant.alias.bool, -- boolean value (true <-> false)
+        },
 
-    opts = {
-      -- your own inverses
-      inverses = {
-        ["vim"] = "emacs",
-      },
-      -- removes the default <leader>i keymap
-      remove_default_keybinds = true,
-      -- -- removes the default set of inverses
-      -- remove_default_inverses = true,
-    },
+        -- -- augends used when group with name `<below>` is specified
+        -- custom = {
+        --   augend.integer.alias.decimal,
+        --   augend.constant.alias.bool, -- boolean value (true <-> false)
+        --   augend.date.alias["%m/%d/%Y"], -- date (02/19/2022, etc.)
+        -- },
+      }
+    end,
   },
+
+  -- { -- WARNING: Doesn't work
+  --   "richardbizik/nvim-toc",
+  --
+  --   config = function(_, opts)
+  --     require("nvim-toc").setup(opts)
+  --   end,
+  --
+  --   opts = {},
+  --
+  --   keys = {
+  --     { "<leader>cmg", "<cmd> TOC<CR>", mode = "n", desc = "Generaate TOC" },
+  --   },
+  -- },
 }
 
 return plugins
