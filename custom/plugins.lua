@@ -149,7 +149,7 @@ local plugins = {
   {
     "Badhi/nvim-treesitter-cpp-tools",
 
-    requires = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = require("custom.configs.cpp").treesitter.keys,
     opts = require("custom.configs.cpp").treesitter.opts,
 
@@ -170,6 +170,7 @@ local plugins = {
     config = function()
       vim.g.translator_target_lang = "tr"
       vim.g.translator_window_type = "popup"
+      status.translate = true
     end,
   },
 
@@ -177,7 +178,10 @@ local plugins = {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
 
-    -- event = "VeryLazy",
+    dependencies = {
+      "XXiaoA/ns-textobject.nvim",
+    },
+
     keys = { "cs", "ds", "ys" },
 
     config = function(_, opts)
@@ -185,7 +189,29 @@ local plugins = {
     end,
 
     opts = {
-      -- Configuration here, or leave empty to use defaults
+      surrounds = {
+        ["l"] = {
+          add = function()
+            local clipboard = vim.fn.getreg("+"):gsub("\n", "")
+            return {
+              { "[" },
+              { "](" .. clipboard .. ")" },
+            }
+          end,
+          find = "%b[]%b()",
+          delete = "^(%[)().-(%]%b())()$",
+          change = {
+            target = "^()()%b[]%((.-)()%)$",
+            replacement = function()
+              local clipboard = vim.fn.getreg("+"):gsub("\n", "")
+              return {
+                { "" },
+                { clipboard },
+              }
+            end,
+          },
+        },
+      },
     },
   },
 
