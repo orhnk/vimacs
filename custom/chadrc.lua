@@ -1,12 +1,24 @@
 ---@type ChadrcConfig
 local M = {}
 
+local round = { left = "", right = "" }
+local block = { left = "█", right = "█" }
+local arrow = { left = "", right = "" }
+local angle = { left = "", right = "" }
+local slant = { left = "", right = "" }
+local group_margin = "  "
+
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "gruvbox",
-  theme_toggle = { "gruvbox", "one_light" },
+  theme = "monekai",
+  theme_toggle = { "monekai", "ayu_light" },
+
+  cmp = {
+    style = "default", -- flatt_dark | flat_light | default | atom | atom_colored
+    selected_item_bg = "colored",
+  },
 
   -- transparency = true,
 
@@ -18,90 +30,229 @@ M.ui = {
     -- separator_style = "round", -- default/*round*/*block*/arrow
     -- modules arg here is the default table of modules
     overriden_modules = function(modules)
-      -- modules[1] = (function()
-      --   return "MODE!"
-      -- end)()
-
-      -- define the somefunction anywhwere in your custom dir, just call it well!
-      -- modules[2] = somefunction()
-
-      -- adding a module between 2 modules
-      -- Use the table.insert function to insert at specific index
-      -- This will insert a new module at index 2 and previous index 2 will become 3 now
-
-      -- table.insert( -- Left (Post MODE)
-      --   modules,
-      --   4,
-      --   (function()
-      --     return " between mode and filename ! "
-      --   end)()
-      -- )
-      --
-      -- table.insert( -- Middle
-      --   modules,
-      --   math.floor(#modules / 2),
-      --   (function()
-      --     return " between mode and filename ! "
-      --   end)()
-      -- )
-      --
-      -- table.insert( -- Middle
-      --   modules,
-      --   math.ceil(#modules / 2) + 3, -- 3 is gap
-      --   (function()
-      --     return " between mode and filename ! "
-      --   end)()
-      -- )
-      --
       table.insert( -- Right
         modules,
-        math.ceil(#modules / 2) + 2, -- 3 is gap
+        3,
         (function()
-          local margin = "   "
-          local glyph = ""
-          local hl = "%#StCopilot#"
-
-          if vim.fn.exists ":Copilot" then
-            glyph = hl .. "" .. margin --   |  
-          else
-            glyph = hl .. "" .. margin
-          end
-
-          return glyph
+          local hl = "%#StEncoding#"
+          local encoding = vim.bo.fileencoding or vim.bo.encoding
+          return hl .. encoding .. "  "
         end)()
       )
-      --   table.insert( -- Right
-      --     modules,
-      --     (function()
-      --       local margin = "  "
-      --       local glyph = ""
-      --       local hl = "%#StCopilot#"
-      --
-      --       if vim.fn.exists ":Copilot" then
-      --         glyph = hl .. "" .. margin --   |  
-      --       else
-      --         glyph = hl .. "" .. margin
-      --       end
-      --
-      --       return glyph
-      --     end)()
-      --   )
-      --   table.insert( -- Right
-      --     modules,
-      --     (function()
-      --       local margin = "  "
-      --       local glyph = ""
-      --       local hl = "%#StCopilot#"
-      --
-      --       if vim.fn.exists ":Copilot" then
-      --         glyph = hl .. "" .. margin --   |  
-      --       else
-      --         glyph = hl .. "" .. margin
-      --       end
-      --
-      --       return glyph
-      --     end)()
-      --   )
+
+      -------------------------------------------------------
+      --                    ICONS START                    --
+      -------------------------------------------------------
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StGroup#"
+          return hl .. round.right .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StKernel#"
+          local icon = "" --                              
+          return hl .. icon .. " "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StDebug#"
+          local icon = "󱇪"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      -- If in ~/
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StHome#"
+          local icon = "󰋜"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StWorld#"
+          local icon = "󰇧" -- 󰅏
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StReddit#"
+          local icon = ""
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StGames#"
+          local icon = "󰊗"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StHN#"
+          local icon = ""
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StWhatsapp#"
+          local icon = "󰖣"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StStackOverflow#"
+          local icon = ""
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StDiscord#"
+          local icon = "󰙯"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StIRC#"
+          local icon = "󰻞"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StGit#"
+          local icon = ""
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StMail#"
+          local icon = "󰶌" -- 󰛮
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StBrowser#"
+          local icon = "󰖟"
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StGithub#"
+          local icon = ""
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StTranslate#"
+          local icon = ""
+          return hl .. icon .. "  "
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StCody#"
+          local icon = "" -- 
+
+          if vim.fn.exists ":CodyChat" ~= 0 then
+            icon = hl .. "󱜙" .. group_margin
+          end
+
+          return icon
+        end)()
+      )
+
+      table.insert( -- Right
+        modules,
+        7,
+        (function()
+          local icon = ""
+          local hl = "%#StCopilot#"
+
+          if require("custom.utils").status.copilot == true then
+            icon = " " .. "" --   |  
+          else
+            icon = " " .. ""
+          end
+
+          return hl .. icon .. group_margin
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StGroup#"
+          return hl .. round.left
+        end)()
+      )
     end,
   },
 
@@ -321,12 +472,12 @@ M.ui = {
       },
       {
         "  Find Command",
-        "Spc f s",
+        "Spc f c",
         "Telescope builtin",
       },
       {
         "󰈚  Recent Files",
-        "Spc f o",
+        "Spc f r",
         "Telescope oldfiles",
       },
       {
@@ -341,7 +492,7 @@ M.ui = {
       },
       {
         "  Themes",
-        "Spc t h",
+        "Spc h t",
         "Telescope themes",
       },
       {
