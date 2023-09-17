@@ -2765,6 +2765,27 @@ local plugins = {
       { "<leader>fg", "<cmd> UndotreeToggle<CR>", mode = "n", desc = "View Undo Tree" },
     },
   },
+
+  {
+    "XXiaoA/ns-textobject.nvim",
+    config = function(_, opts)
+      require("ns-textobject").setup(opts)
+    end,
+
+    opts = {
+      auto_mapping = {
+        -- automatically mapping for nvim-surround's aliases
+        aliases = true,
+        -- for nvim-surround's surrounds
+        surrounds = true,
+      },
+      disable_builtin_mapping = {
+        enabled = true,
+        -- list of char which shouldn't mapping by auto_mapping
+        chars = { "b", "B", "t", "`", "'", '"', "{", "}", "(", ")", "[", "]", "<", ">" },
+      },
+    },
+  },
 }
 
 return plugins
