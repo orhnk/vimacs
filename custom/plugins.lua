@@ -1,8 +1,39 @@
 -- TODO: Remove telescope as a dependency and lazy load plugins later for squeezed performance.confconf
 local telescope_actions = require "telescope.actions"
 local overrides = require "custom.configs.overrides"
+
+-- Loaded plugins etc.
+local status = require("custom.utils").status
+
 ---@type NvPluginSpec[]
 local plugins = {
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        -- defaults
+        "vim",
+        "lua",
+
+        -- web dev
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        -- "tsx",
+        "json",
+        -- "vue", "svelte",
+
+        -- low level
+        "c",
+        "cpp",
+        "cmake",
+        "rust",
+        "zig",
+      },
+    },
+  },
 
   { -- WhichKey overrides
     "folke/which-key.nvim",
