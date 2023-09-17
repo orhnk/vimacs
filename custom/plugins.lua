@@ -2819,6 +2819,36 @@ local plugins = {
       },
     },
   },
+
+  -- { -- WARNING: Doesn't work
+  --   {
+  --     "antosha417/nvim-lsp-file-operations",
+  --     dependencies = {
+  --       "nvim-lua/plenary.nvim",
+  --       "nvim-tree/nvim-tree.lua",
+  --     },
+  --   },
+  -- },
+
+  {
+    "aPeoplesCalendar/apc.nvim",
+    -- Required for APeoplesCalendarTeaser
+    -- dependencies = {
+    --   "rcarriga/nvim-notify",
+    -- },
+    -- event = "VeryLazy",
+    config = function(_, opts)
+      require("apeoplescalendar").setup(opts) -- configuration options are described below
+    end,
+
+    keys = {
+      { "<leader>vc", "<cmd> APeoplesCalendar<CR>", mode = "n", desc = "Daily Calendar"},
+    },
+
+    opts = {
+      -- auto_teaser_filetypes = { "dashboard", "alpha", "starter" }, -- will enable running the teaser automatically for listed filetypes
+    },
+  },
 }
 
 return plugins
