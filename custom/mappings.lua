@@ -86,6 +86,12 @@ M.buffer = {
   n = {
     ["<leader>bn"] = { "<cmd> enew <CR>", "New buffer" },
 
+    -- quit buffer
+    ["<leader>bd"] = {
+      "<cmd> q<CR>",
+      "Close buffer", -- Terminals are hidden
+    },
+
     -- close buffer + hide terminal buffer
     ["<leader>bk"] = {
       function()
@@ -260,7 +266,7 @@ M.other = {
 
 M.dashboard = {
   n = {
-    ["<leader>bd"] = { "<cmd> Nvdash<CR>", "Open Dashboard" },
+    ["<leader>bi"] = { "<cmd> Nvdash<CR>", "Open Dashboard" },
   },
 }
 
