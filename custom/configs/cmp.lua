@@ -148,6 +148,9 @@ M.opts = {
 
     -- Cargo.toml
     { name = "crates" },
+
+    -- Other
+    { name = "orgmode" },
     -- { name = "calc" },
   },
 }
