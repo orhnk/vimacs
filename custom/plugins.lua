@@ -2916,6 +2916,18 @@ local plugins = {
           augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
           augend.integer.alias.decimal,
           augend.constant.alias.bool, -- boolean value (true <-> false)
+
+          augend.constant.new {
+            elements = { "and", "or" },
+            word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+            cyclic = true, -- "or" is incremented into "and".
+          },
+
+          augend.constant.new {
+            elements = { "&&", "||" },
+            word = false,
+            cyclic = true,
+          },
         },
 
         -- -- augends used when group with name `<below>` is specified
