@@ -279,7 +279,7 @@ local plugins = {
 
   { -- The task runner for compiler.nvim
     "stevearc/overseer.nvim",
-    commit = "3047ede61cc1308069ad1184c0d447ebee92d749",
+    -- commit = "3047ede61cc1308069ad1184c0d447ebee92d749",
     cmd = {
       "CompilerOpen",
       "CompilerToggleResults",
