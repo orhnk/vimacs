@@ -3297,6 +3297,248 @@ local plugins = {
       },
     },
   },
+
+  {
+    -- NOTE: cmp sources are listed in configs/cmp.lua
+    "nvim-orgmode/orgmode",
+
+    dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter",
+        lazy = true, -- I doubt this is necessary
+        opts = {
+          highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = {
+              "org",
+            },
+          },
+          -- NOTE: ensure_installed is in nvim-treesitter's config
+        },
+      },
+      {
+        "akinsho/org-bullets.nvim",
+        config = function(_, opts)
+          require("org-bullets").setup(opts)
+        end,
+
+        -- opts = {
+        --   concealcursor = false, -- If false then when the cursor is on a line underlying characters are visible
+        --   symbols = {
+        --     -- list symbol
+        --     list = "•",
+        --     -- headlines can be a list
+        --     headlines = { "◉", "○", "✸", "✿" },
+        --     -- or a function that receives the defaults and returns a list
+        --     headlines = function(default_list)
+        --       table.insert(default_list, "♥")
+        --       return default_list
+        --     end,
+        --     checkboxes = {
+        --       half = { "", "OrgTSCheckboxHalfChecked" },
+        --       done = { "✓", "OrgDone" },
+        --       todo = { "˟", "OrgTODO" },
+        --     },
+        --   },
+        -- },
+      },
+
+      {
+        "lukas-reineke/headlines.nvim",
+
+        dependencies = "nvim-treesitter",
+
+        config = function()
+          require("headlines").setup {
+            markdown = {
+              query = vim.treesitter.query.parse(
+                "markdown",
+                [[
+                (atx_heading [
+                    (atx_h1_marker)
+                    (atx_h2_marker)
+                    (atx_h3_marker)
+                    (atx_h4_marker)
+                    (atx_h5_marker)
+                    (atx_h6_marker)
+                ] @headline)
+
+                (thematic_break) @dash
+
+                (fenced_code_block) @codeblock
+
+                (block_quote_marker) @quote
+                (block_quote (paragraph (inline (block_continuation) @quote)))
+            ]]
+              ),
+              headline_highlights = { "Headline" },
+              codeblock_highlight = "CodeBlock",
+              dash_highlight = "Dash",
+              dash_string = "-",
+              quote_highlight = "Quote",
+              quote_string = "┃",
+              fat_headlines = true,
+              fat_headline_upper_string = "▃",
+              fat_headline_lower_string = "🬂",
+            },
+            -- rmd = {
+            --  query = vim.treesitter.query.parse (
+            --     "markdown",
+            --     [[
+            --       (atx_heading [
+            --           (atx_h1_marker)
+            --           (atx_h2_marker)
+            --           (atx_h3_marker)
+            --           (atx_h4_marker)
+            --           (atx_h5_marker)
+            --           (atx_h6_marker)
+            --       ] @headline)
+            --
+            --       (thematic_break) @dash
+            --
+            --       (fenced_code_block) @codeblock
+            --
+            --       (block_quote_marker) @quote
+            --       (block_quote (paragraph (inline (block_continuation) @quote)))
+            --   ]]
+            --   ),
+            --   treesitter_language = "markdown",
+            --   headline_highlights = { "Headline" },
+            --   codeblock_highlight = "CodeBlock",
+            --   dash_highlight = "Dash",
+            --   dash_string = "-",
+            --   quote_highlight = "Quote",
+            --   quote_string = "┃",
+            --   fat_headlines = true,
+            --   fat_headline_upper_string = "▃",
+            --   fat_headline_lower_string = "🬂",
+            -- },
+            -- norg = {
+            --  query = vim.treesitter.query.parse (
+            --     "norg",
+            --     [[
+            --       [
+            --           (heading1_prefix)
+            --           (heading2_prefix)
+            --           (heading3_prefix)
+            --           (heading4_prefix)
+            --           (heading5_prefix)
+            --           (heading6_prefix)
+            --       ] @headline
+            --
+            --       (weak_paragraph_delimiter) @dash
+            --       (strong_paragraph_delimiter) @doubledash
+            --
+            --       ([(ranged_tag
+            --           name: (tag_name) @_name
+            --           (#eq? @_name "code")
+            --       )
+            --       (ranged_verbatim_tag
+            --           name: (tag_name) @_name
+            --           (#eq? @_name "code")
+            --       )] @codeblock (#offset! @codeblock 0 0 1 0))
+            --
+            --       (quote1_prefix) @quote
+            --   ]]
+            --   ),
+            --   headline_highlights = { "Headline" },
+            --   codeblock_highlight = "CodeBlock",
+            --   dash_highlight = "Dash",
+            --   dash_string = "-",
+            --   doubledash_highlight = "DoubleDash",
+            --   doubledash_string = "=",
+            --   quote_highlight = "Quote",
+            --   quote_string = "┃",
+            --   fat_headlines = true,
+            --   fat_headline_upper_string = "▃",
+            --   fat_headline_lower_string = "🬂",
+            -- },
+            org = {
+              query = vim.treesitter.query.parse(
+                "org",
+                [[
+                (headline (stars) @headline)
+
+                (
+                    (expr) @dash
+                    (#match? @dash "^-----+$")
+                )
+
+                (block
+                    name: (expr) @_name
+                    (#eq? @_name "SRC")
+                ) @codeblock
+
+                (paragraph . (expr) @quote
+                    (#eq? @quote ">")
+                )
+            ]]
+              ),
+              headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5" },
+              codeblock_highlight = "CodeBlock",
+              dash_highlight = "Dash",
+              dash_string = "-",
+              quote_highlight = "Quote",
+              quote_string = "┃",
+              fat_headlines = true,
+              fat_headline_upper_string = "▃",
+              fat_headline_lower_string = "▀", -- 🬂
+            },
+          }
+        end,
+      },
+
+      {
+        "dhruvasagar/vim-table-mode",
+      },
+
+      {
+        "NFrid/due.nvim",
+      },
+      {
+        "danilshvalov/org-modern.nvim",
+      },
+    },
+
+    event = "BufEnter *.org",
+
+    config = function()
+      -- Load treesitter grammar for org
+      require("orgmode").setup_ts_grammar()
+
+      -- Setup treesitter
+      -- require("nvim-treesitter.configs").setup
+
+      -- Custom Menu
+      local Menu = require "org-modern.menu"
+      -- Setup orgmode
+      require("orgmode").setup {
+        org_agenda_files = "~/org/**/*",
+        org_default_notes_file = "~/org/daily/routine.org",
+        ui = {
+          menu = {
+            handler = function(data)
+              Menu:new({
+                window = {
+                  margin = { 1, 0, 1, 0 },
+                  padding = { 0, 1, 0, 1 },
+                  title_pos = "center",
+                  border = "single",
+                  zindex = 1000,
+                },
+                icons = {
+                  separator = "➜",
+                },
+              }):open(data)
+            end,
+          },
+        },
+      }
+
+      vim.cmd [[TableModeEnable]] -- Align |'s
+      require("due_nvim").draw(0) -- Draw Due Dates
+    end,
+  },
 }
 
 return plugins
