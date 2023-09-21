@@ -22,6 +22,7 @@ M.prefixes = function()
       d     = { name = " Debug"             },
       e     = { name = " Edit"              }, -- TODO: Move these to their groups
       f     = { name = " Find"              },
+      fu    = { name = "󰌷 URL"               },
       g     = { name = " Git"               },
       gh    = { name = " GitHub"            },
       ghc   = { name = " Card"              },
@@ -43,6 +44,7 @@ M.prefixes = function()
       lt    = { name = " TODO"              },
       m     = { name = " Modes"             },
       ml    = { name = "󰉦 Lush"              },
+      mk    = { name = "󰓫 Table"             },
       n     = { name = " Compiler Explorer" }, -- 
       nt    = { name = "󱘎 TreeSitter"        },
       o     = { name = " Open"              },
