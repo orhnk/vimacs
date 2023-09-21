@@ -185,7 +185,8 @@ local plugins = {
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
 
     dependencies = {
-      "XXiaoA/ns-textobject.nvim",
+      -- "XXiaoA/ns-textobject.nvim",
+      "chrisgrieser/nvim-various-textobjs",
     },
 
     keys = { "cs", "ds", "ys" },
