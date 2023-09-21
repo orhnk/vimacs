@@ -2953,6 +2953,51 @@ local plugins = {
   --     { "<leader>cmg", "<cmd> TOC<CR>", mode = "n", desc = "Generaate TOC" },
   --   },
   -- },
+
+  {
+    "gsuuon/llm.nvim",
+
+    cmd = "Llm", -- Others cmds are ignored for now
+
+    keys = {
+      { "<leader>al", "<cmd> Llm<CR>", mode = { "n", "v" }, desc = "LLM Generate" },
+    },
+
+    config = function(_, opts)
+      -- FIXME:
+      -- require("llm.providers.huggingface").initialize {
+      --   max_tokens = 2000,
+      -- }
+
+      require("llm").setup {
+        default_prompt = {
+          provider = require "llm.providers.huggingface",
+          params = {
+            model = "bigcode/starcoder",
+            max_tokens = 2000,
+          },
+          builder = function(input)
+            return {
+              inputs = input,
+            }
+          end,
+        }, -- Prompt — modify the default prompt (`:Llm` with no argument)
+
+        hl_group = "", -- string — Set the default highlight group of in-progress responses
+        prompts = {
+          -- ["huggingface bigcode"] = {},
+        }, -- table<string, Prompt>` — add prompt alternatives
+      }
+
+      -- require("llm").setup(opts.init)
+    end,
+
+    -- opts = {
+    --   default = {
+    --   },
+    -- },
+  },
+
 }
 
 return plugins
