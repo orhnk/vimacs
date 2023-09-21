@@ -284,6 +284,18 @@ M.irc = {
   },
 }
 
+M.hn = {
+  n = {
+    ["<leader>xh"] = {
+      function()
+        extern("hackernews_tui", "vertical")
+        status.hn = true
+      end,
+      "Hacker News",
+    },
+  },
+}
+
 M.discord = {
   n = {
     ["<leader>xd"] = {
