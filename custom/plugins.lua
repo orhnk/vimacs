@@ -2832,6 +2832,8 @@ local plugins = {
         function()
           require("browse").browse()
         end,
+        mode = "n",
+        desc = "Browse Anything",
       },
     },
     opts = {
