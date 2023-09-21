@@ -4088,6 +4088,15 @@ local plugins = {
       require("markmap").setup(opts)
     end,
   },
+
+  {
+    "tommcdo/vim-exchange",
+
+    keys = {
+      { "cx", mode = "n" },
+      { "X", mode = "v" },
+    },
+  },
 }
 
 return plugins
