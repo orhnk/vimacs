@@ -2556,107 +2556,107 @@ local plugins = {
     -- },
   },
 
-  {
-    "nvim-neorg/neorg",
-
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
-
-    cmd = "Neorg",
-    event = "BufEnter *.norg",
-
-    keys = {
-      {
-        "<leader>zc",
-        "<cmd> Neorg keybind all core.looking-glass.magnify-code-block<CR>",
-        mode = "n",
-        desc = "Neorg Code Buffer",
-      },
-      {
-        "<leader>zm",
-        "<cmd> Neorg toggle-concealer<CR>",
-        mode = "n",
-        desc = "Toggle Markdown",
-      },
-      {
-        "<leader>zn",
-        "<cmd> Neorg keybind all core.integrationg.treesitter.next.heading<CR>",
-        mode = "n",
-        desc = "Next Heading",
-      },
-      {
-        "<leader>zp",
-        "<cmd> Neorg keybind all core.integrationg.treesitter.previous.heading<CR>",
-        mode = "n",
-        desc = "Previous Heading",
-      },
-      {
-        "<leader>zl",
-        "<cmd> Neorg keybind all core.integrationg.treesitter.next.link<CR>",
-        mode = "n",
-        desc = "Next Link",
-      },
-      {
-        "<leader>zn",
-        "<cmd> Neorg keybind all core.integrationg.treesitter.previous.link<CR>",
-        mode = "n",
-        desc = "Previous Link",
-      },
-
-      -- {
-      --   "<leader>z",
-      --   "<cmd> Neorg <CR>",
-      --   mode = "n",
-      --   desc = "Neorg ",
-      -- },
-    },
-
-    config = function(_, opts)
-      require("neorg").setup(opts)
-    end,
-
-    opts = {
-      load = {
-        ["core.defaults"] = {}, -- Loads default behaviour
-        ["core.integrations.nvim-cmp"] = {},
-
-        -- ["core.integrations.treesitter "] = {}, -- FIXME
-
-        ["core.completion"] = {
-          config = {
-            engine = "nvim-cmp",
-          },
-        },
-        ["core.ui.calendar"] = {},
-        ["core.presenter"] = {
-          config = {
-            zen_mode = "zen-mode",
-          },
-        },
-        ["core.summary"] = {},
-        ["core.export.markdown"] = {},
-        ["core.export"] = {},
-        ["core.qol.toc"] = {
-          config = {
-            close_after_use = true,
-          },
-        },
-        -- [""] = {},
-        -- [""] = {},
-        -- [""] = {},
-        -- [""] = {},
-        ["core.concealer"] = {}, -- Adds pretty icons to your documents
-        ["core.dirman"] = { -- Manages Neorg workspaces
-          config = {
-            workspaces = {
-              -- NOTE: for multiple workspaces check out the README
-              notes = "~/Notes",
-            },
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "nvim-neorg/neorg",
+  --
+  --   build = ":Neorg sync-parsers",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --
+  --   cmd = "Neorg",
+  --   event = "BufEnter *.norg",
+  --
+  --   keys = {
+  --     {
+  --       "<leader>zc",
+  --       "<cmd> Neorg keybind all core.looking-glass.magnify-code-block<CR>",
+  --       mode = "n",
+  --       desc = "Neorg Code Buffer",
+  --     },
+  --     {
+  --       "<leader>zm",
+  --       "<cmd> Neorg toggle-concealer<CR>",
+  --       mode = "n",
+  --       desc = "Toggle Markdown",
+  --     },
+  --     {
+  --       "<leader>zn",
+  --       "<cmd> Neorg keybind all core.integrationg.treesitter.next.heading<CR>",
+  --       mode = "n",
+  --       desc = "Next Heading",
+  --     },
+  --     {
+  --       "<leader>zp",
+  --       "<cmd> Neorg keybind all core.integrationg.treesitter.previous.heading<CR>",
+  --       mode = "n",
+  --       desc = "Previous Heading",
+  --     },
+  --     {
+  --       "<leader>zl",
+  --       "<cmd> Neorg keybind all core.integrationg.treesitter.next.link<CR>",
+  --       mode = "n",
+  --       desc = "Next Link",
+  --     },
+  --     {
+  --       "<leader>zn",
+  --       "<cmd> Neorg keybind all core.integrationg.treesitter.previous.link<CR>",
+  --       mode = "n",
+  --       desc = "Previous Link",
+  --     },
+  --
+  --     -- {
+  --     --   "<leader>z",
+  --     --   "<cmd> Neorg <CR>",
+  --     --   mode = "n",
+  --     --   desc = "Neorg ",
+  --     -- },
+  --   },
+  --
+  --   config = function(_, opts)
+  --     require("neorg").setup(opts)
+  --   end,
+  --
+  --   opts = {
+  --     load = {
+  --       ["core.defaults"] = {}, -- Loads default behaviour
+  --       ["core.integrations.nvim-cmp"] = {},
+  --
+  --       -- ["core.integrations.treesitter "] = {}, -- FIXME
+  --
+  --       ["core.completion"] = {
+  --         config = {
+  --           engine = "nvim-cmp",
+  --         },
+  --       },
+  --       ["core.ui.calendar"] = {},
+  --       ["core.presenter"] = {
+  --         config = {
+  --           zen_mode = "zen-mode",
+  --         },
+  --       },
+  --       ["core.summary"] = {},
+  --       ["core.export.markdown"] = {},
+  --       ["core.export"] = {},
+  --       ["core.qol.toc"] = {
+  --         config = {
+  --           close_after_use = true,
+  --         },
+  --       },
+  --       -- [""] = {},
+  --       -- [""] = {},
+  --       -- [""] = {},
+  --       -- [""] = {},
+  --       ["core.concealer"] = {}, -- Adds pretty icons to your documents
+  --       ["core.dirman"] = { -- Manages Neorg workspaces
+  --         config = {
+  --           workspaces = {
+  --             -- NOTE: for multiple workspaces check out the README
+  --             notes = "~/Notes",
+  --           },
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "junegunn/goyo.vim",
