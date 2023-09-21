@@ -17,34 +17,38 @@ Neovim configuration heavily inspired by emacs philosophy
     More Themes (Click to expand!)
 </b></summary>
 
-> There are 50+ themes that comes out of the box with NvChad.
-> This is just a showcase that'll give you some idea about the look.
+> There are 50+ themes that comes out of the box with NvChad. This is just a
+> showcase that'll give you some idea about the look.
 
 ## Dark
 
 ### Nord
+
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/e1b59631-02b9-4bf5-8f27-d97ce0c5ace3)
 
 ### Rosepine
+
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/f2f79475-2429-49a7-aa78-c793e30e7129)
 
 ### Onedark
+
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/36279d57-2cfb-4ccd-870b-5ca1b612dc93)
 
 ### Catpuccin
+
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/2a391b43-8322-4ef0-a56a-22a87250ae4f)
 
 ### Everforest
-![image](https://github.com/UTFeight/vimacs/assets/101834410/2e8714aa-1e82-4f3a-8dbf-8cdd92e833f3)
 
+![image](https://github.com/UTFeight/vimacs/assets/101834410/2e8714aa-1e82-4f3a-8dbf-8cdd92e833f3)
 
 ## Light
 
 ### Ayu Light
+
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/1c3be5cf-4380-4523-8824-1565d3ba7622)
 
 </details>
-
 
 <details><summary><b>
     Feature Showcase (Click to expand!)
