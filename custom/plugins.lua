@@ -3970,6 +3970,22 @@ local plugins = {
   --   --     text = nil,
   --   -- }
   -- },
+
+  {
+    "chrisgrieser/nvim-various-textobjs",
+    -- lazy = false, -- TODO: Think more about it
+
+    keys = {
+      "di",
+      "ci",
+      "yi",
+      "vi",
+    },
+
+    opts = {
+      useDefaultKeymaps = true,
+    },
+  },
 }
 
 return plugins
