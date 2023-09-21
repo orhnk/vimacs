@@ -515,6 +515,13 @@ M.ui = {
 
     buttons = {
       {
+        "󰁯  Restore Session",
+        "Spc p l",
+        function()
+          require("persistence").load { last = true }
+        end,
+      },
+      {
         "  File Manager",
         "Spc .",
         ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
