@@ -2,6 +2,8 @@
 local M = {}
 local extern = require("custom.utils").extern
 
+local status = require("custom.utils").status
+
 M.general = {
   n = {
     ["<leader>ww"] = { "<cmd> w<cr>", "Save Changes", opts = { nowait = true } },
@@ -275,6 +277,7 @@ M.irc = {
     ["<leader>xi"] = {
       function()
         extern("weechat", "vertical")
+        status.irc = true
       end,
       "IRC Client",
     },
@@ -286,6 +289,7 @@ M.discord = {
     ["<leader>xd"] = {
       function()
         extern("discordo", "vertical")
+        status.discord = true
       end,
       "Discord",
     },
@@ -297,6 +301,7 @@ M.map = {
     ["<leader>xm"] = {
       function()
         extern("mapscii", "vertical")
+        status.worldmap = true
       end,
       "Open World Map",
     },
@@ -308,6 +313,7 @@ M.browser = {
     ["<leader>xb"] = {
       function()
         extern("browsh", "vertical")
+        status.browser = true
       end,
       "Open Browsher",
     },
@@ -326,6 +332,7 @@ M.reddit = {
     ["<leader>xr"] = {
       function()
         extern("tuir", "vertical")
+        status.reddit = true
       end,
       "Reddit Client",
     },
@@ -338,6 +345,7 @@ M.stackoverflow = {
       function()
         local q = vim.fn.input("Query: ")
         extern("so " .. q, "vertical")
+        status.stackoverflow = true
       end,
       "Query StackOverflow",
     },
@@ -349,6 +357,7 @@ M.mail = {
     ["<leader>xq"] = {
       function()
         extern("mutt", "vertical")
+        status.mail = true
       end,
       "Email Client",
     },
@@ -371,6 +380,7 @@ M.whatsapp = {
     ["<leader>xw"] = {
       function()
         extern("nchat", "vertical")
+        status.whatsapp = true
       end,
       "WhatsApp Client",
     },
