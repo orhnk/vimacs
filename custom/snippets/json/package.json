@@ -28,6 +28,12 @@
       },
       {
         "language": [
+          "org"
+        ],
+        "path": "./org.json"
+      },
+      {
+        "language": [
           "rust"
         ],
         "path": "./rust.json"
