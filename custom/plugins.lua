@@ -3539,6 +3539,25 @@ local plugins = {
       require("due_nvim").draw(0) -- Draw Due Dates
     end,
   },
+
+  {
+    "dhruvasagar/vim-table-mode",
+
+    keys = {
+      { "<leader>mkk", "<cmd> TableModeToggle<CR>", mode = "n", desc = "Toggle Table Mode" },
+      { "<leader>mka", "<cmd> TableAddFormula<CR>", mode = "n", desc = "Add Formula" },
+      { "<leader>mke", "<cmd> TableEvalFormulaLine<CR>", mode = "n", desc = "Eval Formula" },
+      { "<leader>mkr", "<cmd> TableModeRealign<CR>", mode = "n", desc = "Realign Table" },
+      { "<leader>mkl", "<cmd> Tableize<CR>", mode = "n", desc = "Tableize" },
+      { "<leader>mks", "<cmd> TableSort<CR>", mode = "n", desc = "Sort Table" },
+    },
+
+    config = function()
+      -- WARNING: Mapping these keys would probably cause something (NOT) funny
+      vim.keymap.del("n", "<leader>tm")
+      vim.keymap.del("n", "<leader>tt")
+    end,
+  },
 }
 
 return plugins
