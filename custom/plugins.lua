@@ -3088,6 +3088,84 @@ local plugins = {
     },
   },
 
+  {
+    "potamides/pantran.nvim",
+
+    keys = {
+      { "<leader><leader>t", "<cmd> Pantran<CR>", mode = { "n", "v" }, desc = "Translate" },
+      -- { "<leader>t", "<cmd> Pantran<CR>", mode = "v", desc = "Translate" },
+    },
+
+    config = function(_, opts)
+      local default_source = "auto"
+      local default_target = "tr" -- MUST: Refactor as your default target language.
+
+      require("pantran").setup {
+        -- Default engine to use for translation. To list valid engine names run
+        -- `:lua =vim.tbl_keys(require("pantran.engines"))`.
+        default_engine = "argos",
+        -- Configuration for individual engines goes here.
+        engines = {
+          argos = {
+            -- Default languages can be defined on a per engine basis. In this case
+            -- `:lua require("pantran.async").run(function()
+            -- vim.pretty_print(require("pantran.engines").yandex:languages()) end)`
+            -- can be used to list available language identifiers.
+            default_source = default_source,
+            default_target = default_target, -- MUST: Refactor as your default target language.
+          },
+          apertium = {
+            -- Default languages can be defined on a per engine basis. In this case
+            -- `:lua require("pantran.async").run(function()
+            -- vim.pretty_print(require("pantran.engines").yandex:languages()) end)`
+            -- can be used to list available language identifiers.
+            default_source = default_source,
+            default_target = default_target, -- MUST: Refactor as your default target language.
+          },
+          yandex = {
+            -- Default languages can be defined on a per engine basis. In this case
+            -- `:lua require("pantran.async").run(function()
+            -- vim.pretty_print(require("pantran.engines").yandex:languages()) end)`
+            -- can be used to list available language identifiers.
+            default_source = default_source,
+            default_target = default_target, -- MUST: Refactor as your default target language.
+          },
+          google = {
+            -- Default languages can be defined on a per engine basis. In this case
+            -- `:lua require("pantran.async").run(function() vim.pretty_print(require("pantran.engines").yandex:languages()) end)`
+            -- can be used to list available language identifiers.
+            default_source = default_source,
+            default_target = default_target, -- MUST: Refactor as your default target language.
+          },
+        },
+        -- controls = {
+        --   mappings = {
+        --     edit = {
+        --       n = {
+        --         -- Use this table to add additional mappings for the normal mode in
+        --         -- the translation window. Either strings or function references are
+        --         -- supported.
+        --         ["j"] = "gj",
+        --         ["k"] = "gk",
+        --       },
+        --       i = {
+        --         -- Similar table but for insert mode. Using 'false' disables
+        --         -- existing keybindings.
+        --         ["<C-y>"] = false,
+        --         ["<C-a>"] = require("pantran.ui.actions").yank_close_translation,
+        --       },
+        --     },
+        --     -- Keybindings here are used in the selection window.
+        --     select = {
+        --       n = {
+        --         -- ...
+        --       },
+        --     },
+        --   },
+        -- },
+      }
+    end,
+  },
 }
 
 return plugins
