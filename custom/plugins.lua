@@ -15,7 +15,6 @@ local plugins = {
         -- defaults
         "vim",
         "lua",
-
         -- web dev
         "html",
         "css",
@@ -31,6 +30,13 @@ local plugins = {
         "cmake",
         "rust",
         "zig",
+
+        -- Note
+        "org",
+
+        -- Script
+        "bash",
+        "python",
       },
     },
   },
