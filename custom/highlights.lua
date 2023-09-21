@@ -53,7 +53,29 @@ M.add = {
   -- end nvim-biscuits
 
   -- Stutusline
-  StCopilot = { fg = "yellow", bg = "black2" },
+  -- stylua: ignore start
+  StBrowser       = { fg = "blue",          bg = "grey"          },
+  StBg            = { bg = "grey"                                },
+  StCody          = { fg = "green",         bg = "grey"          },
+  StCopilot       = { fg = "yellow",        bg = "grey"          },
+  StDebug         = { fg = "red",           bg = "grey"          },
+  StDiscord       = { fg = "nord_blue",     bg = "grey"          },
+  StEncoding      = { fg = "white",         bg = "statusline_bg" },
+  StGit           = { fg = "orange",        bg = "grey"          },
+  StGithub        = { fg = "white",         bg = "grey"          },
+  StGroup         = { fg = "grey",          bg = "statusline_bg" },
+  StHome          = { fg = "yellow",        bg = "grey"          },
+  StIRC           = { fg = "white",         bg = "grey"          },
+  StKernel        = { fg = "white",         bg = "grey"          },
+  StMail          = { fg = "yellow",        bg = "grey"          },
+  StReddit        = { fg = "white",         bg = "grey"          },
+  StStackOverflow = { fg = "orange",        bg = "grey"          },
+  StHN            = { fg = "orange",        bg = "grey"          },
+  StGames         = { fg = "white",         bg = "grey"          },
+  StTranslate     = { fg = "nord_blue",     bg = "grey"          },
+  StWhatsapp      = { fg = "vibrant_green", bg = "grey"          },
+  StWorld         = { fg = "nord_blue",     bg = "grey"          },
+  -- stylua: ignore end
   -- end Statusline
 
   -- neotest
@@ -104,8 +126,8 @@ M.add = {
   -- NeogitReverting               = { fg = "white" },
   -- NeogitPicking                 = { fg = "white" },
   -- NeogitChangeModified          = { fg = "white" },
-  -- NeogitChangeAdded             = { fg = "white" },
-  -- NeogitChangeDeleted           = { fg = "white" },
+  NeogitChangeAdded             = { fg = "green", bg = "NONE" },
+  NeogitChangeDeleted           = { fg = "red", bg = "NONE" },
   -- NeogitChangeRenamed           = { fg = "white" },
   -- NeogitChangeUpdated           = { fg = "white" },
   -- NeogitChangeCopied            = { fg = "white" },
@@ -113,12 +135,12 @@ M.add = {
   -- NeogitChangeNewFile           = { fg = "white" },
   -- NeogitHunkHeader              = { fg = "white" },
   -- NeogitDiffContext             = { fg = "sun"      },
-  -- NeogitDiffAdd                 = { fg = "green", bg = "green"    },
-  NeogitDiffDelete              = { fg = "red", bg = "NONE"      },
+  NeogitDiffAdd                 = { fg = "green", bg = "NONE" }, -- bg = "#004717"    },
+  NeogitDiffDelete              = { fg = "red", bg = "NONE" }, -- bg = "#611300"      },
   -- NeogitDiffHeader              = { fg = "grey_fg2" },
   -- NeogitHunkHeaderHighlight     = { fg = "grey_fg2" },
   -- NeogitDiffContextHighlight    = { fg = "grey_fg"  },
-  -- NeogitDiffAddHighlight        = { bg = "green"    },
+  NeogitDiffAddHighlight        = { fg = "green",  bg = "NONE" },
   NeogitDiffDeleteHighlight     = { fg = "red", bg = "NONE"      },
   -- NeogitDiffHeaderHighlight     = { fg = "grey_fg2" },
   -- NeogitCursorLine              = { fg = "white" },
@@ -181,6 +203,17 @@ M.add = {
   BqfPreviewThumb  = { fg = "white"    },
   BqfPreviewRange  = { fg = "white"    },
   -- stylua: ignore end
+
+  -- orgmode
+  Headline1 = { bg = "#114319" },
+  Headline2 = { bg = "#424311" },
+  Headline3 = { bg = "#432111" },
+  Headline4 = { bg = "#114331" },
+  Headline5 = { bg = "#113143" },
+  CodeBlock = { fg = "sun" },
+  Dash = { fg = "grey_fg2", bold = true },
+  Quote = { fg = "grey", bold = true },
+  -- end orgmode
 }
 
 return M
