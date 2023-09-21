@@ -1,4 +1,4 @@
--- TODO: Remove telescope as a dependency and lazy load plugins later for squeezed performance.confconf
+-- TODO: Remove telescope as a dependency and lazy load plugins later for squeezed performance.conf
 local telescope_actions = require "telescope.actions"
 local overrides = require "custom.configs.overrides"
 
