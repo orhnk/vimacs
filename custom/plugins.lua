@@ -3649,6 +3649,24 @@ local plugins = {
       }
     end,
   },
+
+  -- { -- `nvim` inside terminal triggers new tab instead opening a nested nvim instance
+  --   "willothy/flatten.nvim",
+  --   config = true,
+  --   -- or pass configuration with
+  --   -- opts = {  },
+  --
+  --   -- Ensure that it runs first to minimize delay when opening file from terminal
+  --   lazy = false, -- TODO: think more about it
+  --   priority = 1001,
+  -- },
+  -- { -- Same as above but different implementation
+  --   "samjwill/nvim-unception",
+  --   init = function()
+  --     -- Optional settings go here!
+  --     -- e.g.) vim.g.unception_open_buffer_in_new_tab = true
+  --   end,
+  -- },
 }
 
 return plugins
