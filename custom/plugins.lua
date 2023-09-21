@@ -3065,6 +3065,29 @@ local plugins = {
     },
   },
 
+  {
+    "nfrid/markdown-togglecheck",
+
+    keys = {
+      {
+        "<leader>cml",
+        function()
+          require("markdown-togglecheck").toggle()
+        end,
+        mode = "n",
+        desc = "Toggle Markdown Checkbox",
+      },
+    },
+
+    dependencies = {
+      "nfrid/treesitter-utils",
+    },
+
+    ft = {
+      "markdown",
+    },
+  },
+
 }
 
 return plugins
