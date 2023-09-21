@@ -48,7 +48,7 @@ M.ui = {
         7,
         (function()
           local hl = "%#StGroup#"
-          return hl .. round.right .. "  "
+          return hl .. round.right
         end)()
       )
 
@@ -57,8 +57,8 @@ M.ui = {
         7,
         (function()
           local hl = "%#StKernel#"
-          local icon = "" --                              
-          return hl .. icon .. " "
+          local icon = "" --                               
+          return hl .. icon--[[  .. " " ]]
         end)()
       )
 
@@ -67,29 +67,40 @@ M.ui = {
         7,
         (function()
           local hl = "%#StDebug#"
-          local icon = "󱇪"
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.debug then
+            icon = hl .. "󱇪" .. group_margin
+          end
+          return icon
         end)()
       )
 
-      -- If in ~/
-      table.insert(
-        modules,
-        7,
-        (function()
-          local hl = "%#StHome#"
-          local icon = "󰋜"
-          return hl .. icon .. "  "
-        end)()
-      )
+      -- -- If in ~/
+      -- table.insert(
+      --   modules,
+      --   7,
+      --   (function()
+      --     local hl = "%#StHome#"
+      --     local icon = ""
+      --     local cwd = vim.fn.getcwd()
+      --     local homedir = vim.loop.os_homedir()
+      --     if cwd == homedir then
+      --       icon = hl .. "󰋜" .. group_margin
+      --     end
+      --     return icon
+      --   end)()
+      -- )
 
       table.insert(
         modules,
         7,
         (function()
           local hl = "%#StWorld#"
-          local icon = "󰇧" -- 󰅏
-          return hl .. icon .. "  "
+          local icon = "" -- 󰅏
+          if status.worldmap then
+            icon = hl .. "󰇧" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -98,8 +109,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StReddit#"
-          local icon = ""
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.reddit then
+            icon = hl .. "" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -108,8 +122,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StGames#"
-          local icon = "󰊗"
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.games then
+            icon = hl .. "󰊗" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -118,8 +135,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StHN#"
-          local icon = ""
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.hn then
+            icon = hl .. "" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -128,8 +148,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StWhatsapp#"
-          local icon = "󰖣"
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.whatsapp then
+            icon = hl .. "󰖣" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -138,8 +161,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StStackOverflow#"
-          local icon = ""
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.stackoverflow then
+            icon = hl .. "" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -148,8 +174,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StDiscord#"
-          local icon = "󰙯"
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.discord then
+            icon = hl .. "󰙯" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -158,8 +187,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StIRC#"
-          local icon = "󰻞"
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.irc then
+            icon = hl .. "󰻞" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -168,8 +200,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StGit#"
-          local icon = ""
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.git then
+            icon = hl .. "" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -178,8 +213,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StMail#"
-          local icon = "󰶌" -- 󰛮
-          return hl .. icon .. "  "
+          local icon = "" -- 󰛮
+          if status.mail then
+            icon = hl .. "󰶌" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -188,8 +226,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StBrowser#"
-          local icon = "󰖟"
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.browser then
+            icon = hl .. "󰖟" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -198,8 +239,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StGithub#"
-          local icon = ""
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.github then
+            icon = hl .. "" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -208,8 +252,11 @@ M.ui = {
         7,
         (function()
           local hl = "%#StTranslate#"
-          local icon = ""
-          return hl .. icon .. "  "
+          local icon = ""
+          if status.translate then
+            icon = hl .. "" .. group_margin
+          end
+          return icon
         end)()
       )
 
@@ -220,7 +267,7 @@ M.ui = {
           local hl = "%#StCody#"
           local icon = "" -- 
 
-          if vim.fn.exists ":CodyChat" ~= 0 then
+          if status.cody then
             icon = hl .. "󱜙" .. group_margin
           end
 
@@ -235,13 +282,22 @@ M.ui = {
           local icon = ""
           local hl = "%#StCopilot#"
 
-          if require("custom.utils").status.copilot == true then
-            icon = " " .. "" --   |  
-          else
-            icon = " " .. ""
+          if status.copilot == true then
+            icon = hl .. "" .. group_margin --   |  
+            -- else
+            --   icon = " " .. ""
           end
 
-          return hl .. icon .. group_margin
+          return icon
+        end)()
+      )
+
+      table.insert(
+        modules,
+        7,
+        (function()
+          local hl = "%#StBg#"
+          return hl .. " "
         end)()
       )
 
@@ -254,6 +310,10 @@ M.ui = {
         end)()
       )
     end,
+
+    -----------------------------------------------------
+    --                    ICONS END                    --
+    -----------------------------------------------------
   },
 
   nvdash = {
