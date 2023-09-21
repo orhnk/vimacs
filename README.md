@@ -5,7 +5,7 @@ Neovim configuration heavily inspired by emacs philosophy
 ## Philosophy
 
 - Full featured experience without the bloat.
-- Lazy loading of plugins to pay what you use.
+- Lazy loading of plugins to pay what you use. (`~%97.5`)
 
 ## Showcase
 
