@@ -2094,6 +2094,30 @@ local plugins = {
     },
   },
 
+  -- {
+  --   "declancm/cinnamon.nvim",
+  --   config = function(_, opts)
+  --     require("cinnamon").setup(opts)
+  --   end,
+  --
+  -- --   keys = {
+  -- --     {
+  -- --       "<leader>ms",
+  -- --       "",
+  -- --       mode = "n",
+  -- --       desc = "Enable Smooth Scrolling",
+  -- --     },
+  -- --   },
+  --
+  --   opts = {
+  --     extra_keymaps = true,
+  --     extended_keymaps = true,
+  --     -- override_keymaps = true,
+  --     -- max_length = 500,
+  --     scroll_limit = -1,
+  --   },
+  -- },
+
   { -- Smooth scrolling
     "karb94/neoscroll.nvim",
 
