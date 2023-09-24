@@ -21,13 +21,13 @@ M.keys = {
   --   desc = "Sniprun",
   -- },
   {
-    "<leader>czr",
+    "<leader>ir",
     "<cmd> SnipRun<CR>",
     mode = { "n", "v" },
     desc = "Run Snippet",
   },
   {
-    "<leader>czi",
+    "<leader>ii",
     function()
       require("sniprun").info()
     end,
@@ -35,7 +35,7 @@ M.keys = {
     desc = "Info",
   },
   {
-    "<leader>cze",
+    "<leader>ie",
     function()
       require("sniprun").reset()
     end,
@@ -43,15 +43,15 @@ M.keys = {
     desc = "Reset",
   },
   {
-    "<leader>czc",
+    "<leader>ic",
     function()
-      require("sniprun").clear_repl()
+      require("sniprun").clear_rlepl()
     end,
     mode = "n",
-    desc = "Open Repl",
+    desc = "Clear REPL",
   },
   {
-    "<leader>czx",
+    "<leader>ix",
     function()
       require("sniprun.display").close_all()
     end,
@@ -59,7 +59,7 @@ M.keys = {
     desc = "Close All",
   },
   {
-    "<leader>czl",
+    "<leader>il",
     function()
       require("sniprun.live_mode").toggle()
     end,
