@@ -222,26 +222,27 @@ local plugins = {
     },
   },
 
-  { -- Emoji Picker
-    "ziontee113/icon-picker.nvim",
-
-    keys = {
-      {
-        "<leader>fe",
-        ":PickEverything<CR>",
-        mode = "n",
-        desc = "Glyph Picker",
-      }, -- Gigantic Search Base
-    },
-
-    config = function(_, opts)
-      require("icon-picker").setup(opts)
-    end,
-
-    opts = {
-      disable_legacy_commands = false,
-    },
-  },
+  -- { -- Emoji Picker
+  --   -- MOVED: to nerdy.nvim
+  --   "ziontee113/icon-picker.nvim",
+  --
+  --   keys = {
+  --     {
+  --       "<leader>fe",
+  --       ":PickEverything<CR>",
+  --       mode = "n",
+  --       desc = "Glyph Picker",
+  --     }, -- Gigantic Search Base
+  --   },
+  --
+  --   config = function(_, opts)
+  --     require("icon-picker").setup(opts)
+  --   end,
+  --
+  --   opts = {
+  --     disable_legacy_commands = false,
+  --   },
+  -- },
 
   { -- FIXME: Some snippets are not working: e.g fix (toggleable)
     "hrsh7th/nvim-cmp",
@@ -4186,6 +4187,24 @@ local plugins = {
         },
       },
     },
+  },
+  { -- Glyph Picker
+    "2kabhishek/nerdy.nvim",
+
+    keys = {
+      {
+        "<leader>fe",
+        "<cmd> Nerdy<CR>",
+        mode = "n",
+        desc = "Glyph Picker",
+      }, -- Gigantic Search Base
+    },
+
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Nerdy",
   },
 }
 
