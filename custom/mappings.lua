@@ -57,6 +57,7 @@ M.disabled = {
 
     -- NvChad
     ["<leader>th"] = "",
+    ["<leader>ra"] = "",
     ["<leader>fo"] = "", -- moved: <leader>fr
   },
 }
@@ -84,8 +85,24 @@ M.treesitter = {
   },
 }
 
+
+-- Toggling Conceal
+local toggled = false
 M.buffer = {
   n = {
+    ["<leader>bf"] = {
+      function()
+        vim.opt.concealcursor = "nc"
+        if toggled then
+          vim.opt.conceallevel = 0
+          toggled = false
+        else
+          vim.opt.conceallevel = 2
+          toggled = true
+        end
+      end,
+      "Toggle Conceal",
+    },
     ["<leader>bn"] = { "<cmd> enew <CR>", "New buffer" },
 
     -- quit buffer
@@ -228,7 +245,7 @@ M.code = {
   },
 
   n = {
-    ["<leader>ss"] = {
+    ["<leader>sr"] = {
       function()
         vim.lsp.buf.signature_help()
       end,
@@ -250,7 +267,7 @@ M.code = {
     --   "Diagnostic setloclist",
     -- },
 
-    ["<leader>sq"] = { -- in v mode it sorts
+    ["<leader>ss"] = { -- in v mode it sorts
       function()
         vim.diagnostic.open_float { border = "rounded" }
       end,
@@ -355,7 +372,7 @@ M.stackoverflow = {
   n = {
     ["<leader>xs"] = {
       function()
-        local q = vim.fn.input("Query: ")
+        local q = vim.fn.input "Query: "
         extern("so " .. q, "vertical")
         status.stackoverflow = true
       end,
