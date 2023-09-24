@@ -8,12 +8,14 @@ local angle = { left = "", right = "" }
 local slant = { left = "", right = "" }
 local group_margin = "  "
 
+local status = require("custom.utils").status
+
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "monekai",
-  theme_toggle = { "monekai", "ayu_light" },
+  theme = "darcula",
+  theme_toggle = { "darcula", "darcula" },
 
   cmp = {
     style = "default", -- flatt_dark | flat_light | default | atom | atom_colored
@@ -30,6 +32,8 @@ M.ui = {
     -- separator_style = "round", -- default/*round*/*block*/arrow
     -- modules arg here is the default table of modules
     overriden_modules = function(modules)
+
+
       table.insert( -- Right
         modules,
         3,
@@ -43,18 +47,27 @@ M.ui = {
       -------------------------------------------------------
       --                    ICONS START                    --
       -------------------------------------------------------
+      -- table.insert(
+      --   modules,
+      --   8,
+      --   (function()
+      --     local hl = "%#StGroup#"
+      --     return hl .. round.right
+      --   end)()
+      -- )
+
       table.insert(
         modules,
-        7,
+        8,
         (function()
-          local hl = "%#StGroup#"
-          return hl .. round.right
+          local hl = "%#StBg#"
+          return hl .. " "
         end)()
       )
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StKernel#"
           local icon = "" --                               
@@ -64,7 +77,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StDebug#"
           local icon = ""
@@ -78,7 +91,7 @@ M.ui = {
       -- -- If in ~/
       -- table.insert(
       --   modules,
-      --   7,
+      --   8,
       --   (function()
       --     local hl = "%#StHome#"
       --     local icon = ""
@@ -93,7 +106,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StWorld#"
           local icon = "" -- 󰅏
@@ -106,7 +119,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StReddit#"
           local icon = ""
@@ -119,7 +132,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StGames#"
           local icon = ""
@@ -132,7 +145,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StHN#"
           local icon = ""
@@ -145,7 +158,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StWhatsapp#"
           local icon = ""
@@ -158,7 +171,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StStackOverflow#"
           local icon = ""
@@ -171,7 +184,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StDiscord#"
           local icon = ""
@@ -184,7 +197,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StIRC#"
           local icon = ""
@@ -197,7 +210,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StGit#"
           local icon = ""
@@ -210,7 +223,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StMail#"
           local icon = "" -- 󰛮
@@ -223,7 +236,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StBrowser#"
           local icon = ""
@@ -236,7 +249,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StGithub#"
           local icon = ""
@@ -249,7 +262,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StTranslate#"
           local icon = ""
@@ -262,7 +275,7 @@ M.ui = {
 
       table.insert(
         modules,
-        7,
+        8,
         (function()
           local hl = "%#StCody#"
           local icon = "" -- 
@@ -277,7 +290,7 @@ M.ui = {
 
       table.insert( -- Right
         modules,
-        7,
+        8,
         (function()
           local icon = ""
           local hl = "%#StCopilot#"
@@ -292,23 +305,23 @@ M.ui = {
         end)()
       )
 
-      table.insert(
-        modules,
-        7,
-        (function()
-          local hl = "%#StBg#"
-          return hl .. " "
-        end)()
-      )
+      -- table.insert(
+      --   modules,
+      --   8,
+      --   (function()
+      --     local hl = "%#StBg#"
+      --     return hl .. " "
+      --   end)()
+      -- )
 
-      table.insert(
-        modules,
-        7,
-        (function()
-          local hl = "%#StGroup#"
-          return hl .. round.left
-        end)()
-      )
+      -- table.insert(
+      --   modules,
+      --   8,
+      --   (function()
+      --     local hl = "%#StGroup#"
+      --     return hl .. round.left
+      --   end)()
+      -- )
     end,
 
     -----------------------------------------------------
