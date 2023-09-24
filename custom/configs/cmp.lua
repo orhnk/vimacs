@@ -102,7 +102,6 @@ M.dependencies = {
   "hrsh7th/cmp-nvim-lsp",
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
-  "Saecki/crates.nvim",
 } -- END NV-CMP DEPENDENCIES
 
 -- ALL OPTS GET MERGED WITH DEFAULTS IN LAZY.nvim
