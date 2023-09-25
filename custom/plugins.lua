@@ -1463,74 +1463,16 @@ local plugins = {
     "kevinhwang91/nvim-ufo",
 
     -- event = "VeryLazy",
-    keys = {
-      {
-        "<leader>mu",
-        "",
-        mode = "n",
-        desc = "UFO Mode",
-      },
-    },
-
-    dependencies = {
-      {
-        "kevinhwang91/promise-async",
-      },
-      {
-        "yaocccc/nvim-foldsign",
-
-        -- event = "CursorHold",
-
-        config = function(_, opts)
-          require("nvim-foldsign").setup(opts)
-        end,
-
-        opts = {
-          offset = -2,
-          foldsigns = {
-            open = "", -- mark the beginning of a fold
-            close = "↪", -- show a closed fold
-            seps = { "│", "┃" }, -- open fold middle marker -- TODO: ADD MORE
-          },
-        },
-      },
-    },
-
+    keys = require("custom.configs.ufo").keys,
+    dependencies = require("custom.configs.ufo").dependencies,
     opts = require("custom.configs.ufo").opts,
-    config = function(_, opts)
-      local handler = function(virtText, lnum, endLnum, width, truncate)
-        local newVirtText = {}
-        local suffix = (" 󰁂 %d "):format(endLnum - lnum)
-        local sufWidth = vim.fn.strdisplaywidth(suffix)
-        local targetWidth = width - sufWidth
-        local curWidth = 0
-        for _, chunk in ipairs(virtText) do
-          local chunkText = chunk[1]
-          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-          if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-          else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            local hlGroup = chunk[2]
-            table.insert(newVirtText, { chunkText, hlGroup })
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-            end
-            break
-          end
-          curWidth = curWidth + chunkWidth
-        end
-        table.insert(newVirtText, { suffix, "MoreMsg" })
-        return newVirtText
-      end
 
-      require("ufo").setup {
-        opts,
-        -- enable_get_fold_virt_text = true,
-        fold_virt_text_handler = handler,
-      }
+    config = function(_, opts)
+      require("ufo").setup(opts)
+
+      -- Better UI elements
+      -- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      -- vim.o.foldcolumn = "3" -- "1" is better
     end,
   },
 
