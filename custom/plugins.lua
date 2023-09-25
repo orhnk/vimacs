@@ -4464,6 +4464,24 @@ local plugins = {
   --   end,
   -- },
 
+  {
+    "NStefan002/speedtyper.nvim",
+    cmd = "Speedtyper",
+
+    keys = {
+      {
+        "<leader>vf",
+        "<cmd> Speedtyper<CR>",
+        mode = "n",
+        desc = "Type Speed Game",
+      },
+    },
+
+    opts = {
+      -- your config
+    },
+  },
+
   { -- Glyph Picker
     "2kabhishek/nerdy.nvim",
 
