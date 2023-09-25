@@ -732,9 +732,7 @@ local plugins = {
 
   { -- nvim-dap virtual text
     "theHamsta/nvim-dap-virtual-text",
-    dependencies = { "mfussenegger/nvim-dap" },
     config = function(_, opts)
-      require("dap-virtual-text").setup(opts)
       require("nvim-dap-virtual-text").setup(opts)
     end,
     opts = {},
@@ -759,6 +757,32 @@ local plugins = {
       })
     end,
   },
+
+  {
+    "LiadOz/nvim-dap-repl-highlights",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+
+    keys = {
+      {
+        "<leader>dp",
+        function()
+          require("nvim-dap-repl-highlights").setup_highlights()
+        end,
+        mode = "n",
+        desc = "Set REPL Highlight",
+      },
+    },
+
+    config = function()
+      require("nvim-dap-repl-highlights").setup()
+      require("nvim-treesitter.configs").setup {
+        highlight = {
+          enable = true,
+        },
+        ensure_installed = {
+          "dap_repl",
+        },
+      }
     end,
   },
 
