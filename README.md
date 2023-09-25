@@ -103,6 +103,18 @@ Neovim configuration heavily inspired by emacs philosophy
 
 ## Features
 
+- Vim:
+  - [x] Language aware comments (`Comment.nvim`)
+  - [x] Smart Snippets (`LuaSnip`)
+  - [x] Insert mode escape [`jj`, `jk`]
+  - [x]
+
+- IDE:
+- Misc:
+- Advanced:
+- Emacs:
+- Beyond:
+
 - Advanced:
   - [x] Stack Overflow Client
   - [x] Email Client
@@ -137,6 +149,7 @@ Neovim configuration heavily inspired by emacs philosophy
   - [x] Paired Files (e.g `.cpp` and `.hpp`)
   - [x] Word motions (Via `vim-wordmotion`)
   - [x] Clipboard Manager (`nvim-neoclip.lua`)
+  - [x] Insert mode escape [`jj`, `jk`] (`better-escape.nvim`)
 
 <br>
 
@@ -151,8 +164,10 @@ Beautiful:
   - [x] Efficient Plugin Manager
   - [x] LSP Package manager
   - [x] Decent Debugging Experience
+  - [x] Language aware comments
   - [x] Auto-Complete
   - [x] Syntax Highlighting
+  - [x] Featurefull Snippet
   - [x] Smart Code Runner Applet (Via `compiler.nvim`)
   - [x] LSP Support (See [Installation section](#installation))
   - [x] Smart scrollbar (Via `satellite.nvim`) [OPT]
@@ -252,8 +267,17 @@ cd .. && rm -rf CamelVim && nvim
 
 2. Debugger:
    ```sh
-   yay -S codelldb # AUR
+   # This is for unexpected scenarios only.
+   # In general mason should install these X-platform
+
+   #                  config.fish                  #
+   #               Vimacs Mason PATH               #
+    export PATH="$HOME/.local/share/nvim/mason/bin"
    ```
+
+   Vimacs ships with default python, C/C++ and Rust debuggers, If you have any
+   other to configure please look into `custom/plugins.lua` "nvim-dap" and
+   `custom/configs/nvim-dap.lua`
 
 3. Project Surfing:
 
