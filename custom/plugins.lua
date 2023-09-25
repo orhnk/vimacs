@@ -875,12 +875,98 @@ local plugins = {
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
+          args = function()
+            -- First split it by spaces
+            local raw = vim.fn.input "Args: "
+            local home = os.getenv "HOME"
+            local args_filtered = raw.gsub(raw, "~", home)
+            local args = vim.split(args_filtered, " ")
+
+            print "HERE:"
+            vim.print(args)
+            for i, arg in ipairs(args) do
+              -- Replace ~ with $HOME
+              print(arg)
+            end
+            vim.print(args)
+
+            return args
+          end,
         },
       }
 
       -- Reuse configurations for other languages
       dap.configurations.c = dap.configurations.cpp
-      dap.configurations.rust = dap.configurations.cpp
+      dap.configurations.rust = {
+        {
+          name = "Launch file",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            print "Building Project..."
+            vim.cmd "!cargo build"
+            print "Done!"
+
+            -- local release_dir = vim.fn.finddir("target/release", vim.fn.getcwd() .. ";")
+            local debug_dir = vim.fn.finddir("target/debug", vim.fn.getcwd() .. ";")
+
+            -- If both are nil then run cargo build
+            -- WARNING:
+            -- if release_dir == "" and debug_dir == "" then
+            --   print "Building Project..."
+            --   vim.cmd "silent !cargo build"
+            --   print "Built With Cargo"
+            -- end
+
+            -- Select binary by the (only) file that has no extension
+            -- Get the directory path where your files are located
+            --[[ release_dir or ]]
+            local directory = debug_dir
+
+            -- Get a list of files in the directory
+            local files = vim.fn.readdir(directory)
+
+            -- Iterate through the files
+            for _, file in ipairs(files) do
+              local filepath = directory .. "/" .. file
+
+              -- Check if the file is executable
+              local is_executable = vim.fn.executable(filepath) == 1
+
+              if is_executable then
+                -- print(filepath)
+                return filepath
+                -- You can perform further actions on the executable here
+              end
+            end
+
+            -- If none of the above don't work
+            -- then ask the user to input the path to the executable
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+
+          args = function()
+            -- First split it by spaces
+            local raw = vim.fn.input "Args: "
+            local home = os.getenv "HOME"
+            local args_filtered = raw.gsub(raw, "~", home)
+            local args = vim.split(args_filtered, " ")
+
+            print "HERE:"
+            vim.print(args)
+            for i, arg in ipairs(args) do
+              -- Replace ~ with $HOME
+              print(arg)
+            end
+            vim.print(args)
+
+            return args
+          end,
+        },
+      }
+
     end,
 
     keys = require("custom.configs.nvim-dap").keys,
