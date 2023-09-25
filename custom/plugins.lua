@@ -577,6 +577,46 @@ local plugins = {
     opts = {},
   },
 
+  { -- TODO: Config && Remove vim one
+    "rgroli/other.nvim",
+
+    keys = {
+      {
+        "<leader>sw",
+        "<cmd> Other<CR>",
+        mode = "n",
+        desc = "Switch To Pair File",
+      },
+    },
+
+    config = function(_, opts)
+      require("other-nvim").setup {
+        mappings = {
+          {
+            pattern = "(.*)/(.*).cpp$",
+            target = "%1/%2.hpp",
+            -- context = "component",
+          },
+          -- {
+          --   pattern = "/src/app/(.*)/.*.html$",
+          --   target = "/src/app/%1/%1.component.ts",
+          --   context = "view",
+          -- },
+          -- {
+          --   pattern = "/src/app/(.*)/.*.ts$",
+          --   target = "/src/app/%1/%1.component.html",
+          --   context = "component",
+          -- },
+          -- {
+          --   pattern = "/src/app/(.*)/.*.spec.ts$",
+          --   target = "/src/app/%1/%1.component.html",
+          --   context = "test",
+          -- },
+        },
+      }
+    end,
+  },
+
   { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
     "Everduin94/nvim-quick-switcher", -- TODO: use other.nvim
 
