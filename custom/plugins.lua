@@ -244,7 +244,7 @@ local plugins = {
   --   },
   -- },
 
-  { -- FIXME: Some snippets are not working: e.g fix (toggleable)
+  {
     "hrsh7th/nvim-cmp",
     dependencies = require("custom.configs.cmp").dependencies,
     opts = require("custom.configs.cmp").opts,
@@ -1425,8 +1425,8 @@ local plugins = {
         end,
       },
 
-      { -- Treesitter
-        "nvim-treesitter/nvim-treesitter",
+      {
+        "yorickpeterse/nvim-pqf",
       },
     },
 
@@ -2964,7 +2964,7 @@ local plugins = {
 
     keys = {
       {
-        "<leader>ii",
+        "<leader><C-a>",
         function()
           require("dial.map").manipulate("increment", "visual")
         end,
@@ -2972,7 +2972,7 @@ local plugins = {
         desc = "Custom Toggle",
       },
       {
-        "<leader>ii",
+        "<leader><C-a>",
         function()
           require("dial.map").manipulate("increment", "normal")
         end,
