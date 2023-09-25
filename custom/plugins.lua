@@ -4518,6 +4518,19 @@ local plugins = {
   --
   --   config = true,
   -- },
+  {
+    "m4xshen/smartcolumn.nvim",
+    keys = {
+      { "<leader>mj", mode = "n", desc = "Smart Column" },
+    },
+    opts = {
+      colorcolumn = "100",
+      disabled_filetypes = { "help", "text", "markdown" },
+      custom_colorcolumn = {},
+      scope = "file",
+    },
+  },
+
   { -- Glyph Picker
     "2kabhishek/nerdy.nvim",
 
