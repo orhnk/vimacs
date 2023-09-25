@@ -1747,10 +1747,6 @@ local plugins = {
     },
   },
 
-  -- { -- TODO: Config && Remove vim one
-  --   "rgroli/other.nvim",
-  -- },
-
   { -- TODO: Config
     "folke/twilight.nvim",
 
