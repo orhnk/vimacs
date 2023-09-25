@@ -735,6 +735,30 @@ local plugins = {
     dependencies = { "mfussenegger/nvim-dap" },
     config = function(_, opts)
       require("dap-virtual-text").setup(opts)
+      require("nvim-dap-virtual-text").setup(opts)
+    end,
+    opts = {},
+  },
+
+  { -- DAP REPL Autocompletion
+    "rcarriga/cmp-dap",
+    config = function(_, opts)
+      require("cmp").setup {
+        enabled = function()
+          return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+        end,
+      }
+      require("cmp").setup.filetype({
+        "dap-repl",
+        "dapui_watches",
+        "dapui_hover",
+      }, {
+        sources = {
+          { name = "dap" },
+        },
+      })
+    end,
+  },
     end,
   },
 

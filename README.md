@@ -320,10 +320,6 @@ cd .. && rm -rf CamelVim && nvim
   [cody AI](https://sourcegraph.com/cody)
 - Many Thanks to all plugin authors
 
-## TODO
-
-- [ ] Fix nvim-dap-virtual-text
-
 ---
 
 ## Terms of usage
