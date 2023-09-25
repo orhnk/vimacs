@@ -705,7 +705,25 @@ local plugins = {
 
   { -- nvim-dap UI
     "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap" },
+    keys = {
+      {
+        "<leader>dq",
+        function()
+          require("dapui").eval()
+        end,
+        mode = { "n", "v" },
+        desc = "Hover",
+      },
+      {
+        "<leader>df",
+        function()
+          require("dapui").float_element()
+        end,
+        mode = "n",
+        desc = "Lookup Options",
+      },
+    },
+
     config = function(_, opts)
       require("dapui").setup(opts)
       status.debug = true
