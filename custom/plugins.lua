@@ -4482,6 +4482,26 @@ local plugins = {
     },
   },
 
+  -- { -- Reminds you to drink water
+  --   "stefanlogue/hydrate.nvim",
+  --   -- This installs the latest stable release.
+  --   -- Set to false or omit to install the latest development version
+  --   version = "*",
+  --   opts = {
+  --     -- The interval between notifications in minutes
+  --     minute_interval = 20,
+  --
+  --     -- The render style for notifications
+  --     -- Accepted values are "default", "minimal", "simple" or "compact"
+  --     render_style = "compact",
+  --
+  --     -- Loads time of last drink on startup
+  --     -- Useful if you don't have long-running neovim instances
+  --     -- or if you tend to have multiple instances running at a time
+  --     persist_timer = false,
+  --   },
+  -- },
+
   { -- Glyph Picker
     "2kabhishek/nerdy.nvim",
 
