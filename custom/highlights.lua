@@ -217,6 +217,42 @@ M.add = {
   -- stylua: ignore end
   -- end orgmode
 
+  -- pqf
+  -- stylua: ignore start
+  qfPath     = { fg = "yellow" },
+  qfPosition = { fg = "green" },
+  qfError    = { fg = "red" },
+  qfWarning  = { fg = "orange" },
+  qfInfo     = { fg = "nord_blue" },
+  qfHint     = { fg = "purple" },
+  -- stylua: ignore end
+  -- end pqf
+
+  -- marks
+  -- stylua: ignore start
+  MarkSignHL     = { fg = "orange" },
+  MarkSignNumHL  = { fg = "green"  },
+  MarkVirtTextHL = { fg = "sun"    },
+  -- stylua: ignore end
+  -- end marks
+
+  -- dap
+  -- stylua: ignore start
+  DapBreakpoint          = { fg = "red" },
+  DapBreakpointCondition = { fg = "vibrant_green" },
+  DapBreakpointRejected  = { fg = "grey_fg2" },
+  -- DapBreakpointNum  = { fg = "red" },
+  -- DapBreakpointLine = { bg = "red" },
+
+  DapLogPoint     = { fg = "blue" },
+  -- DapLogPointNum  = { fg = "nord_blue" },
+  -- DapLogPointLine = { bg = "nord_blue" },
+
+  DapStopped     = { fg = "sun" },
+  -- DapStoppedNum  = { fg = "sun" },
+  DapStoppedLine = { bg = "one_bg" },
+  -- stylua: ignore end
+  -- end dap
 }
 
 return M
