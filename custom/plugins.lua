@@ -789,11 +789,21 @@ local plugins = {
   { -- Debug Adapter Protocol
     "mfussenegger/nvim-dap",
 
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+      "rcarriga/cmp-dap",
+      "LiadOz/nvim-dap-repl-highlights",
+    },
     -- TODO: Move these to configs/nvim-dap.lua
     config = function()
+      require("custom.utils").load_breakpoints()
       local dap = require "dap"
       -- dap.set_log_level "TRACE"
 
+      ----------------------------------------------------
+      --                    ADAPTERS                    --
+      ----------------------------------------------------
       dap.adapters.codelldb = {
         type = "server",
         port = "${port}",
