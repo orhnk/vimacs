@@ -1,0 +1,38 @@
+{
+  "Task": {
+    "prefix": "task",
+    "body": [
+      "{",
+      "   \"type\": \"${1:process}\",",
+      "   \"label\": \"${2:name}\",",
+      "   \"group\": \"${3:test}\",",
+      "   \"command\": \"${4:./run_tests.sh}\",",
+      "   \"args\": [",
+      "     \"${5:--verbose}\"",
+      "   ]",
+      "}"
+    ],
+    "description": "Task Template"
+  },
+
+  "Overseer": {
+    "prefix": "overseer",
+    "body": [
+      "{",
+      "  \"version\": \"0.1.0\",",
+      "  \"tasks\": [",
+      "    {",
+      "      \"type\": \"${1:process}\",",
+      "      \"label\": \"${2:name}\",",
+      "      \"group\": \"${3:test}\",",
+      "      \"command\": \"${4:./run_tests.sh}\",",
+      "      \"args\": [",
+      "        \"${5:--verbose}\"",
+      "      ]",
+      "    }",
+      "  ]",
+      "}"
+    ],
+    "description": "Task Template"
+  }
+}
