@@ -3782,7 +3782,22 @@ local plugins = {
         },
       }
 
-      vim.cmd [[TableModeEnable]] -- Align |'s
+      -- Conceal links, bolds etc.
+      vim.opt.conceallevel = 2
+      vim.opt.concealcursor = "nc"
+
+      -- FIXED: orgmode overrides this
+      -- NOTE: Remove after merged
+      -- opened an issue will fix it soon!
+      -- vim.cmd [[setlocal foldlevel=99]]
+      -- vim.cmd [[setlocal foldlevelstart=99]]
+      -- vim.cmd [[setlocal foldenable]]
+
+      -- Autocmd version
+      -- vim.cmd [[autocmd FileType org setlocal nofoldenable]] -- No folds initially
+      vim.cmd [[setlocal nofoldenable]] -- No folds initially
+
+      vim.cmd [[TableModeEnable]] -- Align tables with ||
       require("due_nvim").draw(0) -- Draw Due Dates
     end,
   },
@@ -3846,6 +3861,7 @@ local plugins = {
       local date_pattern = [[(%d%d)%-(%d%d)]]
       local datetime_pattern = date_pattern .. " (%d+):(%d%d)" -- m, d, h, min
       local fulldatetime_pattern = "(%d%d%d%d)%-" .. datetime_pattern -- y, m, d, h, min
+      vim.o.foldlevel = 99
 
       require("due_nvim").setup {
         prescript = "due: ", -- prescript to due data
