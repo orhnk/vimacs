@@ -19,6 +19,7 @@
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+vim.cmd [[autocmd FileType org setlocal foldlevel=99]] -- No folds initially
 
 -- Snippet paths
 vim.g.vscode_snippets_path = "~/.config/nvim/lua/custom/snippets/json"
