@@ -967,6 +967,43 @@ local plugins = {
         },
       }
 
+      -------------------------------------------------
+      --                    SIGNS                    --
+      -------------------------------------------------
+      vim.fn.sign_define("DapBreakpoint", {
+        text = " ",
+        texthl = "DapBreakpoint",
+        linehl = "DapBreakpointLine",
+        numhl = "DapBreakpointNum",
+      })
+
+      vim.fn.sign_define("DapLogPoint", {
+        text = " ",
+        texthl = "DapLogPoint",
+        linehl = "DapLogPointLine",
+        numhl = "DapLogPointNum",
+      })
+
+      vim.fn.sign_define("DapStopped", {
+        text = " ",
+        texthl = "DapStopped",
+        linehl = "DapStoppedLine",
+        numhl = "DapStoppedNum",
+      })
+
+      vim.fn.sign_define("DapBreakpointCondition", {
+        text = " ",
+        texthl = "DapBreakpointCondition",
+        linehl = "DapBreakpointConditionLine",
+        numhl = "DapBreakpointConditionNum",
+      })
+
+      vim.fn.sign_define("DapBreakpointRejected", {
+        text = " ",
+        texthl = "DapBreakpointRejected",
+        linehl = "DapBreakpointRejectedLine",
+        numhl = "DapBreakpointRejectedNum",
+      })
     end,
 
     keys = require("custom.configs.nvim-dap").keys,
