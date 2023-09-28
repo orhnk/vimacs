@@ -44,15 +44,16 @@ local plugins = {
   { -- WhichKey overrides
     "folke/which-key.nvim",
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "whichkey") --<-- from NvChad's config
-      require("which-key").setup(opts) --<-- From NvChad's config'
-      require("custom.configs.which-key").prefixes()
+      -- stylua: ignore start
+      dofile(vim.g.base46_cache .. "whichkey")       --<-- from NvChad's config
+      require("which-key").setup(opts)               --<-- From NvChad's config'
+      require("custom.configs.which-key").prefixes() --<-- Vimacs
+      -- stylua: ignore end
     end,
     opts = require("custom.configs.which-key").opts,
   },
 
   -- Override plugin definition options
-
   { -- Overriding NvChad Telescope options. (Dirty hack)
     "nvim-telescope/telescope.nvim",
 
