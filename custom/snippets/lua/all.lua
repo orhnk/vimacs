@@ -1,10 +1,4 @@
-_G.luasnip = {}
-_G.luasnip.vars = {
-  username = "utfeight",
-  email = "utfeightt@gmail.com",
-  github = "https://github.com/utfeight",
-  real_name = "Orhan KARAMAN",
-}
+local info = require "custom.info"
 
 local luasnip = require "luasnip"
 local ls = require "luasnip"
@@ -104,19 +98,16 @@ end
 --- Options for marks to be used in a TODO comment
 local marks = {
   signature = function()
-    return fmt("<{}>", i(1, _G.luasnip.vars.username))
+    return fmt("<{}>", i(1, info.username))
   end,
   signature_with_email = function()
-    return fmt("<{}{}>", { i(1, _G.luasnip.vars.username), i(2, " " .. _G.luasnip.vars.email) })
+    return fmt("<{}{}>", { i(1, info.username), i(2, " " .. info.email) })
   end,
   date_signature_with_email = function()
-    return fmt(
-      "<{}{}{}>",
-      { i(1, os.date "%d-%m-%y"), i(2, ", " .. _G.luasnip.vars.username), i(3, " " .. _G.luasnip.vars.email) }
-    )
+    return fmt("<{}{}{}>", { i(1, os.date "%d-%m-%y"), i(2, ", " .. info.username), i(3, " " .. info.email) })
   end,
   date_signature = function()
-    return fmt("<{}{}>", { i(1, os.date "%d-%m-%y"), i(2, ", " .. _G.luasnip.vars.username) })
+    return fmt("<{}{}>", { i(1, os.date "%d-%m-%y"), i(2, ", " .. info.username) })
   end,
   date = function()
     return fmt("<{}>", i(1, os.date "%d-%m-%y"))
@@ -141,7 +132,7 @@ local todo_snippet_nodes = function(aliases, opts)
     end),
     c(1, aliases_nodes), -- [name-of-comment]
     i(3), -- {comment-text}
-    c(2, sigmark_nodes), -- [comment-mark]
+    i(2, sigmark_nodes), -- [comment-mark]
     f(function()
       return get_cstring(opts.ctype)[2] -- get <comment-string[2]>
     end),
@@ -198,7 +189,17 @@ ls.add_snippets("all", todo_comment_snippets, { type = "snippets", key = "todo_c
 --        END        --
 -----------------------
 
+-- COPYRIGHT (C) 2023, utfeight snippet HERE:
+
 return {
   s({ trig = "box" }, create_box { padding_length = 8 }),
   s({ trig = "bbox" }, create_box { padding_length = 20 }),
+
+  -- s("COPYRIGHT", { -- FIXME
+  --   t "COPYRIGHT (C) ",
+  --   i(1, os.date "%Y"),
+  --   t ", ",
+  --   i(2, info.username),
+  --   c(3, sigmark_nodes), -- [comment-mark]
+  -- }),
 }
