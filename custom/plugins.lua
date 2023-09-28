@@ -3757,7 +3757,8 @@ local plugins = {
       local Menu = require "org-modern.menu"
       -- Setup orgmode
       require("orgmode").setup {
-        org_agenda_files = "~/org/**/*",
+        org_startup_folded = "inherit",
+        org_agenda_files = "~/org/**/*.org",
         org_default_notes_file = "~/org/daily/routine.org",
         ui = {
           menu = {
