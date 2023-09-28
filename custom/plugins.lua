@@ -1316,7 +1316,7 @@ local plugins = {
       -- Repo says it is not required if not using custom actions
       require("ts-node-action").setup(opts)
     end,
-    opts = {},
+    opts = require("custom.configs.ts").opts,
   },
 
   { -- Color Picker (Probably the best one)
