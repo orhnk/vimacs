@@ -3784,17 +3784,6 @@ local plugins = {
       vim.opt.conceallevel = 2
       vim.opt.concealcursor = "nc"
 
-      -- FIXED: orgmode overrides this
-      -- NOTE: Remove after merged
-      -- opened an issue will fix it soon!
-      -- vim.cmd [[setlocal foldlevel=99]]
-      -- vim.cmd [[setlocal foldlevelstart=99]]
-      -- vim.cmd [[setlocal foldenable]]
-
-      -- Autocmd version
-      -- vim.cmd [[autocmd FileType org setlocal nofoldenable]] -- No folds initially
-      vim.cmd [[setlocal nofoldenable]] -- No folds initially
-
       vim.cmd [[TableModeEnable]] -- Align tables with ||
       require("due_nvim").draw(0) -- Draw Due Dates
     end,
@@ -4573,6 +4562,7 @@ local plugins = {
       max_filename_length = 0,
     },
   },
+
   {
     "chentoast/marks.nvim",
 
