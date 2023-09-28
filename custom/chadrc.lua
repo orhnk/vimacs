@@ -528,8 +528,13 @@ M.ui = {
 
     buttons = {
       {
+        "  New Project",
+        "Spc n n",
+        "ProjectNew"
+      },
+      {
         "󰁯  Restore Session",
-        "Spc p l",
+        "Spc q l",
         function()
           require("persistence").load { last = true }
         end,
