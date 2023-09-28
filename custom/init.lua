@@ -19,7 +19,6 @@
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.cmd [[autocmd FileType org setlocal foldlevel=99]] -- No folds initially
 
 -- Snippet paths
 vim.g.vscode_snippets_path = "~/.config/nvim/lua/custom/snippets/json"
@@ -55,7 +54,7 @@ vim.cmd [[
   augroup END
 ]]
 
--- Change
+-- Change Cwd to current file (AWESOME)
 vim.cmd [[
 set autochdir
 ]]
@@ -81,34 +80,11 @@ set autochdir
 --   end,
 -- })
 
--- Moved to plugins.lua
--- -- Crates.io integrations (crates.nvim)
--- local function show_documentation()
---     local filetype = vim.bo.filetype
---     if vim.tbl_contains({ 'vim','help' }, filetype) then
---         vim.cmd('h '..vim.fn.expand('<cword>'))
---     elseif vim.tbl_contains({ 'man' }, filetype) then
---         vim.cmd('Man '..vim.fn.expand('<cword>'))
---     elseif vim.fn.expand('%:t') == 'Cargo.toml' and require('crates').popup_available() then
---         require('crates').show_popup()
---     else
---         vim.lsp.buf.hover()
---     end
--- end
---
--- vim.keymap.set('n', 'K', show_documentation, { silent = true })
-
 -- TODO: Check wheter this is needed
 -- -- Improves startup time
 -- vim.loader.enable()
 
 -- Stack Overflow Wrapper:
-
--- Define the Soq command
--- vim.cmd [[
---   command! -nargs=* Soq call v:lua.run_soq(<q-args>)
--- ]]
-
 -- Define the Lua function to execute the Soq command
 function run_soq(query)
   local cmd = "so " .. query
