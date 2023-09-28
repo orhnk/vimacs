@@ -537,7 +537,7 @@ M.ui = {
       {
         "  File Manager",
         "Spc .",
-        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        "Telescope file_browser path=%:p:h select_buffer=true",
         -- FIXME cmd doesn't work with lazy loading!
       },
       {
