@@ -4617,6 +4617,156 @@ local plugins = {
       mappings = {},
     },
   },
+
+  { -- Native Plugin (for of neoproj)
+    "UTFeight/neoproj",
+
+    dependencies = {
+      "nvim-telescope/telescope-file-browser.nvim",
+    },
+
+    cmd = {
+      "ProjectOpen",
+      "ProjectNew",
+    },
+
+    keys = {
+      -- { -- Using <leader>fp is suggested
+      --   "<leader>pf",
+      --   "<cmd> ProjectOpen<CR>",
+      --   mode = "n",
+      --   desc = "Project",
+      -- },
+      {
+        "<leader>nn",
+        "<cmd> ProjectNew<CR>",
+        mode = "n",
+        desc = "New Project",
+      },
+    },
+
+    config = function(_, opts)
+      require("neoproj").setup(opts.setup)
+      for _, template in ipairs(opts.templates) do
+        if template.repo then
+          require("neoproj").register_template {
+            name = template.name,
+
+            expand = function()
+              -- vim.cmd ":Telescope file_browser path=%:p:h select_buffer=true<CR>"
+              local cmd = require("neoproj").create_project(template.repo, template.opts)
+              os.execute(cmd)
+            end,
+          }
+        else
+          require("neoproj").register_template(template)
+        end
+      end
+    end,
+
+    opts = function()
+      return {
+        setup = {
+          -- Directory which contains all of your projects
+          project_path = "~/Github/repos", -- TODO: Ask for user input + migrate to init.lua
+        },
+
+        templates = {
+          {
+            name = "Kotlin (Android)",
+            repo = "nekocode/create-android-kotlin-app",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "Java",
+            repo = "pascalpoizat/template-java-project",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "Swift",
+            repo = "vapor/template",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "TypeScript (React + Next.js)",
+            repo = "cruip/open-react-template",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "C# (.NET)",
+            repo = "Dotnet-Boxed/Templates",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "Go (Kratos)",
+            repo = "go-kratos/kratos-layout",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "Go (Makefile)",
+            repo = "thockin/go-build-template",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "R",
+            repo = "KentonWhite/ProjectTemplate",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "Markdown",
+            repo = "othneildrew/Best-README-Template",
+            opts = {
+              pull = true,
+            },
+          },
+          {
+            name = "Python",
+            repo = "rochacbruno/python-project-template",
+            opts = {
+              pull = true,
+            },
+          },
+
+          {
+            name = "Python (Tensorflow)",
+            repo = "MrGemy95/Tensorflow-Project-Template",
+            opts = {
+              pull = true,
+            },
+          },
+
+          {
+            name = "Rust",
+            expand = "cargo init",
+          },
+
+          {
+            name = "C++",
+            repo = "UTFeight/Cpp-Cmake-Template",
+            opts = {
+              pull = true,
+            },
+          },
+        },
+      }
+    end,
+  },
 }
 
 return plugins
