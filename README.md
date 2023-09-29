@@ -401,7 +401,9 @@ reduce performance.
 
 ## Installation
 
-> [!TODO]: Make INSTALL Script more interactive
+<!-- deno-fmt-ignore -->
+> [!TODO]: 
+> Make INSTALL Script more interactive
 
 ```sh
 git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
@@ -433,7 +435,9 @@ cd .. && rm -rf CamelVim && nvim
 
 3. Project Surfing:
 
-> **Warning**: This feature requires a `base_dirs` variable in
+<!-- deno-fmt-ignore -->
+> [!Warning]
+> This feature requires a `base_dirs` variable in
 > `custom/plugins.lua` as in the `telescope-project.nvim`
 
 4. Copilot
@@ -446,7 +450,9 @@ cd .. && rm -rf CamelVim && nvim
    ```
 
 5. Tabnine
-   > [!important] Tabnine is free
+   <!-- deno-fmt-ignore -->
+   > [!NOTE] 
+   > Tabnine is free
    - When installing the editor, You need to authorize from your browser.
 
 6. Null-ls
