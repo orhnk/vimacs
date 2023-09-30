@@ -10,6 +10,7 @@ M.general = {
     ["<leader>qq"] = { "<cmd> qa<cr>", "Quit Editor", opts = { nowait = true } },
     ["<leader>fq"] = { "<cmd> qa!<cr>", "Force Quit Editor", opts = { nowait = true } },
     ["<leader>wq"] = { "<cmd> wq<cr>", "Write Quit Editor", opts = { nowait = true } },
+    ["<leader>ip"] = { "<cmd> Inspect<cr>", "HL Group Under Cursor" },
   },
 }
 
