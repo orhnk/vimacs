@@ -40,7 +40,6 @@ reduce performance.
 
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/a7309d82-3083-44ef-bb6c-a39f95cac490)
 
-
 <!--![image](https://github.com/UTFeight/CamelVim/assets/101834410/e2a8faa1-8231-4fb2-a1d3-dfe672bf89ce)
 
 ![image](https://github.com/UTFeight/CamelVim/assets/101834410/f16cfff5-61c9-4ab4-99a1-eb37601ba6f5)-->
@@ -49,6 +48,8 @@ reduce performance.
     More Themes (Click to expand!)
 </b></summary>
 
+<!-- deno-fmt-ignore -->
+> [!NOTE]
 > There are 50+ themes that comes out of the box with NvChad. This is just a
 > showcase that'll give you some idea about the look.
 
