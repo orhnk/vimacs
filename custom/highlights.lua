@@ -251,6 +251,33 @@ M.add = {
   DapStopped     = { fg = "sun" },
   -- DapStoppedNum  = { fg = "sun" },
   DapStoppedLine = { bg = "one_bg" },
+
+  -- DAP UI
+  DapUIBreakpointsCurrentLine = { fg = "sun" },
+  DapUIBreakpointsPath = { fg = "red" },
+  DapUICurrentFrameName = { fg = "orange" },
+  DapUIDecoration = { fg = "grey" },
+  DapUIFrameName = { fg = "sun" },
+  DapUILineNumber = { fg = "white" },
+  DapUIModifiedValue = { fg = "orange" },
+  DapUIScope = { fg = "red" },
+  DapUISource = { fg = "green" },
+  DapUIStoppedThread = { fg = "cyan" },
+  DapUIType = { fg = "nord_blue" },
+
+  DapUIStepOut = { fg = "yellow" },
+  DapUIStepOver = { fg = "nord_blue" },
+  DapUIPlayPause = { fg = "vibrant_green" },
+  DapUIRestart = { fg = "pink" },
+  DapUIStepBack = { fg = "nord_blue" },
+  DapUIStepInto = { fg = "yellow" },
+  DapUIStop = { fg = "red" },
+
+  -- DapUI = { fg = "nord_blue" },
+  -- DapUI = { fg = "nord_blue" },
+  DapUIVariable = { fg = "vibrant_green" },
+  DapUIWatchesEmpty = { fg = "red" },
+
   -- stylua: ignore end
   -- end dap
 }
