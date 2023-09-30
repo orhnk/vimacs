@@ -634,20 +634,20 @@ local plugins = {
     end,
   },
 
-  { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
-    "Everduin94/nvim-quick-switcher", -- TODO: use other.nvim
-
-    keys = {
-      {
-        "<leader>sw",
-        ":lua require('nvim-quick-switcher').toggle('cpp', 'hpp')<CR>",
-        mode = "n",
-        desc = "Switch To Pair File",
-      },
-    },
-
-    config = function() end,
-  },
+  -- { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
+  --   "Everduin94/nvim-quick-switcher", -- TODO: use other.nvim
+  --
+  --   keys = {
+  --     {
+  --       "<leader>sw",
+  --       ":lua require('nvim-quick-switcher').toggle('cpp', 'hpp')<CR>",
+  --       mode = "n",
+  --       desc = "Switch To Pair File",
+  --     },
+  --   },
+  --
+  --   config = function() end,
+  -- },
 
   {
     "ThePrimeagen/refactoring.nvim",
