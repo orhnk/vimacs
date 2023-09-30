@@ -414,9 +414,9 @@ reduce performance.
 
 ```sh
 git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-git clone https://github.com/UTFeight/CamelVim
-cd CamelVim && mv custom ~/.config/nvim/lua/custom
-cd .. && rm -rf CamelVim && nvim
+git clone https://github.com/UTFeight/vimacs
+cd vimacs && mv custom ~/.config/nvim/lua/custom
+cd .. && rm -rf vimacs && nvim
 ```
 
 1. Neotest:
@@ -457,9 +457,11 @@ cd .. && rm -rf CamelVim && nvim
    ```
 
 5. Tabnine
+
    <!-- deno-fmt-ignore -->
-   > [!NOTE] 
+   > [!NOTE]
    > Tabnine is free
+
    - When installing the editor, You need to authorize from your browser.
 
 6. Null-ls
