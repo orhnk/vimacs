@@ -1387,7 +1387,7 @@ local plugins = {
     },
   },
 
-  -- { -- Saved for later MAYBE
+  -- { -- Saved for later MAYBE TODO
   --   "smoka7/multicursors.nvim",
   --   -- event = "VeryLazy",
   --   dependencies = {
@@ -4313,7 +4313,7 @@ local plugins = {
   --  https://github.com/Zeioth/markmap.nvim
   {
     "Zeioth/markmap.nvim",
-    build = "yarn global add markmap-cli",
+    build = "yarn global add markmap-cli", -- WARNING: yarn bin need to be in $PATH
 
     keys = {
       -- {"<leader>mm", "<cmd> MarkmapOpen<CR>", mode = "n", desc = "Open Markmap"},
@@ -4402,7 +4402,7 @@ local plugins = {
   --   },
   -- },
 
-  {
+  { -- FIXME: TODO: remove telescope override and write it as a dependency
     "nvim-telescope/telescope.nvim",
     keys = {
       {
@@ -4626,6 +4626,8 @@ local plugins = {
     "UTFeight/neoproj",
 
     dependencies = {
+      -- Just loading it after initialization
+      -- not a plugin dependency (just a config dependency)
       "nvim-telescope/telescope-file-browser.nvim",
     },
 
