@@ -935,7 +935,7 @@ local plugins = {
               local is_executable = vim.fn.executable(filepath) == 1
 
               if is_executable then
-                -- print(filepath)
+                print("Found Executable on: ", filepath)
                 return filepath
                 -- You can perform further actions on the executable here
               end
