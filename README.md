@@ -40,6 +40,7 @@ reduce performance.
 
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/a7309d82-3083-44ef-bb6c-a39f95cac490)
 
+
 <!--![image](https://github.com/UTFeight/CamelVim/assets/101834410/e2a8faa1-8231-4fb2-a1d3-dfe672bf89ce)
 
 ![image](https://github.com/UTFeight/CamelVim/assets/101834410/f16cfff5-61c9-4ab4-99a1-eb37601ba6f5)-->
@@ -257,7 +258,7 @@ reduce performance.
   - [x] Snippet Engine (DEMO) ([LuaSnip](https://github.com/L3MON4D3/LuaSnip))
   - [x] AI:
     - [x] Github Copilot (copilot.lua)
-    - [x] AI Assistant (sg.nvim)
+    - [x] AI Assistant ([DEMO](https://github-production-user-asset-6210df.s3.amazonaws.com/101834410/271752414-4419f16e-1526-41e2-a0f8-443eaf23a538.mp4)) (sg.nvim)
     - [x] Multi-backend LLM Integration (llm.nvim)
 
 <br>
@@ -525,3 +526,4 @@ Automated user accounts or "self-bots" are against Discord's Terms of Service. I
 am not responsible for any loss caused by using "self-bots" or Discordo.
 
 (See [Discordo](https://github.com/ayn2op/discordo#readme))
+
