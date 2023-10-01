@@ -35,7 +35,12 @@ M.opts = {
 
 M.keys = {
 
-  { "<leader>ai", ":CodyChat<CR>", mode = "n", desc = "AI Assistant" },
+  {
+    "<leader>ai",
+    ":CodyChat<CR>",
+    mode = "n",
+    desc = "AI Assistant",
+  },
 
   {
     "<leader>ad",
@@ -51,9 +56,19 @@ M.keys = {
     desc = "Generate Document with AI",
   },
 
-  { "<leader>ac", ':CodyTask ""<Left>', mode = "n", desc = "Let AI Write Code" },
+  {
+    "<leader>ac",
+    ':CodyTask ""<Left>',
+    mode = "n",
+    desc = "Let AI Write Code",
+  },
 
-  { "<leader>aa", ":CodyTaskAccept<CR>", mode = "n", desc = "Confirm AI work" },
+  {
+    "<leader>aa",
+    ":CodyTaskAccept<CR>",
+    mode = "n",
+    desc = "Confirm AI work",
+  },
 
   {
     "<leader>as",
@@ -62,7 +77,12 @@ M.keys = {
     desc = "AI Search",
   },
 
-  { "<leader>ai", "y:CodyChat<CR><ESC>pG$a<CR>", mode = "v", desc = "Chat Selected Code" },
+  {
+    "<leader>ai",
+    "y:CodyChat<CR><ESC>pG$a<CR>",
+    mode = "v",
+    desc = "Chat Selected Code",
+  },
 
   -- {
   --   "<leader>ad",
@@ -78,7 +98,12 @@ M.keys = {
     desc = "Request Refactoring",
   },
 
-  { "<leader>ae", "y:CodyChat<CR>explain following code:<CR><ESC>p<CR>", mode = "v", desc = "Request Explanation" },
+  {
+    "<leader>ae",
+    "y:CodyChat<CR>explain following code:<CR><ESC>p<CR>",
+    mode = "v",
+    desc = "Request Explanation",
+  },
 
   {
     "<leader>af",
