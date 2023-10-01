@@ -537,6 +537,22 @@ cd .. && rm -rf vimacs && nvim
    yay -S yarn # AUR
    ```
 
+## TroubleShooting
+
+### Tree-Sitter
+
+There is a bug in ts config which causes the tree-sitter to not install bash,
+org, python parsers.
+
+run the following command to fix it:
+
+```vim
+:TSInstall bash org python
+```
+
+In some markdown files bash scripts will give `not found (@heredoc_blabla)` like
+chunky errors which you need to install bash parser like above
+
 ## Credits
 
 - Thank you [siduck](https://github.com/siduck) for creating the wonderful
