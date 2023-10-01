@@ -4541,6 +4541,10 @@ local plugins = {
     -- Prettier quickfix window
     "yorickpeterse/nvim-pqf",
 
+    dependencies = {
+      "kevinhwang91/nvim-bqf",
+    },
+
     config = function(_, opts)
       require("pqf").setup(opts)
     end,
