@@ -16,6 +16,7 @@ local highlights = require "custom.highlights"
 M.ui = {
   theme = "darcula",
   theme_toggle = { "darcula", "darcula" },
+  lsp_semantic_tokens = false, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
   cmp = {
     style = "default", -- flatt_dark | flat_light | default | atom | atom_colored
@@ -32,8 +33,6 @@ M.ui = {
     -- separator_style = "round", -- default/*round*/*block*/arrow
     -- modules arg here is the default table of modules
     overriden_modules = function(modules)
-
-
       table.insert( -- Right
         modules,
         3,
@@ -530,7 +529,7 @@ M.ui = {
       {
         "  New Project",
         "Spc n n",
-        "ProjectNew"
+        "ProjectNew",
       },
       {
         "󰁯  Restore Session",
