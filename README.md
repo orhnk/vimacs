@@ -456,7 +456,7 @@ cd .. && rm -rf vimacs && nvim
 
 - Rust:
   ```sh
-  cargo install cargo-nextes
+  cargo install cargo-nextest
   ```
 
 2. Debugger:
@@ -489,23 +489,23 @@ cd .. && rm -rf vimacs && nvim
    :Copilot auth
    ```
 
-5. Tabnine
+<!-- 5. Tabnine -->
+<!---->
+<!--    <!-- deno-fmt-ignore -->
+<!--    > [!NOTE] -->
+<!--    > Tabnine is free -->
+<!---->
+<!--    - When installing the editor, You need to authorize from your browser. -->
 
-   <!-- deno-fmt-ignore -->
-   > [!NOTE]
-   > Tabnine is free
-
-   - When installing the editor, You need to authorize from your browser.
-
-6. Null-ls
+5. Null-ls
    ```sh
    yay -S codespell textlint markdownlint stylua ruff
    ```
 
-7. Leet code:
+6. Leet code:
    - [Must-do](https://github.com/Dhanus3133/Leetbuddy.nvim#login-to-your-account)
 
-8. Email Client:
+7. Email Client:
    - Gmail:
    <!-- deno-fmt-ignore -->
      > [!IMPORTANT]
@@ -514,27 +514,28 @@ cd .. && rm -rf vimacs && nvim
    Then follow the instructions from
    [this site](https://seniormars.github.io/posts/neomutt/).
 
-9. LLMs (Large Language Model):
+<!-- inambiguous -->
+<!-- 8. LLMs (Large Language Model): -->
+<!---->
+<!--    <!-- deno-fmt-ignore -->
+<!--    > [!NOTE] -->
+<!--    > This config uses hfc (huggingface) api by default. -->
+<!---->
+<!--    check: -->
+<!--    - [to generate API key](https://huggingface.co/settings/tokens) -->
+<!--    - [other backends](https://github.com/gsuuon/llm.nvim#providers) -->
+<!--    - [more info](https://github.com/gsuuon/llm.nvim) -->
+<!---->
+<!--    - setup: change the config src if you want to use a different backend than -->
+<!--      the default simply generate an API key from above link. Then set the -->
+<!--      appropriate environment variable (HUGGINGFACE_API_KEY is the default) -->
 
-   <!-- deno-fmt-ignore -->
-   > [!NOTE]
-   > This config uses hfc (huggingface) api by default.
+8. Markdown-maps:
 
-   check:
-   - [to generate API key](https://huggingface.co/settings/tokens)
-   - [other backends](https://github.com/gsuuon/llm.nvim#providers)
-   - [more info](https://github.com/gsuuon/llm.nvim)
-
-   - setup: change the config src if you want to use a different backend than
-     the default simply generate an API key from above link. Then set the
-     appropriate environment variable (HUGGINGFACE_API_KEY is the default)
-
-10. Markdown-maps:
-
-    `yarn` is required for markmap.nvim plugin
-    ```sh
-    yay -S yarn # AUR
-    ```
+   `yarn` is required for markmap.nvim plugin
+   ```sh
+   yay -S yarn # AUR
+   ```
 
 ## Credits
 
