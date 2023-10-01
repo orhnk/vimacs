@@ -4668,108 +4668,83 @@ local plugins = {
       end
     end,
 
-    opts = function()
-      return {
-        setup = {
-          -- Directory which contains all of your projects
-          project_path = "~/Github/repos", -- TODO: Ask for user input + migrate to init.lua
-        },
+    opts = require("custom.configs.neoproj").opts,
+  },
 
-        templates = {
-          {
-            name = "Kotlin (Android)",
-            repo = "nekocode/create-android-kotlin-app",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Java",
-            repo = "pascalpoizat/template-java-project",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Swift",
-            repo = "vapor/template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "TypeScript (React + Next.js)",
-            repo = "cruip/open-react-template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "C# (.NET)",
-            repo = "Dotnet-Boxed/Templates",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Go (Kratos)",
-            repo = "go-kratos/kratos-layout",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Go (Makefile)",
-            repo = "thockin/go-build-template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "R",
-            repo = "KentonWhite/ProjectTemplate",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Markdown",
-            repo = "othneildrew/Best-README-Template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Python",
-            repo = "rochacbruno/python-project-template",
-            opts = {
-              pull = true,
-            },
-          },
+  {
+    "mrjones2014/smart-splits.nvim",
+    -- For Kitty Terminal Emulator
+    -- build = "./kitty/install-kittens.bash",
+    keys = {
+      {
+        "<C-Up",
+        function()
+          require("smart-splits").resize_up(5)
+        end,
+        mode = "n",
+        desc = "Resize Up",
+      },
+      {
+        "<C-Down>",
+        function()
+          require("smart-splits").resize_down(5)
+        end,
+        mode = "n",
+        desc = "Resize Down",
+      },
+      {
+        "<C-Left>",
+        function()
+          require("smart-splits").resize_left(5)
+        end,
+        mode = "n",
+        desc = "Resize Left",
+      },
+      {
+        "<C-Right>",
+        function()
+          require("smart-splits").resize_right(5)
+        end,
+        mode = "n",
+        desc = "Resize Right",
+      },
 
-          {
-            name = "Python (Tensorflow)",
-            repo = "MrGemy95/Tensorflow-Project-Template",
-            opts = {
-              pull = true,
-            },
-          },
+      {
+        "<leader>mr",
+        function()
+          require("smart-splits").start_resize_mode()
+        end,
+        mode = "n",
+        desc = "Resize Mode",
+      },
+    },
 
-          {
-            name = "Rust",
-            expand = "cargo init",
-          },
-
-          {
-            name = "C++",
-            repo = "UTFeight/Cpp-Cmake-Template",
-            opts = {
-              pull = true,
-            },
-          },
-        },
-      }
+    config = function(_, opts)
+      require("smart-splits").setup()
     end,
+  },
+
+  {
+    "mg979/vim-visual-multi",
+    branch = "master",
+    keys = {
+      {
+        "<C-n>",
+        function()
+          vim.cmd [[call vm#insert#insert()]]
+        end,
+        mode = "i",
+        desc = "Insert Mode",
+      },
+      {
+        "<C-n>",
+        function()
+          vim.cmd [[call vm#visual_multi#start()]]
+        end,
+        mode = "n",
+        desc = "Normal Mode",
+      },
+    },
   },
 }
 
