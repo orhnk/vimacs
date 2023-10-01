@@ -3204,38 +3204,25 @@ local plugins = {
     cmd = "Llm", -- Others cmds are ignored for now
 
     keys = {
-      { "<leader>al", "<cmd> Llm<CR>", mode = { "n", "v" }, desc = "LLM Generate" },
+      {
+        "<leader>al",
+        "<cmd> Llm<CR>",
+        mode = { "n", "v" },
+        desc = "LLM Generate",
+      },
     },
 
     config = function(_, opts)
-      -- FIXME:
-      -- require("llm.providers.huggingface").initialize {
-      --   max_tokens = 2000,
-      -- }
-
-      require("llm").setup {
-        default_prompt = {
-          provider = require "llm.providers.huggingface",
-          params = {
-            model = "bigcode/starcoder",
-            max_tokens = 2000,
-          },
-          builder = function(input)
-            return {
-              inputs = input,
-            }
-          end,
-        }, -- Prompt — modify the default prompt (`:Llm` with no argument)
-
-        hl_group = "", -- string — Set the default highlight group of in-progress responses
-        prompts = {
-          -- ["huggingface bigcode"] = {},
-        }, -- table<string, Prompt>` — add prompt alternatives
-      }
-
-      -- require("llm").setup(opts.init)
+      require("llm").setup(opts)
     end,
 
+    opts = function()
+      return {
+        default_prompt = require("llm.prompts.starters").palm,
+        hl_group = "",
+        -- prompts = {},
+      }
+    end,
     -- opts = {
     --   default = {
     --   },
