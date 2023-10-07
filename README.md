@@ -19,6 +19,17 @@ Vimacs comes with dozens of neovim plugins optimized for your daily use
 Vimacs uses external programse to enhance It's functionality. (e.g) Vimacs has
 an optional mail client based on neomutt
 
+The following image is the which-key.nvim help for `<leader>` (aka space) key
+
+<!--deno-fmt-ignore-->
+> [!NOTE] 
+> Green text means the top of the keymapping tree (e.g `<leader>a`includes everything related to AI and `<leader>ai` opens the Cody AI assistant in a vertical split)
+> Red text means the direct cmd (e.g `<leader>.` opens the file manager)
+
+<p align="center">
+    <img src="https://github.com/UTFeight/vimacs/assets/101834410/4a70298b-0d9f-4e28-b720-627bc1512b30" align="middle">
+</p>
+
 ### Why Vimacs is performant?
 
 Because of the extensive ecosystem of Vimacs, Performance optimizations are
@@ -39,7 +50,6 @@ reduce performance.
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/e3699d59-268c-4c7e-aaa5-b0886277780a)
 
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/a7309d82-3083-44ef-bb6c-a39f95cac490)
-
 
 <!--![image](https://github.com/UTFeight/CamelVim/assets/101834410/e2a8faa1-8231-4fb2-a1d3-dfe672bf89ce)
 
@@ -121,9 +131,10 @@ reduce performance.
   - [x] Project:
     - [x] Project Manager (DEMO) (native)
     - [x] Project Search (telescope-project.nvim)
-  - [x] Smooth Debugging Experience (DEMO) (nvim-dap) (nvim-dap-ui)
-        (nvim-dap-virtual-text) (cmp-dap) (nvim-dap-repl-highlights)
-        (mason.nvim) (mason-nvim-dap.nvim) (native)
+  - [x] Smooth Debugging Experience
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/fe387337-1c62-4495-a5de-8aa245eadb94))
+        (nvim-dap) (nvim-dap-ui) (nvim-dap-virtual-text) (cmp-dap)
+        (nvim-dap-repl-highlights) (mason.nvim) (mason-nvim-dap.nvim) (native)
   - [x] Markdown Preview (DEMO) (markdown-preview.nvim)
   - [x] Undo History Fuzzy Search (telescope-undo.nvim)
   - [x] Undo Tree (undotree)
@@ -149,7 +160,7 @@ reduce performance.
           ([mason.nvim](https://github.com/williamboman/mason.nvim))
   - [x] File Tree ([nvim-tree](https://github.com/kyazdani42/nvim-tree.lua))
   - [x] Folding Mode (nvim-ufo)
-  - [x] Brace Hints (DEMO) (nvim-biscuits) <!-- Thing for a better name -->
+  - [x] Brace Hints (nvim-biscuits) <!-- Thing for a better name -->
   - [x] Tree-Sitter Hints (DEMO) (nvim_context_vt)
   - [x] Smooth Sine Scrolling (neoscroll.nvim)
   - [x] Session Manager (persistence.nvim)
@@ -258,7 +269,9 @@ reduce performance.
   - [x] Snippet Engine (DEMO) ([LuaSnip](https://github.com/L3MON4D3/LuaSnip))
   - [x] AI:
     - [x] Github Copilot (copilot.lua)
-    - [x] AI Assistant ([DEMO](https://github-production-user-asset-6210df.s3.amazonaws.com/101834410/271752414-4419f16e-1526-41e2-a0f8-443eaf23a538.mp4)) (sg.nvim)
+    - [x] AI Assistant
+          ([DEMO](https://github-production-user-asset-6210df.s3.amazonaws.com/101834410/271752414-4419f16e-1526-41e2-a0f8-443eaf23a538.mp4))
+          (sg.nvim)
     - [x] Multi-backend LLM Integration (llm.nvim)
 
 <br>
@@ -526,4 +539,3 @@ Automated user accounts or "self-bots" are against Discord's Terms of Service. I
 am not responsible for any loss caused by using "self-bots" or Discordo.
 
 (See [Discordo](https://github.com/ayn2op/discordo#readme))
-
