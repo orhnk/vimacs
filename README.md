@@ -19,6 +19,16 @@ Vimacs comes with dozens of neovim plugins optimized for your daily use
 Vimacs uses external programse to enhance It's functionality. (e.g) Vimacs has
 an optional mail client based on neomutt
 
+The following image is the which-key.nvim help for `<leader>` (aka space) key
+    
+> [!NOTE]
+> Green text means the top of the keymapping tree (e.g `<leader>a` includes everything related to AI, `<leader>ai` opens the Cody AI assistant in a vertical split)
+> Red text means the direct cmd (e.g `<leader>.` opens the file manager)
+
+<p align="center">
+    <img src="https://github.com/UTFeight/vimacs/assets/101834410/4a70298b-0d9f-4e28-b720-627bc1512b30" align="middle">
+</p>
+
 ### Why Vimacs is performant?
 
 Because of the extensive ecosystem of Vimacs, Performance optimizations are
