@@ -280,6 +280,12 @@ M.add = {
 
   -- stylua: ignore end
   -- end dap
+
+  -- stylua: ignore start
+  -- Vim Visual Multi
+  VM_Cursor = { fg = "grey_fg" },
+  -- stylua: ignore end
+  -- end dap
 }
 
 return M

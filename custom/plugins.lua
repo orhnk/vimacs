@@ -935,7 +935,7 @@ local plugins = {
               local is_executable = vim.fn.executable(filepath) == 1
 
               if is_executable then
-                -- print(filepath)
+                print("Found Executable on: ", filepath)
                 return filepath
                 -- You can perform further actions on the executable here
               end
@@ -1387,7 +1387,7 @@ local plugins = {
     },
   },
 
-  -- { -- Saved for later MAYBE
+  -- { -- Saved for later MAYBE TODO
   --   "smoka7/multicursors.nvim",
   --   -- event = "VeryLazy",
   --   dependencies = {
@@ -3204,38 +3204,25 @@ local plugins = {
     cmd = "Llm", -- Others cmds are ignored for now
 
     keys = {
-      { "<leader>al", "<cmd> Llm<CR>", mode = { "n", "v" }, desc = "LLM Generate" },
+      {
+        "<leader>al",
+        "<cmd> Llm<CR>",
+        mode = { "n", "v" },
+        desc = "LLM Generate",
+      },
     },
 
     config = function(_, opts)
-      -- FIXME:
-      -- require("llm.providers.huggingface").initialize {
-      --   max_tokens = 2000,
-      -- }
-
-      require("llm").setup {
-        default_prompt = {
-          provider = require "llm.providers.huggingface",
-          params = {
-            model = "bigcode/starcoder",
-            max_tokens = 2000,
-          },
-          builder = function(input)
-            return {
-              inputs = input,
-            }
-          end,
-        }, -- Prompt — modify the default prompt (`:Llm` with no argument)
-
-        hl_group = "", -- string — Set the default highlight group of in-progress responses
-        prompts = {
-          -- ["huggingface bigcode"] = {},
-        }, -- table<string, Prompt>` — add prompt alternatives
-      }
-
-      -- require("llm").setup(opts.init)
+      require("llm").setup(opts)
     end,
 
+    opts = function()
+      return {
+        default_prompt = require("llm.prompts.starters").palm,
+        hl_group = "",
+        -- prompts = {},
+      }
+    end,
     -- opts = {
     --   default = {
     --   },
@@ -4313,7 +4300,7 @@ local plugins = {
   --  https://github.com/Zeioth/markmap.nvim
   {
     "Zeioth/markmap.nvim",
-    build = "yarn global add markmap-cli",
+    build = "yarn global add markmap-cli", -- WARNING: yarn bin need to be in $PATH
 
     keys = {
       -- {"<leader>mm", "<cmd> MarkmapOpen<CR>", mode = "n", desc = "Open Markmap"},
@@ -4402,7 +4389,7 @@ local plugins = {
   --   },
   -- },
 
-  {
+  { -- FIXME: TODO: remove telescope override and write it as a dependency
     "nvim-telescope/telescope.nvim",
     keys = {
       {
@@ -4541,6 +4528,10 @@ local plugins = {
     -- Prettier quickfix window
     "yorickpeterse/nvim-pqf",
 
+    dependencies = {
+      "kevinhwang91/nvim-bqf",
+    },
+
     config = function(_, opts)
       require("pqf").setup(opts)
     end,
@@ -4622,6 +4613,8 @@ local plugins = {
     "UTFeight/neoproj",
 
     dependencies = {
+      -- Just loading it after initialization
+      -- not a plugin dependency (just a config dependency)
       "nvim-telescope/telescope-file-browser.nvim",
     },
 
@@ -4664,108 +4657,83 @@ local plugins = {
       end
     end,
 
-    opts = function()
-      return {
-        setup = {
-          -- Directory which contains all of your projects
-          project_path = "~/Github/repos", -- TODO: Ask for user input + migrate to init.lua
-        },
+    opts = require("custom.configs.neoproj").opts,
+  },
 
-        templates = {
-          {
-            name = "Kotlin (Android)",
-            repo = "nekocode/create-android-kotlin-app",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Java",
-            repo = "pascalpoizat/template-java-project",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Swift",
-            repo = "vapor/template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "TypeScript (React + Next.js)",
-            repo = "cruip/open-react-template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "C# (.NET)",
-            repo = "Dotnet-Boxed/Templates",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Go (Kratos)",
-            repo = "go-kratos/kratos-layout",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Go (Makefile)",
-            repo = "thockin/go-build-template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "R",
-            repo = "KentonWhite/ProjectTemplate",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Markdown",
-            repo = "othneildrew/Best-README-Template",
-            opts = {
-              pull = true,
-            },
-          },
-          {
-            name = "Python",
-            repo = "rochacbruno/python-project-template",
-            opts = {
-              pull = true,
-            },
-          },
+  {
+    "mrjones2014/smart-splits.nvim",
+    -- For Kitty Terminal Emulator
+    -- build = "./kitty/install-kittens.bash",
+    keys = {
+      {
+        "<C-Up",
+        function()
+          require("smart-splits").resize_up(5)
+        end,
+        mode = "n",
+        desc = "Resize Up",
+      },
+      {
+        "<C-Down>",
+        function()
+          require("smart-splits").resize_down(5)
+        end,
+        mode = "n",
+        desc = "Resize Down",
+      },
+      {
+        "<C-Left>",
+        function()
+          require("smart-splits").resize_left(5)
+        end,
+        mode = "n",
+        desc = "Resize Left",
+      },
+      {
+        "<C-Right>",
+        function()
+          require("smart-splits").resize_right(5)
+        end,
+        mode = "n",
+        desc = "Resize Right",
+      },
 
-          {
-            name = "Python (Tensorflow)",
-            repo = "MrGemy95/Tensorflow-Project-Template",
-            opts = {
-              pull = true,
-            },
-          },
+      {
+        "<leader>mr",
+        function()
+          require("smart-splits").start_resize_mode()
+        end,
+        mode = "n",
+        desc = "Resize Mode",
+      },
+    },
 
-          {
-            name = "Rust",
-            expand = "cargo init",
-          },
-
-          {
-            name = "C++",
-            repo = "UTFeight/Cpp-Cmake-Template",
-            opts = {
-              pull = true,
-            },
-          },
-        },
-      }
+    config = function(_, opts)
+      require("smart-splits").setup()
     end,
+  },
+
+  {
+    "mg979/vim-visual-multi",
+    branch = "master",
+    keys = {
+      {
+        "<C-n>",
+        function()
+          vim.cmd [[call vm#insert#insert()]]
+        end,
+        mode = "i",
+        desc = "Insert Mode",
+      },
+      {
+        "<C-n>",
+        function()
+          vim.cmd [[call vm#visual_multi#start()]]
+        end,
+        mode = "n",
+        desc = "Normal Mode",
+      },
+    },
   },
 }
 

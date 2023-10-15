@@ -19,6 +19,16 @@ Vimacs comes with dozens of neovim plugins optimized for your daily use
 Vimacs uses external programse to enhance It's functionality. (e.g) Vimacs has
 an optional mail client based on neomutt
 
+The following image is the which-key.nvim help for `<leader>` (aka space) key
+    
+> [!NOTE]
+> Green text means the top of the keymapping tree (e.g `<leader>a` includes everything related to AI, `<leader>ai` opens the Cody AI assistant in a vertical split)
+> Red text means the direct cmd (e.g `<leader>.` opens the file manager)
+
+<p align="center">
+    <img src="https://github.com/UTFeight/vimacs/assets/101834410/4a70298b-0d9f-4e28-b720-627bc1512b30" align="middle">
+</p>
+
 ### Why Vimacs is performant?
 
 Because of the extensive ecosystem of Vimacs, Performance optimizations are
@@ -39,7 +49,6 @@ reduce performance.
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/e3699d59-268c-4c7e-aaa5-b0886277780a)
 
 ![image](https://github.com/UTFeight/vimacs/assets/101834410/a7309d82-3083-44ef-bb6c-a39f95cac490)
-
 
 <!--![image](https://github.com/UTFeight/CamelVim/assets/101834410/e2a8faa1-8231-4fb2-a1d3-dfe672bf89ce)
 
@@ -114,17 +123,24 @@ reduce performance.
 <!---------------------------------------------------->
 
 - [x] IDE:
-  - [x] On-Click Updates (NvChad)
+  - [x] On-Click Updates
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/94730e09-16dc-4df6-85c0-6c9bc0b23183))
+        (NvChad)
   - [x] Plugin Manager (lazy.nvim)
   - [x] Inline Code Runner (sniprun)
   - [x] Profiler (perfanno.nvim)
   - [x] Project:
-    - [x] Project Manager (DEMO) (native)
+    - [x] Project Manager
+          ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/010857c5-be4a-41ec-83b8-d2dc1bfa14d3))
+          (native)
     - [x] Project Search (telescope-project.nvim)
-  - [x] Smooth Debugging Experience (DEMO) (nvim-dap) (nvim-dap-ui)
-        (nvim-dap-virtual-text) (cmp-dap) (nvim-dap-repl-highlights)
-        (mason.nvim) (mason-nvim-dap.nvim) (native)
-  - [x] Markdown Preview (DEMO) (markdown-preview.nvim)
+  - [x] Smooth Debugging Experience
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/fe387337-1c62-4495-a5de-8aa245eadb94))
+        (nvim-dap) (nvim-dap-ui) (nvim-dap-virtual-text) (cmp-dap)
+        (nvim-dap-repl-highlights) (mason.nvim) (mason-nvim-dap.nvim) (native)
+  - [x] Markdown Preview
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/0ac21127-6ae2-4176-a8c0-3ef58815044c))
+        (markdown-preview.nvim)
   - [x] Undo History Fuzzy Search (telescope-undo.nvim)
   - [x] Undo Tree (undotree)
   - [x] Code Symbols Navigation (symbols-outline.nvim)
@@ -149,8 +165,10 @@ reduce performance.
           ([mason.nvim](https://github.com/williamboman/mason.nvim))
   - [x] File Tree ([nvim-tree](https://github.com/kyazdani42/nvim-tree.lua))
   - [x] Folding Mode (nvim-ufo)
-  - [x] Brace Hints (DEMO) (nvim-biscuits) <!-- Thing for a better name -->
-  - [x] Tree-Sitter Hints (DEMO) (nvim_context_vt)
+  - [x] Brace Hints (nvim-biscuits) <!-- Thing for a better name -->
+  - [x] Tree-Sitter Hints
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/0bbb651e-e572-4daa-b7b6-62631b0891d0))
+        (nvim_context_vt)
   - [x] Smooth Sine Scrolling (neoscroll.nvim)
   - [x] Session Manager (persistence.nvim)
 
@@ -158,24 +176,33 @@ reduce performance.
 
 - [x] Neovim:
   - [x] Language aware comments (`Comment.nvim`)
-  - [x] Smart Snippets (`LuaSnip`)
   - [x] Escape Insert Mode [`jj`, `jk`] (better-escape.nvim)
   - [x] Surround Manupilation (nvim-surround)
-  - [x] Buffer Dependent File Navigation (DEMO)
+  - [x] Conditional + Smart File Switcher (DEMO)
         (other.[nvim](2023-09-29_nvim.md))
   - [x] Inline Bookmark Indicator (marks.nvim)
   - [x] Case Toggle (native)
-  - [x] Inline UnJoining (DEMO) (treesj)
+  - [x] Inline UnJoining
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/02c9bdf9-a126-4c88-bf9c-080e1e2614e5))
+        (treesj)
   - [x] QuickFix:
-    - [x] QuickFix File Preview (DEMO) (nvim-bqf)
+    - [x] QuickFix File Preview
+          ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/d9469d87-d189-4151-bf29-02dd3e4594aa))
+          (nvim-bqf)
     - [x] Prettier Quick Fix (nvim-pqf)
-  - [x] Jump Navigation (DEMO) (flash.nvim)
-  - [x] File Marks (DEMO) (harpoon)
-  - [x] Align Actions (DEMO) (vim-easy-align)
+  - [x] Jump Navigation
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/23525515-56ae-47f8-ad63-dc98e56d6fde))
+        (flash.nvim)
+  - [x] File Marks
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/73987fac-133f-4104-9fa4-d0efdbe8cb7a))
+        (harpoon)
+  - [x] Align Actions
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/b5f23bb6-ff69-402c-af76-cd27336daa2c))
+        (vim-easy-align)
   - [x] Window Manager (winshift.nvim)
   - [x] Text Objets:
     - [x] Additional Text Objects (ns-textobject.nvim) (nvim-various-textobjs)
-  - [x] Custom Toggle (DEMO) (dial.nvim)
+  - [x] Custom Toggle (dial.nvim)
   - [x] Exchange Motions (vim-exchange)
 
 <br>
@@ -190,8 +217,8 @@ reduce performance.
   - [x] Nerd Font Picker (nerdy.nvim)
   - [x] Programming
     - [x] Function Argument Highlighter (hlargs.nvim)
-    - [x] Virtual Reference Table (DEMO) (lsp-lens.nvim)
-    - [x] CheatSheets (DEMO) (cheetsheets.nvim)
+    - [x] Virtual Reference Table (lsp-lens.nvim)
+    - [x] CheatSheets (cheetsheets.nvim)
   - [x] Real-time Colorscheme Editor (lush.nvim)
   - [x] Clipboard Manager (nvim-neoclip.lua)
   - [x] ToDo Manager (todo-comments.nvim)
@@ -235,30 +262,42 @@ reduce performance.
       - [x] Toggle Checkbox (markdown-togglecheck)
       - [x] Mind Maps (markmap.nvim)
     - [x] Modes:
-      - [x] Table Mode (DEMO) (vim-table-mode)
+      - [x] Table Mode
+            ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/0ee08c12-f70f-42b7-b075-c087ab6fbdfc))
+            (vim-table-mode)
       - [x] Beautiful Comments (comment-box.nvim)
-      - [x] Due Mode (DEMO) (due.nvim)
+      - [x] Due Mode
+            ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/a21e5a3e-384c-41f5-8007-da4802e01501))
+            (due.nvim)
   - [x] Compiler Explorer (compiler-explorer.nvim)
-  - [x] Tree-Sitter Explorer:
-    - [x] Query Editor (neovim)
-    - [x] Parse Tree (neovim)
-    - [x] Hover Actions (neovim)
+  - [x] Tree-Sitter Explorer (neovim):
+    - [x] Query Editor
+    - [x] Parse Tree
+    - [x] Hover Actions
   - [x] Language:
     - [x] C++:
       - [x] Doc Search (cppman.nvim)
     - [x] Rust:
       - [x] Advanced crates.io Integration (crates.nvim)
-  - [x] Inline Document Generation (DEMO) (neogen)
+  - [x] Inline Document Generation
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/95de6196-f712-462e-8fae-cd86c9828ff7))
+        (neogen)
   - [x] PasteBin Client with multi-backends (paperplanes.nvim)
   - [x] Refactoring:
     - [x] Generic Refactoring (refactoring.nvim)
-    - [x] Smart Inline Actions (tree-sitter) (ts-node-action) (native)
+    - [x] Smart Inline Actions
+          ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/906e0412-9e7d-49b4-b67f-ecffb8c90831))
+          (tree-sitter) (ts-node-action) (native)
     - [x] Custom Code Actions (ts-node-action)
     - [x] C++ native refactoring (nvim-treesitter-cpp-tools)
-  - [x] Snippet Engine (DEMO) ([LuaSnip](https://github.com/L3MON4D3/LuaSnip))
+  - [x] Snippet Engine
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/4a9b582b-3d9e-4ca2-bad5-9d974daef383))
+        ([LuaSnip](https://github.com/L3MON4D3/LuaSnip))
   - [x] AI:
     - [x] Github Copilot (copilot.lua)
-    - [x] AI Assistant ([DEMO](https://github-production-user-asset-6210df.s3.amazonaws.com/101834410/271752414-4419f16e-1526-41e2-a0f8-443eaf23a538.mp4)) (sg.nvim)
+    - [x] AI Assistant
+          ([DEMO](https://github-production-user-asset-6210df.s3.amazonaws.com/101834410/271752414-4419f16e-1526-41e2-a0f8-443eaf23a538.mp4))
+          (sg.nvim)
     - [x] Multi-backend LLM Integration (llm.nvim)
 
 <br>
@@ -266,8 +305,10 @@ reduce performance.
 - [x] UI:
   - [x] Beautiful Neovim UI Wrapper (dressing.nvim)
   - [x] Code MiniMap (codewindow.nvim)
-  - [x] Twilight Mode (DEMO) (twilight.nvim)
-  - [x] Mode Indicator (DEMO) (modicator.nvim)
+  - [x] Twilight Mode
+        ([DEMO](https://github.com/UTFeight/vimacs/assets/101834410/554fef18-0b71-4420-bb0d-40564932934d))
+        (twilight.nvim)
+  - [x] Mode Indicator Line Number (modicator.nvim)
   - [x] Zen Mode (zen-mode.nvim)
   - [x] Narrow Mode (true-zen.nvim)
   - [x] Focus Mode (true-zen.nvim)
@@ -425,7 +466,7 @@ cd .. && rm -rf vimacs && nvim
 
 - Rust:
   ```sh
-  cargo install cargo-nextes
+  cargo install cargo-nextest
   ```
 
 2. Debugger:
@@ -458,23 +499,23 @@ cd .. && rm -rf vimacs && nvim
    :Copilot auth
    ```
 
-5. Tabnine
+<!-- 5. Tabnine -->
+<!---->
+<!--    <!-- deno-fmt-ignore -->
+<!--    > [!NOTE] -->
+<!--    > Tabnine is free -->
+<!---->
+<!--    - When installing the editor, You need to authorize from your browser. -->
 
-   <!-- deno-fmt-ignore -->
-   > [!NOTE]
-   > Tabnine is free
-
-   - When installing the editor, You need to authorize from your browser.
-
-6. Null-ls
+5. Null-ls
    ```sh
    yay -S codespell textlint markdownlint stylua ruff
    ```
 
-7. Leet code:
+6. Leet code:
    - [Must-do](https://github.com/Dhanus3133/Leetbuddy.nvim#login-to-your-account)
 
-8. Email Client:
+7. Email Client:
    - Gmail:
    <!-- deno-fmt-ignore -->
      > [!IMPORTANT]
@@ -483,27 +524,44 @@ cd .. && rm -rf vimacs && nvim
    Then follow the instructions from
    [this site](https://seniormars.github.io/posts/neomutt/).
 
-9. LLMs (Large Language Model):
+<!-- inambiguous -->
+<!-- 8. LLMs (Large Language Model): -->
+<!---->
+<!--    <!-- deno-fmt-ignore -->
+<!--    > [!NOTE] -->
+<!--    > This config uses hfc (huggingface) api by default. -->
+<!---->
+<!--    check: -->
+<!--    - [to generate API key](https://huggingface.co/settings/tokens) -->
+<!--    - [other backends](https://github.com/gsuuon/llm.nvim#providers) -->
+<!--    - [more info](https://github.com/gsuuon/llm.nvim) -->
+<!---->
+<!--    - setup: change the config src if you want to use a different backend than -->
+<!--      the default simply generate an API key from above link. Then set the -->
+<!--      appropriate environment variable (HUGGINGFACE_API_KEY is the default) -->
 
-   <!-- deno-fmt-ignore -->
-   > [!NOTE]
-   > This config uses hfc (huggingface) api by default.
+8. Markdown-maps:
 
-   check:
-   - [to generate API key](https://huggingface.co/settings/tokens)
-   - [other backends](https://github.com/gsuuon/llm.nvim#providers)
-   - [more info](https://github.com/gsuuon/llm.nvim)
+   `yarn` is required for markmap.nvim plugin
+   ```sh
+   yay -S yarn # AUR
+   ```
 
-   - setup: change the config src if you want to use a different backend than
-     the default simply generate an API key from above link. Then set the
-     appropriate environment variable (HUGGINGFACE_API_KEY is the default)
+## TroubleShooting
 
-10. Markdown-maps:
+### Tree-Sitter
 
-    `yarn` is required for markmap.nvim plugin
-    ```sh
-    yay -S yarn # AUR
-    ```
+There is a bug in ts config which causes the tree-sitter to not install bash,
+org, python parsers.
+
+run the following command to fix it:
+
+```vim
+:TSInstall bash org python
+```
+
+In some markdown files bash scripts will give `not found (@heredoc_blabla)` like
+chunky errors which you need to install bash parser like above
 
 ## Credits
 
@@ -526,4 +584,3 @@ Automated user accounts or "self-bots" are against Discord's Terms of Service. I
 am not responsible for any loss caused by using "self-bots" or Discordo.
 
 (See [Discordo](https://github.com/ayn2op/discordo#readme))
-

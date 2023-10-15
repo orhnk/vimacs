@@ -24,40 +24,41 @@ vim.o.foldenable = true
 vim.g.vscode_snippets_path = "~/.config/nvim/lua/custom/snippets/json"
 vim.g.lua_snippets_path = "~/.config/nvim/lua/custom/snippets/lua"
 vim.g.snipmate_snippets_path = "~/.config/nvim/lua/custom/snippets/snipmate"
+
 -- -- Remove terminal padding when inside nvim:
 ---- For st:
-function Sed(from, to, fname)
-  vim.cmd(string.format("silent !sed -i 's/%s/%s/g' %s", from, to, fname))
-end
-
-function Reload()
-  vim.cmd(
-    string.format "silent !xrdb merge ~/.Xresources && kill -USR1 $(xprop -id $(xdotool getwindowfocus) | grep '_NET_WM_PID' | grep -oE '[[:digit:]]*$')"
-  )
-end
-
-function DecreasePadding()
-  Sed("st.borderpx: 20", "st.borderpx: 0", "~/.Xresources")
-  Reload()
-  Sed("st.borderpx: 0", "st.borderpx: 20", "~/.Xresources")
-end
-
-function IncreasePadding()
-  Reload()
-end
-
-vim.cmd [[
-  augroup ChangeStPadding
-   au!
-   au VimEnter * lua DecreasePadding()
-   au VimLeavePre * lua IncreasePadding()
-  augroup END
-]]
-
--- Change Cwd to current file (AWESOME)
-vim.cmd [[
-set autochdir
-]]
+-- function Sed(from, to, fname)
+--   vim.cmd(string.format("silent !sed -i 's/%s/%s/g' %s", from, to, fname))
+-- end
+--
+-- function Reload()
+--   vim.cmd(
+--     string.format "silent !xrdb merge ~/.Xresources && kill -USR1 $(xprop -id $(xdotool getwindowfocus) | grep '_NET_WM_PID' | grep -oE '[[:digit:]]*$')"
+--   )
+-- end
+--
+-- function DecreasePadding()
+--   Sed("st.borderpx: 20", "st.borderpx: 0", "~/.Xresources")
+--   Reload()
+--   Sed("st.borderpx: 0", "st.borderpx: 20", "~/.Xresources")
+-- end
+--
+-- function IncreasePadding()
+--   Reload()
+-- end
+--
+-- vim.cmd [[
+--   augroup ChangeStPadding
+--    au!
+--    au VimEnter * lua DecreasePadding()
+--    au VimLeavePre * lua IncreasePadding()
+--   augroup END
+-- ]]
+--
+-- -- Change Cwd to current file (AWESOME)
+-- vim.cmd [[
+-- set autochdir
+-- ]]
 
 ---- For alacritty:
 -- local function sed(from, to)

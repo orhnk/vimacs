@@ -93,8 +93,9 @@
 # Simple
 # read -p "Install Cmd (yay -S, pamac install, sudo apt install etc.): " install
 # Colored
-read -p "Install Cmd (yay -S, pamac install, sudo apt install etc.): " install
 
+# NOTE: not tested on apt package manager please send a PR
+read -p "Install Cmd (yay -S, pamac install, sudo apt install etc.): " install
 
 $install so-git # Stack Overflow Queries
 $install perf
@@ -149,7 +150,7 @@ else
   echo "pipx is required to install tuir (Reddit)"
   echo "Do you want to install pipx?"
   read -p "y/n: " pipx
-  if [ $pipx = "y" ]
+  if [ "$pipx" = "y" ]
   then
     $install pipx
     # pipx install textual-paint # PAINT in your terminal
@@ -187,24 +188,69 @@ fi
 #        CARGO        #
 #######################
 
-if command -v cargo &> /dev/null
+echo "Cargo is required to install Hacker News TUI"
+read -p "Install hacker news client (y/n): " hn
+
+if !command -v cargo &> /dev/null
 then
-  echo "cargo could not be found"
-  echo "Cargo is required to install Hacker News TUI"
-  echo "Do you want to install cargo?"
-  read -p "y/n: " rustup
-  if [ "$rustup" = "y" ]
-  then
-      $install cargo
-      # Hacker News TUI
-      cargo install hackernews_tui
-  else
-    echo "Skipping Hacker News TUI installation"
-    exit
-  fi
+  echo "cargo not found!"
+  $install cargo
+else
+  echo "cargo is installed"
+fi
+
+if [ "$hn" = "y" ]
+then
+  cargo install hackernews_tui
+fi
+
+echo "Installing LSP Tools"
+$install codespell textlint markdownlint stylua ruff
+
+if ! command -v npm &> /dev/null
+then
+  echo "npm not found!"
+  $install npm
+else
+  echo "npm is installed"
+fi
+
+if ! command -v yarn &> /dev/null
+then
+  echo "yarn not found!"
+  $install yarn # required for markmap
+else
+  echo "yarn is installed"
 fi
 
 #######################################
 #        ORGMODE DOC GENERATOR        #
 #######################################
 # $install pandoc
+
+
+###################################
+#        CORE INSTALLATION        #
+###################################
+echo "Installing $(green NvChad) ($(green vimacs\'s) UI)"
+# create tmp dir, cd into it, clone nvchad, cd into nvchad, run install.sh, cd back to vimacs, remove tmp dir
+#https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+#https://github.com/UTFeight/vimacs
+
+cd /tmp/ || exit
+git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+
+git clone https://github.com/UTFeight/vimacs
+
+cd vimacs && mv custom ~/.config/nvim/lua/custom
+cd .. && rm -rf vimacs && nvim
+
+
+export PATH="$HOME/.local/share/nvim/mason/bin"
+echo "Please add the following line to your shell config file (e.g. ~/.bashrc, ~/.zshrc ~/.config/fish.config etc.)"
+echo "    export PATH=\"\$HOME/.local/share/nvim/mason/bin\""
+echo "Please Check out: https://github.com/nvim-neotest/neotest#configuration for testing framework configuration"
+echo "Please Check out `:Mason` cmd inside vimacs to install more DAP, LSP, Linter etc."
+echo "But you need to configure them manually!"
+echo "Vimacs comes with Rust, C, C++, Python Debuggers out of the box!"
+echo "Remove them from .local/share/nvim/mason/bin if you don't need them!"
