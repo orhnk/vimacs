@@ -1,0 +1,132 @@
+{
+  "fix conventional commit": {
+    "prefix": "fi",
+    "body": [
+      "fix: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Fixes a bug in the codebase"
+  },
+  "feat conventional commit": {
+    "prefix": "fe",
+    "body": [
+      "feat: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Adds a new feature to the codebase"
+  },
+
+  "chore conventional commit": {
+    "prefix": "ch",
+    "body": [
+      "chore: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Changes to the build process or auxiliary tools and libraries such as documentation generation"
+  },
+
+  "docs conventional commit": {
+    "prefix": "do",
+    "body": [
+      "docs: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Adds or alters documentation"
+  },
+
+  "style conventional commit": {
+    "prefix": "s",
+    "body": [
+      "style: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "A style change that does not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+  },
+
+  "refactor conventional commit": {
+    "prefix": "ref",
+    "body": [
+      "refactor: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "A code change that neither fixes a bug nor adds a feature"
+  },
+
+  "perf conventional commit": {
+    "prefix": "p",
+    "body": [
+      "perf: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "A code change that improves performance"
+  },
+
+  "test conventional commit": {
+    "prefix": "t",
+    "body": [
+      "test: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Adding missing tests or correcting existing tests"
+  },
+
+  "build conventional commit": {
+    "prefix": "b",
+    "body": [
+      "build: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)"
+  },
+
+  "ci conventional commit": {
+    "prefix": "ci",
+    "body": [
+      "ci: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"
+  },
+
+  "revert conventional commit": {
+    "prefix": "rev",
+    "body": [
+      "revert: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "Reverts a previous commit"
+  },
+
+  "breaking change conventional commit": {
+    "prefix": "B",
+    "body": [
+      "BREAKING CHANGE: ${1:DESCRIPTION}"
+    ],
+    "luasnip": {
+      "priority": 2000
+    },
+    "description": "A commit that has breaking changes"
+  }
+}

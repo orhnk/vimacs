@@ -43,6 +43,13 @@
           "rust"
         ],
         "path": "./rust.json"
+      },
+      {
+        "language": [
+          "gitcommit",
+          "NeogitCommitMessage"
+        ],
+        "path": "./gitcommit.json"
       }
     ]
   }
