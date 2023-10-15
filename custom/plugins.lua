@@ -36,6 +36,7 @@ local plugins = {
 
         -- Script
         "bash",
+        "cmake",
         "python",
       },
     },
