@@ -1263,7 +1263,9 @@ local plugins = {
   {
     "Wansmer/treesj",
 
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
 
     keys = {
       {
@@ -1398,7 +1400,7 @@ local plugins = {
     },
   },
 
-  -- { -- Saved for later MAYBE TODO
+  -- { -- Saved for later MAYBE
   --   "smoka7/multicursors.nvim",
   --   -- event = "VeryLazy",
   --   dependencies = {
@@ -1444,7 +1446,7 @@ local plugins = {
       require("perfanno").setup(opts)
 
       require("perfanno").setup {
-        -- Creates a 10-step RGB color gradient beween bgcolor and "#CC3300"
+        -- Creates a 10-step RGB color gradient between bgcolor and "#CC3300"
         line_highlights = require("perfanno.util").make_bg_highlights(
           vim.fn.synIDattr(vim.fn.hlID "Normal", "bg", "gui"),
           "#CC3300",
