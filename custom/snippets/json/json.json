@@ -14,7 +14,6 @@
     ],
     "description": "Task Template"
   },
-
   "Overseer": {
     "prefix": "overseer",
     "body": [
@@ -34,5 +33,20 @@
       "}"
     ],
     "description": "Task Template"
+  },
+  "Snippet": {
+    "prefix": "snippet",
+    "body": [
+      "{",
+      "  \"${1:HEADER}\": {",
+      "    \"prefix\": \"${2:TRIGGER}\",",
+      "    \"body\": [",
+      "      \"${3:EXPANTION}\"",
+      "    ],",
+      "    \"description\": \"${4:DESCRIPTION}\"",
+      "  }",
+      "}"
+    ],
+    "description": "Snippet Template"
   }
 }
