@@ -173,8 +173,6 @@ M.resize = {
 		-- Conflicts with moveline
 		-- ["C-M-j"] = { ":resize -2<CR>", "Resize Window -2" },
 		-- ["C-M-k"] = { ":resize +2<CR>", "Resize Window +2" },
-		["H"] = { ":vertical resize +2<cr>", "resize window -2" },
-		["L"] = { ":vertical resize -2<cr>", "resize window +2" },
 	},
 }
 
