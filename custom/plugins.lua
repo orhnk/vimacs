@@ -607,31 +607,45 @@ local plugins = {
     },
 
     config = function(_, opts)
-      require("other-nvim").setup {
-        mappings = {
-          {
-            pattern = "(.*)/(.*).cpp$",
-            target = "%1/%2.hpp",
-            -- context = "component",
-          },
-          -- {
-          --   pattern = "/src/app/(.*)/.*.html$",
-          --   target = "/src/app/%1/%1.component.ts",
-          --   context = "view",
-          -- },
-          -- {
-          --   pattern = "/src/app/(.*)/.*.ts$",
-          --   target = "/src/app/%1/%1.component.html",
-          --   context = "component",
-          -- },
-          -- {
-          --   pattern = "/src/app/(.*)/.*.spec.ts$",
-          --   target = "/src/app/%1/%1.component.html",
-          --   context = "test",
-          -- },
-        },
-      }
+      -- Iterate opts and add reversed mappings for them marked with reverse = true
+      require("other-nvim").setup(opts)
     end,
+
+    opts = {
+      mappings = {
+        {
+          pattern = "(.*)/(.*).h$",
+          target = "%1/%2.c",
+        },
+        {
+          pattern = "(.*)/(.*).c$",
+          target = "%1/%2.h",
+        },
+        {
+          pattern = "(.*)/(.*).hpp$",
+          target = "%1/%2.cpp",
+        },
+        {
+          pattern = "(.*)/(.*).cpp$",
+          target = "%1/%2.hpp",
+        },
+        -- {
+        --   pattern = "/src/app/(.*)/.*.html$",
+        --   target = "/src/app/%1/%1.component.ts",
+        --   context = "view",
+        -- },
+        -- {
+        --   pattern = "/src/app/(.*)/.*.ts$",
+        --   target = "/src/app/%1/%1.component.html",
+        --   context = "component",
+        -- },
+        -- {
+        --   pattern = "/src/app/(.*)/.*.spec.ts$",
+        --   target = "/src/app/%1/%1.component.html",
+        --   context = "test",
+        -- },
+      },
+    },
   },
 
   -- { -- C/C++ cpp <-> hpp file pairing TODO: replace with other.nvim || harpoon
