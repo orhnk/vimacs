@@ -1,0 +1,112 @@
+local pallete = {
+  Color0 = "#bb9999",
+  Color1 = "#878787",
+  Color2 = "#c4bbd1",
+  Color3 = "#689b8e",
+  Color4 = "#c9afbe",
+  Color5 = "#b8ccd0",
+  Color6 = "#cdcfb7",
+  Color7 = "#f5f5f5",
+  Color8 = "#c4b6a7",
+  Color9 = "#c4a6b9",
+  Color10 = "#b9b5ce",
+  Color11 = "#80a0ab",
+  Color12 = "#1d1d1d",
+  Color13 = "#f5f5f5",
+  Color14 = "#1c1c1c",
+  Color15 = "#262626",
+  Color16 = "#50363a",
+  Color17 = "#4f4f4f",
+  Color18 = "#838383",
+  Color19 = "#222222",
+}
+--
+local M = {}
+
+M.base_30 = {
+  white = "#f5f5f5",
+  darker_black = "#181818",
+  black = "#1c1c1c", --  nvim bg
+  black2 = "#292929",
+  one_bg = "#333333", -- real bg of onedark
+  one_bg2 = "#474747",
+  one_bg3 = "#595959",
+  grey = "#777777",
+  grey_fg = "#848484",
+  grey_fg2 = "#929292",
+  light_grey = "#9d9d9d",
+  red = "#bb9999",
+  baby_pink = "#c5a8a8",
+  pink = "#c4a6b9",
+  line = "#31314a", -- for lines like vertsplit
+  green = "#93b79c",
+  vibrant_green = "#689b8e",
+  nord_blue = "#698f9b",
+  blue = "#80a0ab",
+  yellow = "#cdcfb7",
+  sun = "#d1d3bc",
+  purple = "#c4bbd1",
+  dark_purple = "#c4bbd1",
+  teal = "#a4abc2",
+  orange = "#c4b6a7",
+  cyan = "#80a0ab",
+  statusline_bg = "#333333",
+  lightbg = "#4d4d4d",
+  pmenu_bg = "#c2c2c2",
+  folder_bg = "#c6c6c6",
+}
+
+M.base_16 = {
+  base00 = "#1c1c1c",
+  base01 = "#444444",
+  base02 = "#5a5a5a",
+  base03 = "#727272",
+  base04 = "#93b2b7",
+  base05 = "#efefef",
+  base06 = "#f4f4f4",
+  base07 = "#f9f9f9",
+  base08 = "#c8bfd5",
+  base09 = "#c4b6a7",
+  base0A = "#93b2b7",
+  base0B = "#cbc1b1",
+  base0C = "#b8ccd0",
+  base0D = "#689b8e",
+  base0E = "#c4a6b9",
+  base0F = "#f5f5f5",
+}
+
+M.polish_hl                = {
+  ["@function.builtin"]    = { fg = M.base_30.cyan                          },
+  ["@number"]              = { fg = M.base_30.purple                        },
+  ["@variable"]            = { fg = M.base_30.purple                        },
+  ["@namespace"]           = { fg = M.base_30.white                         },
+  ["@function.call"]       = { fg = M.base_30.vibrant_green                 },
+  ["@function"]            = { fg = M.base_30.green                         },
+  ["@repeat"]              = { fg = M.base_30.green                         },
+  -- Overrides
+  Include                  = { fg = M.base_30.pink                          },
+  Error                    = { fg = pallete.Color0                          },
+  Comment                  = { fg = pallete.Color1                          },
+  Identifier               = { fg = pallete.Color7                          },
+  Function                 = { fg = pallete.Color3                          },
+  String                   = { fg = pallete.Color8                          },
+  Keyword                  = { fg = pallete.Color9                          },
+  Constant                 = { fg = pallete.Color10                         },
+  Type                     = { fg = pallete.Color11                         },
+  DiffAdd                  = { fg = pallete.Color15                         },
+  DiffDelete               = { fg = pallete.Color16                         },
+  ColorColumn              = { fg = pallete.Color17                         },
+  SignColumn               = { fg = pallete.Color14                         },
+  LineNr                   = { fg = pallete.Color18                         },
+  NvimTreeFolderIcon       = { fg = pallete.Color1                          },
+  NvimTreeFolderName       = { fg = pallete.Color13                         },
+  NvimTreeOpenedFolderName = { fg = pallete.Color13, bold = true            },
+  FoldColumn               = { fg = pallete.Color13                         },
+  StatusLine               = { fg = pallete.Color13, bg   = pallete.Color14 },
+  St_cwd                   = { fg = "white"                                 },
+  -- TSPunctDelimiter      = { fg = pallete.Color13                         },
+                                                                            }
+
+M.type = "dark"
+
+return M
