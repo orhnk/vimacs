@@ -3232,15 +3232,22 @@ local plugins = {
 
     opts = function()
       return {
-        default_prompt = require("llm.prompts.starters").palm,
+        default_prompt = {
+          provider = require("llm.prompts.starters").palm,
+          builder = function(input, context)
+            return {
+              model = "text-bison-001",
+              prompt = {
+                text = input,
+              },
+              temperature = 0.2,
+            }
+          end,
+        },
         hl_group = "",
         -- prompts = {},
       }
     end,
-    -- opts = {
-    --   default = {
-    --   },
-    -- },
   },
 
   {
