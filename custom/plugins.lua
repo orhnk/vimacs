@@ -335,6 +335,22 @@ local plugins = {
         mode = "n",
         desc = "Run tests for the session",
       },
+      {
+        "<leader>tf",
+        function()
+          require("neotest").output_panel.toggle()
+        end,
+        mode = "n",
+        desc = "Toggle test panel",
+      },
+      {
+        "<leader>tq",
+        function()
+          require("neotest").output.open { enter = true }
+        end,
+        mode = "n",
+        desc = "Open test results",
+      },
     },
 
     dependencies = {
