@@ -1302,6 +1302,7 @@ local plugins = {
 
     opts = {
       use_default_keymaps = false,
+      max_join_length = 220, -- 120 is not sufficient
     },
   },
 
