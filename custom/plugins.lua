@@ -1232,26 +1232,6 @@ local plugins = {
     },
   },
 
-  -- { -- tasks.json, launch.json etc.
-  --   -- TODO: Replace with Overseer.nvim
-  --   "Dax89/automaton.nvim",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --     "mfussenegger/nvim-dap", -- Debug support for 'launch' configurations (Optional)
-  --     "hrsh7th/nvim-cmp", -- Autocompletion for automaton workspace files (Optional)
-  --     "L3MON4D3/LuaSnip", -- Snippet support for automaton workspace files (Optional)
-  --   },
-  --
-  --   config = function(_, opts)
-  --     require("automaton").setup(opts)
-  --   end,
-  --
-  -- -- WARNING: Rename file from .automaton to automaton in custom/config/g
-  --   opts = require("custom.configs.automaton").opts,
-  --   keys = require("custom.configs.automaton").keys,
-  -- },
-
   { -- nvim-dap installer MAYBE
     "jay-babu/mason-nvim-dap.nvim",
 
