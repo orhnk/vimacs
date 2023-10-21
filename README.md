@@ -7,21 +7,23 @@ NvChad's UI.
 
 This Neovim Distribution is heavily focused on performance, feature and beauty.
 
-### Why Vimacs is beautiful?
+### Vimacs is _**Beautiful**_
 
 Vimacs uses a base configuration called
 [NvChad](https://github.com/NvChad/NvChad) which is beautiful out of the box.
 
-### Why Vimacs is featurefull?
+### Vimacs is _**Feature-rich**_
 
 Vimacs comes with dozens of neovim plugins optimized for your daily use
 
-Vimacs uses external programse to enhance It's functionality. (e.g) Vimacs has
+Vimacs uses external programse to enhance it's functionality. (e.g) Vimacs has
 an optional mail client based on neomutt
 
-The following image is the which-key.nvim help for `<leader>` (aka space) key
+The following image shows the which-key.nvim help for `<leader>` (aka space) key
 
-> [!NOTE] Green text means the top of the keymapping tree (e.g `<leader>a`
+<!-- deno-fmt-ignore -->
+> [!NOTE]
+> Green text means the top of the keymapping tree (e.g `<leader>a`
 > includes everything related to AI, `<leader>ai` opens the Cody AI assistant in
 > a vertical split) Red text means the direct cmd (e.g `<leader>.` opens the
 > file manager)
@@ -30,7 +32,7 @@ The following image is the which-key.nvim help for `<leader>` (aka space) key
     <img src="https://github.com/UTFeight/vimacs/assets/101834410/4a70298b-0d9f-4e28-b720-627bc1512b30" align="middle">
 </p>
 
-### Why Vimacs is performant?
+### Vimacs is _**Performant**_?
 
 Because of the extensive ecosystem of Vimacs, Performance optimizations are
 crucial.
@@ -40,8 +42,8 @@ With the power of lazy loading (**~%97.5**), you only pay for what you use
 
 <!-- Vimacs You only pay for what you use thanks to lazy loading (**~%97.5**) -->
 
-Also external programs are using system shell as an interface which doesn't
-reduce performance.
+In addition to that, external programs use the system shell as an interface
+which doesn't reduce performance.
 
 ## Showcase
 
@@ -61,7 +63,7 @@ reduce performance.
 
 <!-- deno-fmt-ignore -->
 > [!NOTE]
-> There are 50+ themes that comes out of the box with NvChad. This is just a
+> There are 50+ themes that come out of the box with NvChad. This is just a
 > showcase that'll give you some idea about the look.
 
 ## Dark
@@ -121,7 +123,7 @@ Also vimacs comes with a lot of dependencies. Follow the instructions on
         ([telescope.nvim](https://github.com/nvim-telescope/telescope.nvim))
   - [x] Basic Git Integration
         ([gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim))
-  - [x] Auto-Generated Cheetsheets
+  - [x] Auto-Generated Cheatsheets
         ([IMAGE](https://github-production-user-asset-6210df.s3.amazonaws.com/101834410/271164822-a0b3b110-4f0e-44fc-b00e-5e8c18ba6c1b.png))
         ([native](https://github.com/NvChad/ui))
   - [x] Beautiful UI ([native](https://github.com/NvChad/ui))
@@ -496,7 +498,7 @@ cd .. && rm -rf vimacs && nvim
     export PATH="$HOME/.local/share/nvim/mason/bin"
    ```
 
-   Vimacs ships with default python, C/C++ and Rust debuggers, If you have any
+   Vimacs ships with default python, C/C++ and Rust debuggers. If you have any
    other to configure please look into `custom/plugins.lua` "nvim-dap" and
    `custom/configs/nvim-dap.lua`
 
@@ -505,12 +507,12 @@ cd .. && rm -rf vimacs && nvim
 <!-- deno-fmt-ignore -->
 > [!Warning]
 > This feature requires a `base_dirs` variable in
-> `custom/plugins.lua` as in the `telescope-project.nvim`
+> `custom/plugins.lua` as in `telescope-project.nvim`
 
-4. Copilot
+4. Github Copilot
 
-   - Github is a paid program that suggests code when you are typing. You need
-     to authorize by using:
+   - Github Copilot is a paid program that suggests code when you are typing.
+     You need to authorize by using:
 
    ```vim
    :Copilot auth
@@ -529,7 +531,7 @@ cd .. && rm -rf vimacs && nvim
    yay -S codespell textlint markdownlint stylua ruff
    ```
 
-6. Leet code:
+6. LeetCode:
    - [Must-do](https://github.com/Dhanus3133/Leetbuddy.nvim#login-to-your-account)
 
 7. Email Client:
