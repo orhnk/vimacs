@@ -16,26 +16,26 @@ M.base_30 = {
   grey_fg2 = "#856a5d",
   light_grey = "#9f8875",
 
-  green = "#ec9f0d",
-  red = "#f87c2a",
-  nord_blue = "#fbb323",
-  blue = "#48b8d0",
-
-  baby_pink = "#b33951",
-  pink = "#f76f8e",
-  line = "#4d3f32", -- for lines like vertsplit
-  vibrant_green = "#acbb4f",
-  yellow = "#ec9f0d",
-  sun = "#fbb323",
-  purple = "#f76f8e",
-  dark_purple = "#bc4e78",
-  teal = "#65f69c",
-  orange = "#f87c2a",
-  cyan = "#8bf8b5",
   statusline_bg = "#3a3124",
   lightbg = "#4d3f32",
-  pmenu_bg = "#7dccde",
-  folder_bg = "#ec9f0d",
+
+  red           = "#ec6b64",
+  baby_pink     = "#ce8196",
+  pink          = "#ff75a0",
+  line          = "#323536", -- for lines like vertsplit
+  green         = "#89b482",
+  vibrant_green = "#a9b665",
+  nord_blue     = "#6f8faf",
+  blue          = "#6d8dad",
+  yellow        = "#d6b676",
+  sun           = "#d1b171",
+  purple        = "#9385b4",
+  dark_purple   = "#887aa9",
+  teal          = "#749689",
+  orange        = "#e78a4e",
+  cyan          = "#82b3a8",
+  pmenu_bg      = "#89b482",
+  folder_bg     = "#6d8dad",
 }
 
 M.base_16 = {
@@ -47,14 +47,14 @@ M.base_16 = {
   base05 = "#D2C3A4",
   base06 = "#ebe0bb",
   base07 = "#F1E9D0",
-  base08 = "#cc005c",
-  base09 = "#F9883D",
-  base0A = "#ec9f0d",
-  base0B = "#acbb4f",
-  base0C = "#8bf8b5",
-  base0D = "#48b8d0",
-  base0E = "#bc4e78",
-  base0F = "#F87C2A",
+  base08 = "#ec6b64",
+  base09 = "#e78a4e",
+  base0A = "#e0c080",
+  base0B = "#a9b665",
+  base0C = "#86b17f",
+  base0D = "#7daea3",
+  base0E = "#d3869b",
+  base0F = "#d65d0e",
 }
 
 M.type = "dark"
