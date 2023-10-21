@@ -7,12 +7,12 @@ NvChad's UI.
 
 This Neovim Distribution is heavily focused on performance, feature and beauty.
 
-### Vimacs is ***Beautiful***
+### Vimacs is _**Beautiful**_
 
 Vimacs uses a base configuration called
 [NvChad](https://github.com/NvChad/NvChad) which is beautiful out of the box.
 
-### Vimacs is ***Feature-rich***
+### Vimacs is _**Feature-rich**_
 
 Vimacs comes with dozens of neovim plugins optimized for your daily use
 
@@ -20,8 +20,10 @@ Vimacs uses external programse to enhance it's functionality. (e.g) Vimacs has
 an optional mail client based on neomutt
 
 The following image shows the which-key.nvim help for `<leader>` (aka space) key
-    
-> [!NOTE] Green text means the top of the keymapping tree (e.g `<leader>a`
+
+<!-- deno-fmt-ignore -->
+> [!NOTE]
+> Green text means the top of the keymapping tree (e.g `<leader>a`
 > includes everything related to AI, `<leader>ai` opens the Cody AI assistant in
 > a vertical split) Red text means the direct cmd (e.g `<leader>.` opens the
 > file manager)
@@ -30,7 +32,7 @@ The following image shows the which-key.nvim help for `<leader>` (aka space) key
     <img src="https://github.com/UTFeight/vimacs/assets/101834410/4a70298b-0d9f-4e28-b720-627bc1512b30" align="middle">
 </p>
 
-### Vimacs is ***Performant***?
+### Vimacs is _**Performant**_?
 
 Because of the extensive ecosystem of Vimacs, Performance optimizations are
 crucial.
@@ -40,8 +42,8 @@ With the power of lazy loading (**~%97.5**), you only pay for what you use
 
 <!-- Vimacs You only pay for what you use thanks to lazy loading (**~%97.5**) -->
 
-In addition to that, external programs use the system shell as an interface which doesn't
-reduce performance.
+In addition to that, external programs use the system shell as an interface
+which doesn't reduce performance.
 
 ## Showcase
 
@@ -509,8 +511,8 @@ cd .. && rm -rf vimacs && nvim
 
 4. Github Copilot
 
-   - Github Copilot is a paid program that suggests code when you are typing. You need
-     to authorize by using:
+   - Github Copilot is a paid program that suggests code when you are typing.
+     You need to authorize by using:
 
    ```vim
    :Copilot auth
