@@ -6,8 +6,8 @@ local M = {}
 -- stylua: ignore start
 M.real_name = "Orhan KARAMAN"       -- Real Name
 M.email     = "utfeightt@gmail.com" -- Email
-M.github    = "utfeight"            -- Github username
-M.username  = M.github              -- Other  Sites
+M.username  = "utfeight"            -- Other  Sites
+M.github    = M.username            -- Github username
 -- stylua: ignore end
 
 return M

@@ -22,7 +22,7 @@ M.disabled = {
 		-- to a compatible keybind. There are all nice
 		--
 		-- diagnostics
-		["<leader>f"] = "",
+		["<leader>lf"] = "",
 		-- loclist
 		["<leader>q"] = "",
 
