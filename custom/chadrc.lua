@@ -14,8 +14,8 @@ local status = require("custom.utils").status
 local highlights = require "custom.highlights"
 
 M.ui = {
-  theme = "darcula",
-  theme_toggle = { "darcula", "darcula" },
+  theme = "gruvchad",
+  theme_toggle = { "gruvchad", "gruvchad" },
   lsp_semantic_tokens = false, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
   cmp = {
