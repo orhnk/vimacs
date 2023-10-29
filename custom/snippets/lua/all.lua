@@ -48,22 +48,23 @@ local get_cstring = function(ctype)
   return { left, right }
 end
 
+local function pick_comment_start_and_end()
+  -- because lua block comment is unlike other language's,
+  --  so handle lua ctype
+  local ctype = 2
+  if vim.opt.ft:get() == "lua" then
+    ctype = 1
+  end
+  local cs = get_cstring(ctype)[1]
+  local ce = get_cstring(ctype)[2]
+  if ce == "" or ce == nil then
+    ce = cs
+  end
+  return cs, ce
+end
+
 local function create_box(opts)
   local pl = opts.padding_length or 4
-  local function pick_comment_start_and_end()
-    -- because lua block comment is unlike other language's,
-    --  so handle lua ctype
-    local ctype = 2
-    if vim.opt.ft:get() == "lua" then
-      ctype = 1
-    end
-    local cs = get_cstring(ctype)[1]
-    local ce = get_cstring(ctype)[2]
-    if ce == "" or ce == nil then
-      ce = cs
-    end
-    return cs, ce
-  end
   return {
     -- top line
     f(function(args)
@@ -191,15 +192,40 @@ ls.add_snippets("all", todo_comment_snippets, { type = "snippets", key = "todo_c
 
 -- COPYRIGHT (C) 2023, utfeight snippet HERE:
 
+function copyright()
+  local date = os.date "%Y"
+  local date_full = os.date()
+  local username = info.username
+  local email = info.email
+  local cs, ce = pick_comment_start_and_end()
+
+  --   /*
+  -- **   $Filename: libraries/FPPbase.h $
+  -- **   $Release: 1.0 $
+  -- **   $Date: 1993/12/06 13:51:20 $
+  -- **
+  -- **   (C) Copyright 1992, 1993 by FrexxWare
+  -- **       All Rights Reserved
+  -- */
+
+  return {
+    f(function(args)
+      return {
+        -- cs .. " File: " .. filename .. ce,
+        cs
+          .. " Author: "
+          .. username,
+        cs .. " Email:  " .. email,
+        cs .. " Date:   " .. date_full,
+        cs .. " COPYRIGHT (C) " .. date .. " " .. username .. " ",
+        cs .. " All Rights Reserved",
+      }
+    end),
+  }
+end
+
 return {
   s({ trig = "box" }, create_box { padding_length = 8 }),
   s({ trig = "bbox" }, create_box { padding_length = 20 }),
-
-  -- s("COPYRIGHT", { -- FIXME
-  --   t "COPYRIGHT (C) ",
-  --   i(1, os.date "%Y"),
-  --   t ", ",
-  --   i(2, info.username),
-  --   c(3, sigmark_nodes), -- [comment-mark]
-  -- }),
+  -- s({ trig = "COPYRIGHT" }, copyright()), -- FIXME
 }
