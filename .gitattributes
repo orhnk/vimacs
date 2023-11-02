@@ -1,0 +1,2 @@
+# Keep Lua files and hide Vim Snippet Language indicator
+*.snippets -linguist
