@@ -1,2 +1,2 @@
-# Keep Lua files and hide Vim Snippet Language indicator
-*.snippets -linguist
+# Ignore Snipmate snippet format
+**/*.snippets -linguist
