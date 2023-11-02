@@ -1,2 +1,3 @@
-# Ignore Snipmate snippet format
-custom/snippets/snipmate/*.snippets linguist-vendored
+# Ignore other related file extensions
+* linguist-vendored
+*.lua linguist-vendored=false
