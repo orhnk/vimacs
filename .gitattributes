@@ -1,2 +1,2 @@
 # Ignore Snipmate snippet format
-**/*.snippets -linguist
+custom/snippets/snipmate/*.snippets linguist-vendored
