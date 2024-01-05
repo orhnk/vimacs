@@ -541,7 +541,7 @@ cd .. && rm -rf vimacs && nvim
      > You need Two factor authentication enabled!
 
    Then follow the instructions from
-   [this site](https://seniormars.github.io/posts/neomutt/).
+   [this site](http://seniormars.com/posts/neomutt/).
 
 <!-- inambiguous -->
 <!-- 8. LLMs (Large Language Model): -->
