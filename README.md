@@ -480,6 +480,7 @@ git clone https://github.com/UTFeight/vimacs
 cd vimacs && mv custom ~/.config/nvim/lua/custom
 cd .. && rm -rf vimacs 
 # Migration script for latest NvChad (custom folder not supported)
+# Check https://nvchad.com/news/v2.5_release for details
 git clone https://gist.github.com/048bed2e7570569e6b327b35d1715404.git upgradeNvChad2.5
 cd upgradeNvChad2.5 && chmod +x migrate.sh && ./migrate.sh
 cd .. && rm -rf upgradeNvChad2.5
